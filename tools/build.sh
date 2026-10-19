@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 SRC=03-openscad/brewberrypi-case.scad
-PARTS=(base lid)                       # printable parts; keep in sync with the `part` selector
+PARTS=(body divider top_lid bottom_lid)   # printable parts; keep in sync with the `part` selector
 OUT=04-stl
 PREV=$OUT/previews
 mkdir -p "$PREV"

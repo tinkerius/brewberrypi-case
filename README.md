@@ -16,7 +16,7 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 |---|---|---|
 | 1. Requirements | done | 2026-10-19 · relay board size still assumed (A1) |
 | 2. Specification | done | **v0.3 approved** 2026-10-19 |
-| 3. OpenSCAD | in progress | from spec v0.3 |
+| 3. OpenSCAD | done | from spec v0.4: 4 parts, all manifold, collision check empty |
 | 4. STL | not started | |
 
 ## Folders
@@ -43,4 +43,5 @@ tools/check.sh     # mesh sanity check + bounding boxes
 ```
 
 You can also open `03-openscad/brewberrypi-case.scad` in OpenSCAD and use the Customizer:
-pick `part` (base / lid / assembly) and adjust the parameters.
+pick `part` (assembly / body / divider / top_lid / bottom_lid / collision_check), and in the assembly use
+`explode` and `section_cut` to look inside. Single parts are shown in their print orientation.
