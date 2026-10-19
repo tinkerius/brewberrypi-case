@@ -20,7 +20,7 @@ Values marked **(drawing)** are read from a dimensioned drawing. **(photo)** = f
 - Black round front nut Ø ≈ 10 mm (with the 3.5 mm opening), silver hex nut behind it. The wall is clamped between the two nuts **(photo)**.
 - Thread Ø and thread length (= max wall thickness) are **not readable**. Assumed: panel hole Ø6 (M6), wall ≤ 2 mm → measure on arrival.
 
-## C4: IEC C14 power inlet with fuse holder, screw mount
+## C4: IEC C14 power inlet with fuse holder, screw mount. Picture: [component-C4-iec-inlet.png](component-C4-iec-inlet.png)
 - Flange **43.8 × 32.8 mm**, flange thickness **3.1 mm**, 2 mounting holes **Ø3.5** at **36.0 mm** spacing **(drawing)**.
 - Body behind the flange **27 × 31.0 mm**, front face 27 × 30.8 with corner radius r4 **(drawing)**.
 - Depth behind the panel **27.6 mm** (19.5 body + lugs), lugs: N, PE (earth), L, fuse **(drawing)**.
