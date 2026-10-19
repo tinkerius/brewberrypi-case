@@ -2,7 +2,7 @@
 
 | Version | Status | Approved by / date |
 |---|---|---|
-| 0.4 | **v0.3 approved + 3 modeling corrections (§11), to be confirmed** | v0.3: user (tinkerius), 2026-10-19 |
+| 0.4 | **approved** | v0.3: user (tinkerius), 2026-10-19 · v0.4 corrections confirmed with the OpenSCAD model, 2026-10-19 |
 
 Traces to `01-requirements/requirements.md` (R…, A…) and `01-requirements/inputs/components.md` (C…).
 

@@ -14,7 +14,7 @@ mkdir -p "$PREV"
 RUN=(); [[ -z "${DISPLAY:-}" ]] && command -v xvfb-run >/dev/null && RUN=(xvfb-run -a)
 
 # name:camera (gimbal rotx,roty,rotz) and projection
-VIEWS=("iso:55,0,25:p" "top:0,0,0:o" "front:90,0,0:o" "right:90,0,90:o")
+VIEWS=("iso:55,0,325:p" "iso-back:55,0,145:p" "top:0,0,0:o" "front:90,0,0:o")
 
 render_previews() {   # $1 = part name
     for v in "${VIEWS[@]}"; do
@@ -28,7 +28,7 @@ render_previews() {   # $1 = part name
 if [[ $# -gt 0 ]]; then targets=("$@"); else targets=("${PARTS[@]}"); fi
 for p in "${targets[@]}"; do
     echo "build: $p"
-    openscad -q -D "part=\"$p\"" -o "$OUT/brewberrypi-case-$p.stl" "$SRC"
+    openscad -q -D "part=\"$p\"" --export-format binstl -o "$OUT/brewberrypi-case-$p.stl" "$SRC"
     render_previews "$p"
 done
 [[ $# -eq 0 ]] && { echo "build: assembly previews"; render_previews assembly; }

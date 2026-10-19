@@ -51,3 +51,9 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 **Decisions** (Claude, spec v0.3):
 - Top: **rebate**. The outer 1.5 mm of the wall rises 3 mm above the lid seat as a rim, and the lid drops in flush. This keeps the top lid printable outer-face-up with the raised logo.
 - Bottom: **locating lip** (2 × 4 mm) on the bottom lid, reaching inside the walls. A rebate there would leave the corner columns starting in mid-air when the body is printed upright.
+
+## Round 5: review of the OpenSCAD model (2026-10-19)
+
+**User** (verbatim):
+- *Why is the hole for the temp sensor jack in a drop shape?* → Claude: FDM rule 3 (teardrop holes in vertical walls print without support; the point is hidden under the Ø10 front nut). Offered a round hole as an option.
+- *OpenSCAD models look fine to me. Go on with the generation.* → model accepted including the v0.4 corrections; teardrop jack hole kept.
