@@ -2,7 +2,7 @@
 
 | Version | Status | Approved by / date |
 |---|---|---|
-| 0.3 | **draft, awaiting approval** | |
+| 0.3 | **approved** | user (tinkerius), 2026-10-19 |
 
 Traces to `01-requirements/requirements.md` (R…, A…) and `01-requirements/inputs/components.md` (C…).
 
