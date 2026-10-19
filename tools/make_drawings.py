@@ -289,7 +289,7 @@ def section_frame(s, L=D, divider=True):
 
 def section_a():
     x_cut = PI["holes"][0][0]
-    s = Sheet(f"Section A-A at x = {x_cut:g}: Pi / relay stack (viewed from -X, front left)",
+    s = Sheet(f"Section A-A at x = {x_cut:g}: Pi / relay stack (viewed from +X, front left)",
               -20, D + 34, -LID_T - 20, H + LID_T + 18)
     section_frame(s)
     p, r = PI, RELAY
@@ -329,7 +329,7 @@ def section_a():
 
 def section_b():
     x_cut = ADAPTER["x"] + ADAPTER["w"] / 2
-    s = Sheet(f"Section B-B at x = {x_cut:g}: USB-C adapter (viewed from -X, front left)",
+    s = Sheet(f"Section B-B at x = {x_cut:g}: USB-C adapter (viewed from +X, front left)",
               -20, D + 34, -LID_T - 20, H + LID_T + 18)
     section_frame(s)
     a = ADAPTER
