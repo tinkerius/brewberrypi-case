@@ -1,0 +1,7 @@
+# OpenSCAD backups / temp
+*.scad~
+*.bak
+*.tmp
+# local scratch renders (real outputs go to 04-stl/)
+/scratch/
+.DS_Store
