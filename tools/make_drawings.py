@@ -8,6 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
+SPEC_VERSION = "0.2"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -17,27 +18,30 @@ DIV_T = 3                          # P7
 MAINS_H = 70                       # P3 body bottom -> divider underside
 RPI_H = 47                         # P4 divider top -> body top
 H = MAINS_H + DIV_T + RPI_H        # 120 body height
+Z_DIV_TOP = MAINS_H + DIV_T        # 73
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
-PI = dict(x=12, y=52, w=85, d=56, holes=[(35.5, 55.5), (93.5, 55.5), (35.5, 104.5), (93.5, 104.5)])
-GPIO = (38.9, 53, 51, 5)           # header footprint (x, y, w, d)
-RELAY = dict(x=102, y=55, w=75, d=55, holes=[(105, 58), (174, 58), (105, 107), (174, 107)])
-SLOT = dict(cx=60, cy=38, w=50, h=14)                # feed-through
-ADAPTER = dict(x=20, y=65, w=50, d=49, h=27)
+PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=4,
+          holes=[(40.5, 58.5), (98.5, 58.5), (40.5, 107.5), (98.5, 107.5)])  # F11
+GPIO = (43.9, 56, 51, 5)           # header footprint (x, y, w, d)
+RELAY = dict(x=17, y=58, w=75, d=55, standoff=10, pcb=1.6, relays=16,
+             holes=[(20, 61), (89, 61), (20, 110), (89, 110)])               # F12
+SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
+ADAPTER = dict(x=123, y=61, w=50, d=49, h=27, fence=10)                      # F14
 Z_PANEL = 40                       # front switch centre height
-SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h
-    ("MAIN", 40, 22, 27, 29, 35.3),
-    ("BOILER", 115, 21.5, 28.5, 26, 35),
-    ("PUMP", 150, 21.5, 28.5, 26, 35),
+SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth behind panel incl. connectors
+    ("MAIN", 40, 22, 27, 29, 35.3, 37),
+    ("BOILER", 115, 21.5, 28.5, 26, 35, 48),
+    ("PUMP", 150, 21.5, 28.5, 26, 35, 48),
 ]
 Z_BACK = 38                        # back panel component centre height
-IEC = dict(x=155, cw=27.5, ch=31.5, r=4, fw=43.8, fh=32.8, hole_dx=18)
+IEC = dict(x=155, cw=27.5, ch=31.5, r=4, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
 SOCKETS = [("BOILER", 100), ("PUMP", 45)]            # x centres; cutout Ø43 flat-top at r 24
-SOCKET = dict(d=43, flat=24, flange=50, holes=38)
-JACK = dict(x=155, z=98, d=6)
+SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
+JACK = dict(x=155, z=98, d=6, nut=10, pocket=16)
 
 # --- tiny SVG helper ----------------------------------------------------------
-INK, HID, CUT, PART, DIM, SOFT = "#222", "#666", "#e6e6e6", "#c2185b", "#1565c0", "#999"
+INK, HID, CUT, PART, DIM, SOFT, BRASS = "#222", "#666", "#e6e6e6", "#c2185b", "#1565c0", "#999", "#b8860b"
 
 
 class Sheet:
@@ -111,7 +115,9 @@ class Sheet:
                 f'orient="auto-start-reverse"><path d="M0,2 L5,5 L0,8" fill="none" stroke="{DIM}"/></marker></defs>'
                 f'<rect width="100%" height="100%" fill="#fff"/>'
                 f'<text x="6" y="9" font-size="5" font-weight="bold" font-family="Helvetica, Arial, sans-serif" '
-                f'fill="{INK}">{self.title}</text>')
+                f'fill="{INK}">{self.title}</text>'
+                f'<text x="{self.w - 6:.2f}" y="9" font-size="3" text-anchor="end" fill="{HID}" '
+                f'font-family="Helvetica, Arial, sans-serif">spec v{SPEC_VERSION} · mm</text>')
         foot = "".join(
             f'<text x="6" y="{self.h - 4 - 4.5 * i:.2f}" font-size="3" fill="{HID}" '
             f'font-family="Helvetica, Arial, sans-serif">{n}</text>' for i, n in enumerate(reversed(notes)))
@@ -125,15 +131,15 @@ def case_outline(s):
     s.rect(0, 0, W, H)                                      # body
     s.rect(0, H, W, LID_T, fill="#f4f4f4")                 # top lid
     s.line(0, MAINS_H, W, MAINS_H, HID, 0.3, "2 1.5")       # divider (hidden)
-    s.line(0, MAINS_H + DIV_T, W, MAINS_H + DIV_T, HID, 0.3, "2 1.5")
-    s.text(3, MAINS_H + DIV_T + 3, "RPI part", 3, HID, "start")
+    s.line(0, Z_DIV_TOP, W, Z_DIV_TOP, HID, 0.3, "2 1.5")
+    s.text(3, Z_DIV_TOP + 3, "RPI part", 3, HID, "start")
     s.text(3, MAINS_H - 5, "MAINS part", 3, HID, "start")
 
 
 def front():
     s = Sheet("Front view (from -Y)", -12, W + 30, -LID_T - 22, H + LID_T + 26)
     case_outline(s)
-    for name, x, cw, ch, bw, bh in SWITCHES:
+    for name, x, cw, ch, bw, bh, _ in SWITCHES:
         s.rect(x - bw / 2, Z_PANEL - bh / 2, bw, bh, PART, sw=0.35, dash="1.5 1")
         s.rect(x - cw / 2, Z_PANEL - ch / 2, cw, ch, fill=CUT)
         s.text(x, Z_PANEL - 1, f"{cw:g}×{ch:g}", 2.6, INK)
@@ -141,7 +147,7 @@ def front():
     s.dim_h(0, W, -LID_T, -12)
     xs = [0] + [sw[1] for sw in SWITCHES]
     for a, b in zip(xs, xs[1:]):
-        s.dim_h(a, b, H + LID_T, 8 if a == 0 else 15 if b == 115 else 8)
+        s.dim_h(a, b, H + LID_T, 15 if b == 115 else 8)
     s.dim_v(-LID_T, H + LID_T, 0, -10, "126")
     s.dim_v(0, Z_PANEL, W, 22)
     s.dim_v(0, MAINS_H, W, 14, "70 (divider)")
@@ -154,7 +160,6 @@ def back():
     s = Sheet("Back view (from +Y), mirrored X: u = 190 - x", -12, W + 30, -LID_T - 22, H + LID_T + 26)
     case_outline(s)
     u = lambda x: W - x
-    # IEC inlet
     iu = u(IEC["x"])
     s.rect(iu - IEC["fw"] / 2, Z_BACK - IEC["fh"] / 2, IEC["fw"], IEC["fh"], PART, sw=0.35, dash="1.5 1")
     s.rect(iu - IEC["cw"] / 2, Z_BACK - IEC["ch"] / 2, IEC["cw"], IEC["ch"], fill=CUT, rx=IEC["r"])
@@ -162,7 +167,6 @@ def back():
         s.circle(iu + dx, Z_BACK, 2, fill=CUT)
     s.text(iu, Z_BACK - 1, "27.5×31.5", 2.6)
     s.text(iu, 4, "POWER", 6, weight="bold")
-    # sockets
     for name, x in SOCKETS:
         su, f, hp = u(x), SOCKET["flange"], SOCKET["holes"] / 2
         s.rect(su - f / 2, Z_BACK - f / 2, f, f, PART, sw=0.35, dash="1.5 1", rx=4)
@@ -172,10 +176,11 @@ def back():
                 s.circle(su + dx, Z_BACK + dz, 2, fill=CUT)
         s.text(su, Z_BACK - 1, "Ø43", 3)
         s.text(su, 4, name, 6, weight="bold")
-    # jack
-    s.teardrop(u(JACK["x"]), JACK["z"], JACK["d"] / 2)
-    s.circle(u(JACK["x"]), JACK["z"], 5, PART, sw=0.35, dash="1.5 1")
-    s.text(u(JACK["x"]), 86, "TEMP", 6, weight="bold")
+    ju = u(JACK["x"])
+    s.circle(ju, JACK["z"], JACK["pocket"] / 2, HID, sw=0.3, dash="1 1")
+    s.circle(ju, JACK["z"], JACK["nut"] / 2, PART, sw=0.35, dash="1.5 1")
+    s.teardrop(ju, JACK["z"], JACK["d"] / 2)
+    s.text(ju, 82, "TEMP", 6, weight="bold")
     s.dim_h(0, W, -LID_T, -12)
     us = sorted([0, u(IEC["x"])] + [u(x) for _, x in SOCKETS])
     for a, b in zip(us, us[1:]):
@@ -184,7 +189,8 @@ def back():
     s.dim_v(0, JACK["z"], W, 22)
     s.save("back-view.svg", [
         "Sockets: Ø43 cutout with flat-top teardrop (top flat at r = 24, hidden by the 50 mm flange). Holes on 38 mm square.",
-        "IEC: cutout 27.5×31.5 r4, screws 36 apart. Jack: Ø6 teardrop. All screw holes take M3 inserts pressed in from outside."])
+        "IEC: cutout 27.5×31.5 r4, screws 36 apart. All screw holes take M3 inserts pressed in from outside.",
+        "Jack: Ø6 teardrop, point hidden by the Ø10 front nut. Grey dotted Ø16 = inside pocket, wall 2.0 mm (P28)."])
 
 
 def top():
@@ -198,82 +204,139 @@ def top():
     for px, py in PADS:
         s.rect(px - 5, py - 7, 10, 14, fill="#f0f0f0", sw=0.3)
         s.circle(px, py, 1.7)
-    a = ADAPTER
-    s.rect(a["x"], a["y"], a["w"], a["d"], SOFT, sw=0.35, dash="3 1.5")
-    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] + 1.5, "USB-C adapter 50×49 (on bottom lid)", 2.4, SOFT)
-    r = RELAY
-    s.rect(r["x"], r["y"], r["w"], r["d"], PART, sw=0.45, dash="3 1.5")
-    for hx, hy in r["holes"]:
-        s.circle(hx, hy, 4, PART, dash="1 1")
-    s.text(r["x"] + r["w"] / 2, r["y"] + r["d"] / 2, "Relay board (BELOW divider)", 3, PART)
-    s.text(r["x"] + r["w"] / 2, r["y"] + r["d"] / 2 - 4.5, "assumed 75×55, holes 69×49", 2.6, PART)
+    # on top: Pi (solid)
     p = PI
     s.rect(p["x"], p["y"], p["w"], p["d"], PART, "#fce4ec", 0.5)
     s.rect(*GPIO, PART, "#f8bbd0", 0.3)
     for hx, hy in p["holes"]:
         s.circle(hx, hy, 1.4, PART)
-    s.text(p["x"] + p["w"] / 2, p["y"] + p["d"] / 2 + 2, "Raspberry Pi 3/4/5", 3.4, PART, weight="bold")
-    s.text(p["x"] + p["w"] / 2, p["y"] + p["d"] / 2 - 3, "85×56, holes 58×49 M2.5", 2.6, PART)
-    s.text(p["x"] + p["w"] / 2, p["y"] + 8, "GPIO header (front)", 2.4, PART)
-    s.text(p["x"] + 4, p["y"] + p["d"] / 2, "USB/Eth end", 2.4, PART, rot=-90)
+    s.text(p["x"] + p["w"] / 2, p["y"] + 40, "Raspberry Pi 3/4/5 (on top)", 3.4, PART, weight="bold")
+    s.text(p["x"] + p["w"] / 2, p["y"] + 35, "85×56, holes 58×49 M2.5, 10 mm brass standoffs", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2, p["y"] + 7.5, "GPIO header (front)", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2, p["y"] + p["d"] - 3, "power socket (back)", 2.4, PART)
+    # below: relay board + adapter (dashed)
+    r = RELAY
+    s.rect(r["x"], r["y"], r["w"], r["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
+    for hx, hy in r["holes"]:
+        s.circle(hx, hy, 4, "#7b1fa2", dash="1 1")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 22, "Relay board (BELOW, directly under the Pi)", 2.6, "#7b1fa2")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 18, "assumed 75×55, holes 69×49, 10 mm standoffs", 2.4, "#7b1fa2")
+    a = ADAPTER
+    s.rect(a["x"], a["y"], a["w"], a["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
+    for cx, cy, sx, sy in ((a["x"], a["y"], 1, 1), (a["x"] + a["w"], a["y"], -1, 1),
+                           (a["x"], a["y"] + a["d"], 1, -1), (a["x"] + a["w"], a["y"] + a["d"], -1, -1)):
+        ox, oy = cx - sx * 2.5, cy - sy * 2.5            # bracket outer corner (0.5 clearance + 2 wall)
+        s.line(ox, oy, ox + sx * 12, oy, "#7b1fa2", 1.2)
+        s.line(ox, oy, ox, oy + sy * 12, "#7b1fa2", 1.2)
+    for lx in (a["x"] + 10, a["x"] + 40):
+        s.rect(lx - 4, a["y"] - 5.5, 8, 3, "#7b1fa2", sw=0.3)
+        s.rect(lx - 4, a["y"] + a["d"] + 2.5, 8, 3, "#7b1fa2", sw=0.3)
+    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 + 3, "USB-C adapter (BELOW)", 2.8, "#7b1fa2", weight="bold")
+    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 1.5, "50×49, port faces down", 2.4, "#7b1fa2")
+    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 5.5, "brackets + 2 cable ties", 2.4, "#7b1fa2")
     sl = SLOT
     s.rect(sl["cx"] - sl["w"] / 2, sl["cy"] - sl["h"] / 2, sl["w"], sl["h"], fill=CUT, rx=7)
-    s.text(sl["cx"], sl["cy"] - 1, "feed-through 50×14", 2.6)
+    s.text(sl["cx"] + 1, sl["cy"], "feed-through 14×46", 2.4, rot=-90)
     s.dim_h(0, W, 0, -12)
     s.dim_v(0, D, W, 10)
     s.dim_h(0, p["x"], D, 8)
     s.dim_h(p["x"], p["x"] + p["w"], D, 8)
-    s.dim_h(r["x"], r["x"] + r["w"], D, 16)
+    s.dim_h(a["x"], a["x"] + a["w"], D, 8)
+    s.dim_h(sl["cx"] - sl["w"] / 2, sl["cx"] + sl["w"] / 2, D, 16)
     s.dim_v(0, p["y"], 0, -6)
-    s.dim_v(r["y"], r["y"] + r["d"], r["x"] + r["w"], 4)
+    s.dim_v(r["y"], r["y"] + r["d"], 0, -6)
+    s.dim_v(a["y"], a["y"] + a["d"], a["x"] + a["w"], 5)
     s.save("plan-view.svg", [
-        "Solid pink = on top of the divider. Dashed pink = hanging under the divider on 6 mm standoffs. Dashed grey = on the bottom lid.",
+        "Pink solid = on top of the divider. Purple dashed = hanging UNDER the divider (relay board on 10 mm standoffs, adapter in 4 corner brackets).",
         "Divider plate rests on 4 pads (10×14, M3 inserts) and clears the Ø10 corner columns. Front = bottom edge of this sheet."])
 
 
-def section():
-    s = Sheet("Section A-A at x = 140 (viewed from -X, front left)", -18, D + 34, -LID_T - 20, H + LID_T + 18)
-    # walls (cut)
+def section_frame(s):
     s.rect(0, 0, WALL, H, fill=CUT)
     s.rect(D - WALL, 0, WALL, H, fill=CUT)
     s.rect(0, -LID_T, D, LID_T, fill=CUT)
     s.rect(0, H, D, LID_T, fill=CUT)
     s.rect(WALL + 0.3, MAINS_H, D - 2 * WALL - 0.6, DIV_T, fill=CUT)
-    s.text(D / 2, MAINS_H + 0.8, "divider plate", 2.2)
-    # relay board hanging
-    r = RELAY
-    for hy in (58, 107):
-        s.rect(hy - 4, MAINS_H - 6, 8, 6, fill=CUT, sw=0.3)
-    s.rect(r["y"], MAINS_H - 7.6, r["d"], 1.6, PART, "#fce4ec")
-    s.rect(r["y"] + 3, MAINS_H - 7.6 - 16, r["d"] - 6, 16, PART, sw=0.35, dash="1.5 1")
-    s.text(r["y"] + r["d"] / 2, MAINS_H - 17, "relays", 3, PART)
-    # Pi (beyond the cut)
-    p = PI
-    s.rect(p["y"], MAINS_H + DIV_T + 10, p["d"], 1.6, PART, sw=0.35, dash="1.5 1")
-    s.rect(p["y"], MAINS_H + DIV_T + 11.6, p["d"], 17, PART, sw=0.3, dash="1 1")
-    s.text(p["y"] + p["d"] / 2, MAINS_H + DIV_T + 20, "Pi (beyond), 10 mm standoffs", 2.6, PART)
-    # adapter (beyond)
-    a = ADAPTER
-    s.rect(a["y"], 0, a["d"], a["h"], SOFT, sw=0.35, dash="3 1.5")
-    s.text(a["y"] + a["d"] / 2, 12, "USB-C adapter (beyond)", 2.4, SOFT)
-    # front switch envelope + back socket envelope
-    s.rect(-4, Z_PANEL - 17.5, 4, 35, PART, sw=0.35, dash="1.5 1")
-    s.rect(WALL, Z_PANEL - 13, 37, 26, PART, sw=0.35, dash="1.5 1")
-    s.text(WALL + 18.5, Z_PANEL, "switch", 2.6, PART)
-    s.rect(D - WALL - 26, Z_BACK - 21.5, 26, 43, SOFT, sw=0.35, dash="1.5 1")
-    s.text(D - WALL - 13, Z_BACK, "socket/IEC", 2.6, SOFT)
     s.dim_v(-LID_T, 0, D, 8)
     s.dim_v(0, MAINS_H, D, 8)
     s.dim_v(MAINS_H + DIV_T, H, D, 8)
     s.dim_v(H, H + LID_T, D, 8)
     s.dim_v(-LID_T, H + LID_T, D, 18, "126")
-    s.dim_v(MAINS_H - 7.6 - 16, MAINS_H, 0, -8, "≈24")
     s.dim_h(0, D, -LID_T, -12)
-    s.dim_h(r["y"], r["y"] + r["d"], MAINS_H - 24, -6)
+
+
+def section_a():
+    x_cut = PI["holes"][0][0]
+    s = Sheet(f"Section A-A at x = {x_cut:g}: Pi / relay stack (viewed from -X, front left)",
+              -20, D + 34, -LID_T - 20, H + LID_T + 18)
+    section_frame(s)
+    p, r = PI, RELAY
+    z_pi = Z_DIV_TOP + p["standoff"]
+    # Pi: standoffs (cut), bosses under the plate (cut), board (cut), components envelope
+    for _, hy in p["holes"][::2]:
+        s.rect(hy - 2.5, Z_DIV_TOP, 5, p["standoff"], BRASS, "#f3e5ab", 0.35)
+        s.rect(hy - 3.5, MAINS_H - p["boss"], 7, p["boss"], fill=CUT, sw=0.3)
+    s.rect(p["y"], z_pi, p["d"], 1.6, PART, "#f8bbd0", 0.4)
+    s.rect(p["y"], z_pi + 1.6, p["d"], 17, PART, sw=0.3, dash="1 1")
+    s.text(p["y"] + p["d"] / 2, z_pi + 9, "Pi components / GPIO wires", 2.6, PART)
+    # relay: standoffs (beyond), PCB, relays
+    z_pcb = MAINS_H - r["standoff"]
+    for hy in (61, 110):
+        s.rect(hy - 4, z_pcb, 8, r["standoff"], "#7b1fa2", sw=0.3, dash="1 1")
+    s.rect(r["y"], z_pcb - r["pcb"], r["d"], r["pcb"], "#7b1fa2", "#e1bee7", 0.4)
+    s.rect(r["y"] + 3, z_pcb - r["pcb"] - r["relays"], r["d"] - 6, r["relays"], "#7b1fa2", sw=0.35, dash="1.5 1")
+    s.text(r["y"] + r["d"] / 2, z_pcb - 11, "relays (facing down)", 2.6, "#7b1fa2")
+    # MAIN switch (front), PUMP socket (back)
+    name, _, _, ch, _, bh, depth = SWITCHES[0]
+    s.rect(-4, Z_PANEL - bh / 2, 4, bh, PART, sw=0.35, dash="1.5 1")
+    s.rect(WALL, Z_PANEL - 13, depth - WALL, 26, PART, sw=0.35, dash="1.5 1")
+    s.text(WALL + (depth - WALL) / 2, Z_PANEL, "MAIN switch", 2.6, PART)
+    so = SOCKET
+    s.rect(D - WALL - so["depth"], Z_BACK - so["d"] / 2, so["depth"], so["d"], SOFT, sw=0.35, dash="1.5 1")
+    s.text(D - WALL - so["depth"] / 2, Z_BACK, "PUMP socket", 2.6, SOFT, rot=-90)
+    s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
+    s.dim_v(z_pcb, MAINS_H, 0, -10, "10")
+    s.dim_v(z_pcb - r["pcb"] - r["relays"], MAINS_H, 0, -18, "≈28")
+    s.dim_h(p["y"], p["y"] + p["d"], H, 6, "Pi 56")
+    s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 55")
     s.save("section-a-a.svg", [
-        "Cut faces grey. Dashed = components / envelopes. Free height above the Pi board ≈ 35 mm (GPIO jumper wires, Pi 5 cooler).",
-        "Clearances checked: relay ↔ switch backs ≥ 3 mm (Y), relay ↔ socket bodies ≥ 20 mm (Y), relay ↔ adapter ≥ 19 mm (Z)."])
+        "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
+        "Pi bosses reach 4 mm under the plate → ≥ 4 mm above the relay board's solder side (10 mm relay standoffs).",
+        "Relay board ↔ switch backs ≥ 3 mm (Y), ↔ socket bodies ≥ 18 mm (Y). Free height above the Pi board ≈ 35 mm."])
+
+
+def section_b():
+    x_cut = ADAPTER["x"] + ADAPTER["w"] / 2
+    s = Sheet(f"Section B-B at x = {x_cut:g}: USB-C adapter (viewed from -X, front left)",
+              -20, D + 34, -LID_T - 20, H + LID_T + 18)
+    section_frame(s)
+    a = ADAPTER
+    z_bot = MAINS_H - a["h"]
+    s.rect(a["y"] - 2.5, MAINS_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
+    s.rect(a["y"] + a["d"] + 0.5, MAINS_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
+    s.rect(a["y"], z_bot, a["d"], a["h"], "#7b1fa2", "#e1bee7", 0.45)
+    s.text(a["y"] + a["d"] / 2, z_bot + 15, "USB-C adapter", 3, "#7b1fa2", weight="bold")
+    s.text(a["y"] + a["d"] / 2, z_bot + 10, "back face against the plate", 2.4, "#7b1fa2")
+    s.line(a["y"] - 1, z_bot - 1.5, a["y"] + a["d"] + 1, z_bot - 1.5, "#7b1fa2", 0.6, "2 1")
+    s.text(a["y"] + 31, z_bot - 6, "2 cable ties", 2.4, "#7b1fa2", "start")
+    s.rect(a["y"] + 20, z_bot - 30, 9, 30, SOFT, sw=0.35, dash="1.5 1")
+    s.text(a["y"] + 31, z_bot - 16, "USB-C plug + cable", 2.4, SOFT, "start")
+    _, _, _, ch, _, bh, depth = SWITCHES[2]
+    s.rect(-4, Z_PANEL - bh / 2, 4, bh, PART, sw=0.35, dash="1.5 1")
+    s.rect(WALL, Z_PANEL - ch / 2, depth - WALL, ch, PART, sw=0.35, dash="1.5 1")
+    s.text(WALL + (depth - WALL) / 2, Z_PANEL, "PUMP switch", 2.6, PART)
+    i = IEC
+    s.rect(D - WALL - i["depth"], Z_BACK - i["ch"] / 2, i["depth"], i["ch"], SOFT, sw=0.35, dash="1.5 1")
+    s.rect(D, Z_BACK - i["fh"] / 2, 3.1, i["fh"], SOFT, sw=0.35, dash="1.5 1")
+    s.text(D - WALL - i["depth"] / 2, Z_BACK, "IEC inlet", 2.6, SOFT, rot=-90)
+    s.dim_v(z_bot, MAINS_H, 0, -10, "27")
+    s.dim_v(0, z_bot, 0, -10, "43 free")
+    s.dim_h(a["y"], a["y"] + a["d"], H, 6, "adapter 49")
+    s.dim_h(depth, a["y"] - 2.5, Z_PANEL + 20, 0)
+    s.save("section-b-b.svg", [
+        "Adapter hangs 27 mm under the divider in 4 corner brackets (10 high), held by 2 cable ties. Port faces down: 43 mm free for plug + cable.",
+        "Adapter brackets ↔ switch backs ≥ 3 mm (Y), ↔ IEC body ≥ 16 mm (Y)."])
 
 
 if __name__ == "__main__":
-    front(); back(); top(); section()
+    front(); back(); top(); section_a(); section_b()

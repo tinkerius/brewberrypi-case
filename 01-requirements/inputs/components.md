@@ -13,10 +13,12 @@ Values marked **(drawing)** are read from a dimensioned drawing. **(photo)** = f
 - Input 100–240 V~ 50/60 Hz 0.8 A. Output USB-C PD max 30 W (5 V 3 A, 9 V 3 A, 12 V 2.5 A, 15 V 2 A, 20 V 1.5 A).
 - Size **50 × 49 × 27 mm (photo)**. Flying mains leads (brown/blue) with WAGO 221 connectors. One through-hole lug for a screw on top.
 - Made for mounting inside a wall/junction box.
+- From the photo: the **USB-C port** is on a 50 × 49 face (near one edge, centred). The **mains leads** come out of a 49 × 27 side face. Mounting-hole position and size **not measurable** from the photo.
 
-## C3: 3.5 mm panel-mount jack socket (temperature sensor)
-- Overall length **20 mm**, front flange/nut width **10 mm**, jack **3.5 mm (photo)**. Solder lugs at the back.
-- Thread / panel hole Ø ≈ 6 mm (M6), max panel thickness ≈ 3 mm **(assumed)**.
+## C3: 3.5 mm panel-mount jack socket (temperature sensor). Picture: [component-C3-jack-socket.png](component-C3-jack-socket.png)
+- Overall length **20 mm**, front part **10 mm**, jack opening **3.5 mm (photo)**. Solder lugs at the back.
+- Black round front nut Ø ≈ 10 mm (with the 3.5 mm opening), silver hex nut behind it. The wall is clamped between the two nuts **(photo)**.
+- Thread Ø and thread length (= max wall thickness) are **not readable**. Assumed: panel hole Ø6 (M6), wall ≤ 2 mm → measure on arrival.
 
 ## C4: IEC C14 power inlet with fuse holder, screw mount
 - Flange **43.8 × 32.8 mm**, flange thickness **3.1 mm**, 2 mounting holes **Ø3.5** at **36.0 mm** spacing **(drawing)**.

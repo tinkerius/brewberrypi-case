@@ -28,3 +28,15 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 - **Q6** Placement: *table + rubber feet.*
 - **Q7** Labels: *yes, let's try this. If it's raised, one can easily paint it with a touch-up pen later.* → raised labels.
 - **Q8** Size: *no limit, it just has to be printable. Try to make it not larger than 20 cm × 20 cm × 20 cm.*
+
+## Round 3: review of spec draft v0.1 (2026-10-19)
+
+**User questions / input** (verbatim):
+- *Why are the RPI and the relay board not on top of each other but shifted on different levels?*
+- *Why is the USB-C power adapter not next to the relay board on the divider panel?*
+- *Additionally: the temp jack outlet looks like in the picture attached.* → C3 picture stored.
+
+**Answers / decisions** (Claude, see chat):
+- v0.1 shifted the boards because the Pi's insert bosses (4 mm under the plate) would have left only ≈ 0.5 mm above the relay board's solder joints with 6 mm relay standoffs. Fix: **10 mm relay standoffs** → boards **stacked** as in sketch S1.
+- v0.1 put the adapter on the bottom lid because its mounting hole is unknown and a holder on a lid is easy. No hard reason. Moving it **under the divider next to the relay board** puts all electronics on one removable module, keeps the bottom lid a plain plate, and the adapter no longer hangs on its wires when the bottom is opened.
+- Jack: clamped between a front nut and a hex nut → wall locally thinned to 2 mm (thread length unknown).
