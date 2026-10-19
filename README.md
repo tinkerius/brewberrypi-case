@@ -14,8 +14,8 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 
 | Stage | State | Notes |
 |---|---|---|
-| 1. Requirements | in progress | round 1 answered, sketches + components in, round 2 asked |
-| 2. Specification | not started | |
+| 1. Requirements | done | 2026-10-19 · relay board size still assumed (A1) |
+| 2. Specification | in progress | draft v0.1 |
 | 3. OpenSCAD | not started | placeholder only |
 | 4. STL | not started | |
 

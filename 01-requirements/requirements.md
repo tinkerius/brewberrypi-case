@@ -1,6 +1,7 @@
 # Requirements
 
-Status: **draft (round 2 pending)**. Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8` (see `inputs/`).
+Status: **complete (2026-10-19)**. Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
+ Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8` (see `inputs/`).
 
 ## Purpose
 | ID | Requirement | Source |
@@ -35,11 +36,17 @@ Status: **draft (round 2 pending)**. Sources: interview round `I1`, sketches `S1
 | R12 | Screw joints use **brass heat-set inserts + screws**, with as few different sizes as possible. | I1 |
 | R13 | **Easily FDM-printable**: no tiny details, **single filament/colour**, **minimum number of printed parts**. | I1 |
 | R14 | **Parametric**: every uncertain dimension is a named parameter with a documented default. | I1 |
+| R16 | **Part split A**: body (walls only), separate **divider plate**, top lid, bottom lid. Pi and relay board mount on the divider plate. | I2-Q1 |
+| R17 | No Pi port is reachable from outside. The Pi is accessed by opening the top lid. | I2-Q4 |
+| R18 | Changing to a Pi 4/5 may require reprinting **only the divider plate**. Optional fan mount (off by default). | I2-Q5 |
+| R19 | Freestanding on a table, on **adhesive rubber feet**. | I2-Q6 |
+| R20 | **Raised labels** (switch and socket names, logo) that can be painted with a touch-up pen. | I2-Q7 |
+| R21 | Each printed part fits in **200 × 200 × 200 mm**. | I2-Q8 |
 
 ## Safety
 | ID | Requirement | Source |
 |---|---|---|
-| R15 | Mains (230 V~) is present: inlet, switches, sockets, relays, power adapter. The design must keep mains and low voltage separated by the divider, allow PE (earth) wiring to the sockets, and provide strain relief/fixing for internal wiring. **A printed enclosure is not mains insulation on its own.** Wiring must be done by a qualified person. | S1, C4, C5, CLAUDE.md |
+| R15 | Mains (230 V~) is present. Mains and low voltage are separated by the divider. Electrical design (ratings, wiring, earthing) is **out of scope** and the user's responsibility (I2-Q3: "10 A is fine, don't worry about the electric part"). | S1, I2-Q3 |
 
 ## Constraints
 - Printable on a typical FDM printer without printer-specific tuning (see `docs/fdm-design-rules.md`).
@@ -55,12 +62,8 @@ Status: **draft (round 2 pending)**. Sources: interview round `I1`, sketches `S1
 - **A7** Passive ventilation slots in the RPI part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
 - **A8** Freestanding on a table, with no wall mount.
 
-## Open questions (round 2)
-- **Q1 Part split / how the MAINS part opens** (key question, see chat).
-- **Q2** Relay board: real size and hole spacing (or "don't know" → A1).
-- **Q3** Power of boiler and pump (W). The relays and the IEC inlet are rated 10 A.
-- **Q4** Pi ports: does anything need to be reachable from outside (USB, Ethernet, HDMI, SD)? (→ A5)
-- **Q5** Pi 4/5 swap: must the same print fit all models, or is reprinting one part OK? Fan for Pi 5? (→ A7)
-- **Q6** Environment: where does it stand (steam, splashes, heat)? Table or wall? (→ A8)
-- **Q7** Labels (I/0/II, "Boiler", "Pump", logo) embossed in the case? Single colour → only debossed/embossed text.
-- **Q8** Rough size limits, if any (max width/depth/height).
+## Open questions
+- None blocking. **Relay board dimensions (Q2)**: measure on arrival and update parameters `relay_board`, `relay_holes`.
+
+## Answered (round 2)
+Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21

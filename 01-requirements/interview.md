@@ -15,10 +15,16 @@
 
 **Still open from round 1:** 4 (environment, mounting), 5 (cooling), 7 (look), 8 (project link). Partly carried into round 2.
 
-## Round 2 (asked, awaiting answers)
+## Round 2 (2026-10-19)
 
-See `requirements.md` → *Open questions* (Q1–Q8). Each has a default assumption that applies if the answer is "I don't know (yet)".
+Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption).
 
-**Answers:**
-
-_pending_
+**Answers** (user, verbatim):
+- **Q1** Part split: **A**. Body (walls only) + separate divider plate + top lid + bottom lid.
+- **Q2** Relay board size: *don't know (yet), still waiting for the shipment.* → assumption A1 stays, parametric.
+- **Q3** Power: *10 A is fine. Don't worry about the electric part.*
+- **Q4** Pi ports: *no, no port needs to be accessible from the outside.*
+- **Q5** Pi 4/5 by reprinting the divider plate only + optional fan mount: *sounds perfect.*
+- **Q6** Placement: *table + rubber feet.*
+- **Q7** Labels: *yes, let's try this. If it's raised, one can easily paint it with a touch-up pen later.* → raised labels.
+- **Q8** Size: *no limit, it just has to be printable. Try to make it not larger than 20 cm × 20 cm × 20 cm.*
