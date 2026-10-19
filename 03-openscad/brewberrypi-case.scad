@@ -134,8 +134,10 @@ panel_boss = [8, 6];                      // F6/F7 insert bosses behind the back
 jack_pos = [155, 98];  jack_pocket_d = 16;   // F8
 vent = [11, 3, 30, 8, 40, 80];            // F9 [count, width, length, pitch, first y, bottom z]
 pry_w = 12;                               // F16
-label_size = 6;  front_label_z = 12;  back_label_z = 4;  temp_label_z = 82;   // F5, F8
-logo = "BrewberryPi";  logo_size = 12;  logo_raise = 0.8;  logo_pos = [95, 30];  // F21
+label_size = 6.4;                         // F5, F8: OpenSCAD text size 6.4 → capitals ≥ 6 mm
+front_label_z = 12;  back_label_z = 4;  temp_label_z = 82;   // F5, F8 baselines
+logo = "BrewberryPi";  logo_size = 12.6;  // F21: OpenSCAD text size 12.6 → capitals ≥ 12 mm
+logo_raise = 0.8;  logo_pos = [95, 30];   // F21
 fan_pos = [72, 79];                       // F22
 m3_clear = 3.4;                           // screw through-holes
 

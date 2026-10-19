@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Automated checks for the STLs in 04-stl/ (spec §9):
-#   AC1 bounding boxes · AC2 manifold (admesh, read-only) · AC6 overhang report
+#   AC1 bounding boxes · AC2 manifold (admesh, read-only) · AC6 overhang report · AC8 label sizes
 #   AC3/AC10 collision check · AC4/AC5 dimension report from the model.
 # Exits non-zero if a mesh needed repairs or the collision check is not empty.
 set -euo pipefail
@@ -25,8 +25,12 @@ done
 echo; echo "### AC6: overhangs steeper than 45° (print orientation, not on the bed)"
 python3 tools/overhangs.py "${files[@]}"
 
+echo; echo "### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)"
+python3 tools/labels.py
+
 echo; echo "### AC3 / AC10: collision check (must be empty)"
-if openscad -D 'part="collision_check"' -o "$TMP/collision.stl" "$SRC" 2>&1 | grep -q "Current top level object is empty"; then
+collision=$(openscad -D 'part="collision_check"' -o "$TMP/collision.stl" "$SRC" 2>&1 || true)   # exits 1 when empty
+if grep -q "Current top level object is empty" <<<"$collision"; then
     echo "   ok: no overlaps"
 else
     echo "   !! collision check is not empty: open part=collision_check in OpenSCAD"; status=1
