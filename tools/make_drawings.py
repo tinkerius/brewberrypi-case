@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.3"
+SPEC_VERSION = "0.4"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -40,7 +40,7 @@ SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth 
     ("PUMP", 150, 21.5, 28.5, 26.7, 35, 48),
 ]
 Z_BACK = 38                        # back panel component centre height
-IEC = dict(x=155, cw=27.5, ch=31.5, r=4, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
+IEC = dict(x=155, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
 SOCKETS = [("BOILER", 100), ("PUMP", 45)]            # x centres; cutout Ø43 flat-top at r 24
 SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
 JACK = dict(x=155, z=98, d=6, nut=10, pocket=16)
@@ -178,7 +178,7 @@ def back():
     s.rect(iu - IEC["cw"] / 2, Z_BACK - IEC["ch"] / 2, IEC["cw"], IEC["ch"], fill=CUT, rx=IEC["r"])
     for dx in (-IEC["hole_dx"], IEC["hole_dx"]):
         s.circle(iu + dx, Z_BACK, 2, fill=CUT)
-    s.text(iu, Z_BACK - 1, "27.5×31.5", 2.6)
+    s.text(iu, Z_BACK - 1, "27.5×31.5 r1", 2.6)
     s.text(iu, 4, "POWER", 6, weight="bold")
     for name, x in SOCKETS:
         su, f, hp = u(x), SOCKET["flange"], SOCKET["holes"] / 2
@@ -202,7 +202,7 @@ def back():
     s.dim_v(0, JACK["z"], W, 22)
     s.save("back-view.svg", [
         "Sockets: Ø43 cutout with flat-top teardrop (top flat at r = 24, hidden by the 50 mm flange). Holes on 38 mm square.",
-        "IEC: cutout 27.5×31.5 r4, screws 36 apart. All screw holes take M3 inserts pressed in from outside.",
+        "IEC: cutout 27.5×31.5 r1, screws 36 apart. All screw holes take M3 inserts pressed in from outside.",
         "Jack: Ø6 teardrop, point hidden by the Ø10 front nut. Grey dotted Ø16 = inside pocket, wall 2.0 mm (P28)."])
 
 
@@ -241,12 +241,12 @@ def top():
         ox, oy = cx - sx * 2.5, cy - sy * 2.5            # bracket outer corner (0.5 clearance + 2 wall)
         s.line(ox, oy, ox + sx * 12, oy, "#7b1fa2", 1.2)
         s.line(ox, oy, ox, oy + sy * 12, "#7b1fa2", 1.2)
-    for lx in (a["x"] + 10, a["x"] + 40):
-        s.rect(lx - 4, a["y"] - 5.5, 8, 3, "#7b1fa2", sw=0.3)
-        s.rect(lx - 4, a["y"] + a["d"] + 2.5, 8, 3, "#7b1fa2", sw=0.3)
+    for lx in (a["x"] + 15, a["x"] + 35):                  # tie slots through the plate
+        s.rect(lx - 2.75, a["y"] - 3, 5.5, 2.5, fill=CUT, sw=0.3)
+        s.rect(lx - 2.75, a["y"] + a["d"] + 0.5, 5.5, 2.5, fill=CUT, sw=0.3)
     s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 + 3, "USB-C adapter (BELOW)", 2.8, "#7b1fa2", weight="bold")
     s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 1.5, "50×49, port faces down", 2.4, "#7b1fa2")
-    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 5.5, "brackets + 2 cable ties", 2.4, "#7b1fa2")
+    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 5.5, "brackets + 2 ties through slots", 2.4, "#7b1fa2")
     sl = SLOT
     s.rect(sl["cx"] - sl["w"] / 2, sl["cy"] - sl["h"] / 2, sl["w"], sl["h"], fill=CUT, rx=7)
     s.text(sl["cx"] + 1, sl["cy"], "feed-through 14×46", 2.4, rot=-90)
@@ -404,9 +404,9 @@ def section_c():
     s.rect(a["x"], z_bot, a["w"], a["h"], "#7b1fa2", "#e1bee7", 0.45)
     s.text(a["x"] + a["w"] / 2, z_bot + 15, "USB-C adapter", 3, "#7b1fa2", weight="bold")
     s.text(a["x"] + a["w"] / 2, z_bot + 10, "port faces down", 2.4, "#7b1fa2")
-    for tx in (a["x"] + 10, a["x"] + 40):
+    for tx in (a["x"] + 15, a["x"] + 35):
         s.rect(tx - 2.5, z_bot - 1.5, 5, 1.5, "#7b1fa2", "#7b1fa2", 0.3)
-    s.text(a["x"] + 10, z_bot - 5, "cable ties", 2.2, "#7b1fa2")
+    s.text(a["x"] + 15, z_bot - 5, "cable ties", 2.2, "#7b1fa2")
     px = a["x"] + a["w"] / 2
     s.rect(px - 4.5, z_bot - 30, 9, 30, SOFT, sw=0.35, dash="1.5 1")
     s.text(px - 6, z_bot - 18, "USB-C plug", 2.4, SOFT, "end")
