@@ -14,7 +14,7 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 
 | Stage | State | Notes |
 |---|---|---|
-| 1. Requirements | in progress | interview round 1 asked |
+| 1. Requirements | in progress | round 1 answered, sketches + components in, round 2 asked |
 | 2. Specification | not started | |
 | 3. OpenSCAD | not started | placeholder only |
 | 4. STL | not started | |

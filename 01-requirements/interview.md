@@ -1,15 +1,23 @@
 # Interview log
 
-## Round 1 (asked, awaiting answers)
+## Round 1 (2026-10-19)
 
-1. **What goes inside:** which Raspberry Pi model? Any boards on top of or next to it (relay board, sensor board, display)? Product names, links or measurements.
-2. **Connections:** which ports must be reachable (power, USB, Ethernet, HDMI, SD card)? Which cables come in (temperature probes, relay or pump wiring)? Does any mains voltage enter the case?
-3. **User interface:** anything on the case itself: display, buttons, status LEDs, power switch?
-4. **Environment & mounting:** where will it sit? Steam, splashes, heat? Freestanding, wall, DIN rail, on the brewing rig?
-5. **Cooling:** passive vents enough, or a fan?
-6. **Construction:** lid closure (snap-fit, screws, heat-set inserts, sliding)? Two parts (base + lid) OK?
-7. **Look:** rounded or angular? Logo or text ("BrewberryPi") on the lid?
-8. **Project link:** is BrewberryPi published (repo, parts list) so hardware details can be taken from it?
+**Questions** (asked in chat): 1 contents · 2 connections, mains? · 3 user interface · 4 environment & mounting · 5 cooling · 6 construction / closure · 7 look · 8 project link.
+
+**Answers** (user, close to verbatim):
+- Look at the hand-drawn sketches for a rough idea of what the thing shall be. → S1, S2, S3
+- The upper lid and the lower lid shall be detachable/openable to access the contents.
+- Big fan of **brass inserts + screws**. Use them when needed. Stick to the same or a limited set of insert/screw sizes if possible.
+- Must be **easily 3D printable**: avoid tiny details that cause printing problems, **one colour/filament**, **reduce the number of parts** to print.
+- Details of switches/plugs are added when available. → C1–C7
+- The Pi is a **Raspberry Pi 3**, but others may want a **Pi 4 or Pi 5**. Make it **replaceable**.
+- Open questions are welcome, but expect "I don't know (yet)". Then make **good assumptions** and make the solution **parametric**.
+
+**Still open from round 1:** 4 (environment, mounting), 5 (cooling), 7 (look), 8 (project link). Partly carried into round 2.
+
+## Round 2 (asked, awaiting answers)
+
+See `requirements.md` → *Open questions* (Q1–Q8). Each has a default assumption that applies if the answer is "I don't know (yet)".
 
 **Answers:**
 
