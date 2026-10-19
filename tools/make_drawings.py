@@ -8,17 +8,22 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.2"
+SPEC_VERSION = "0.3"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
 WALL = 3                           # P5
 LID_T = 3                          # P6
 DIV_T = 3                          # P7
-MAINS_H = 70                       # P3 body bottom -> divider underside
-RPI_H = 47                         # P4 divider top -> body top
-H = MAINS_H + DIV_T + RPI_H        # 120 body height
-Z_DIV_TOP = MAINS_H + DIV_T        # 73
+HV_H = 70                          # P3 high-voltage part: body bottom -> divider underside
+LV_H = 47                          # P4 low-voltage part: divider top -> top lid underside
+H = HV_H + DIV_T + LV_H            # 120 lid seat
+Z_DIV_TOP = HV_H + DIV_T           # 73
+RIM = 1.5                          # P31 rim above the lid seat (top rebate)
+H_BODY = H + LID_T                 # 123 body height incl. rim (lid flush with rim)
+CLR = 0.2                          # P9 fit clearance
+LIP_T, LIP_H = 2, 4                # P32 bottom lid locating lip
+NOTCH_W = 12                       # F16 pry notch, centred on the back wall
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
 PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=4,
@@ -67,6 +72,10 @@ class Sheet:
         x, y = self.P(u, v)
         d = f' stroke-dasharray="{dash}"' if dash else ""
         self.add(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="{r}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
+
+    def poly(self, pts, stroke=INK, fill=CUT, sw=0.4):
+        d = " ".join(f"{x:.2f},{y:.2f}" for x, y in (self.P(u, v) for u, v in pts))
+        self.add(f'<polygon points="{d}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
 
     def line(self, u1, v1, u2, v2, stroke=INK, sw=0.4, dash=None):
         (x1, y1), (x2, y2) = self.P(u1, v1), self.P(u2, v2)
@@ -127,14 +136,17 @@ class Sheet:
         print("wrote", OUT / name)
 
 
-def case_outline(s):
+def case_outline(s, notch=False):
     s.rect(0, -LID_T, W, LID_T, fill="#f4f4f4")            # bottom lid
-    s.rect(0, 0, W, H)                                      # body
-    s.rect(0, H, W, LID_T, fill="#f4f4f4")                 # top lid
-    s.line(0, MAINS_H, W, MAINS_H, HID, 0.3, "2 1.5")       # divider (hidden)
+    s.rect(0, 0, W, H_BODY)                                 # body incl. rim
+    s.line(RIM, H, W - RIM, H, HID, 0.3, "2 1.5")           # top lid seat (hidden behind the rim)
+    if notch:                                               # F16: pry notch, top lid visible through it
+        s.rect(W / 2 - NOTCH_W / 2, H, NOTCH_W, LID_T, INK, "#f4f4f4", 0.4)
+        s.text(W / 2, H_BODY + 2, "pry notch", 2.6, HID)
+    s.line(0, HV_H, W, HV_H, HID, 0.3, "2 1.5")             # divider (hidden)
     s.line(0, Z_DIV_TOP, W, Z_DIV_TOP, HID, 0.3, "2 1.5")
-    s.text(3, Z_DIV_TOP + 3, "RPI part", 3, HID, "start")
-    s.text(3, MAINS_H - 5, "MAINS part", 3, HID, "start")
+    s.text(3, Z_DIV_TOP + 3, "low-voltage part", 3, HID, "start")
+    s.text(3, HV_H - 5, "high-voltage part", 3, HID, "start")
 
 
 def front():
@@ -151,7 +163,7 @@ def front():
         s.dim_h(a, b, H + LID_T, 15 if b == 115 else 8)
     s.dim_v(-LID_T, H + LID_T, 0, -10, "126")
     s.dim_v(0, Z_PANEL, W, 22)
-    s.dim_v(0, MAINS_H, W, 14, "70 (divider)")
+    s.dim_v(0, HV_H, W, 14, "70 (divider)")
     s.save("front-view.svg", [
         "Grey = cutout (clearance P9 added in the model), dashed pink = switch bezel. Labels raised 0.6 mm, 6 mm text.",
         "Front wall is thinned to 2.0 mm (P10) from the inside around the switch cutouts for the snap-in clips."])
@@ -159,7 +171,7 @@ def front():
 
 def back():
     s = Sheet("Back view (from +Y), mirrored X: u = 190 - x", -12, W + 30, -LID_T - 22, H + LID_T + 26)
-    case_outline(s)
+    case_outline(s, notch=True)
     u = lambda x: W - x
     iu = u(IEC["x"])
     s.rect(iu - IEC["fw"] / 2, Z_BACK - IEC["fh"] / 2, IEC["fw"], IEC["fh"], PART, sw=0.35, dash="1.5 1")
@@ -260,15 +272,16 @@ def top():
 
 
 def section_frame(s, L=D, divider=True):
-    s.rect(0, 0, WALL, H, fill=CUT)
-    s.rect(L - WALL, 0, WALL, H, fill=CUT)
+    for m in (lambda u: u, lambda u: L - u):                # left and right wall: rim + lid seat
+        s.poly([(m(0), 0), (m(WALL), 0), (m(WALL), H), (m(RIM), H), (m(RIM), H_BODY), (m(0), H_BODY)])
+        s.rect(min(m(WALL + CLR), m(WALL + CLR + LIP_T)), 0, LIP_T, LIP_H, fill=CUT)   # bottom lid lip
     s.rect(0, -LID_T, L, LID_T, fill=CUT)
-    s.rect(0, H, L, LID_T, fill=CUT)
+    s.rect(RIM + CLR, H, L - 2 * (RIM + CLR), LID_T, fill=CUT)
     if divider:
-        s.rect(WALL + 0.3, MAINS_H, L - 2 * WALL - 0.6, DIV_T, fill=CUT)
+        s.rect(WALL + 0.3, HV_H, L - 2 * WALL - 0.6, DIV_T, fill=CUT)
     s.dim_v(-LID_T, 0, L, 8)
-    s.dim_v(0, MAINS_H, L, 8)
-    s.dim_v(MAINS_H + DIV_T, H, L, 8)
+    s.dim_v(0, HV_H, L, 8)
+    s.dim_v(HV_H + DIV_T, H, L, 8)
     s.dim_v(H, H + LID_T, L, 8)
     s.dim_v(-LID_T, H + LID_T, L, 18, "126")
     s.dim_h(0, L, -LID_T, -12)
@@ -284,12 +297,12 @@ def section_a():
     # Pi: standoffs (cut), bosses under the plate (cut), board (cut), components envelope
     for _, hy in p["holes"][::2]:
         s.rect(hy - 2.5, Z_DIV_TOP, 5, p["standoff"], BRASS, "#f3e5ab", 0.35)
-        s.rect(hy - 3.5, MAINS_H - p["boss"], 7, p["boss"], fill=CUT, sw=0.3)
+        s.rect(hy - 3.5, HV_H - p["boss"], 7, p["boss"], fill=CUT, sw=0.3)
     s.rect(p["y"], z_pi, p["d"], 1.6, PART, "#f8bbd0", 0.4)
     s.rect(p["y"], z_pi + 1.6, p["d"], 17, PART, sw=0.3, dash="1 1")
     s.text(p["y"] + p["d"] / 2, z_pi + 9, "Pi components / GPIO wires", 2.6, PART)
     # relay: standoffs (beyond), PCB, relays
-    z_pcb = MAINS_H - r["standoff"]
+    z_pcb = HV_H - r["standoff"]
     for hy in (61, 110):
         s.rect(hy - 4, z_pcb, 8, r["standoff"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(r["y"], z_pcb - r["pcb"], r["d"], r["pcb"], "#7b1fa2", "#e1bee7", 0.4)
@@ -304,8 +317,8 @@ def section_a():
     s.rect(D - WALL - so["depth"], Z_BACK - so["d"] / 2, so["depth"], so["d"], SOFT, sw=0.35, dash="1.5 1")
     s.text(D - WALL - so["depth"] / 2, Z_BACK, "PUMP socket", 2.6, SOFT, rot=-90)
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
-    s.dim_v(z_pcb, MAINS_H, 0, -10, "10")
-    s.dim_v(z_pcb - r["pcb"] - r["relays"], MAINS_H, 0, -18, "≈28")
+    s.dim_v(z_pcb, HV_H, 0, -10, "10")
+    s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "≈28")
     s.dim_h(p["y"], p["y"] + p["d"], H, 6, "Pi 56")
     s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 55")
     s.save("section-a-a.svg", [
@@ -320,9 +333,9 @@ def section_b():
               -20, D + 34, -LID_T - 20, H + LID_T + 18)
     section_frame(s)
     a = ADAPTER
-    z_bot = MAINS_H - a["h"]
-    s.rect(a["y"] - 2.5, MAINS_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
-    s.rect(a["y"] + a["d"] + 0.5, MAINS_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
+    z_bot = HV_H - a["h"]
+    s.rect(a["y"] - 2.5, HV_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
+    s.rect(a["y"] + a["d"] + 0.5, HV_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(a["y"], z_bot, a["d"], a["h"], "#7b1fa2", "#e1bee7", 0.45)
     s.text(a["y"] + a["d"] / 2, z_bot + 15, "USB-C adapter", 3, "#7b1fa2", weight="bold")
     s.text(a["y"] + a["d"] / 2, z_bot + 10, "back face against the plate", 2.4, "#7b1fa2")
@@ -338,7 +351,7 @@ def section_b():
     s.rect(D - WALL - i["depth"], Z_BACK - i["ch"] / 2, i["depth"], i["ch"], SOFT, sw=0.35, dash="1.5 1")
     s.rect(D, Z_BACK - i["fh"] / 2, 3.1, i["fh"], SOFT, sw=0.35, dash="1.5 1")
     s.text(D - WALL - i["depth"] / 2, Z_BACK, "IEC inlet", 2.6, SOFT, rot=-90)
-    s.dim_v(z_bot, MAINS_H, 0, -10, "27")
+    s.dim_v(z_bot, HV_H, 0, -10, "27")
     s.dim_v(0, z_bot, 0, -10, "43 free")
     s.dim_h(a["y"], a["y"] + a["d"], H, 6, "adapter 49")
     s.dim_h(depth, a["y"] - 2.5, Z_PANEL + 20, 0)
@@ -353,12 +366,12 @@ def section_c():
     section_frame(s, W, divider=False)
     p, r, a, sl = PI, RELAY, ADAPTER, SLOT
     # divider plate (cut), interrupted by the feed-through
-    s.rect(WALL + 0.3, MAINS_H, sl["cx"] - sl["w"] / 2 - WALL - 0.3, DIV_T, fill=CUT)
-    s.rect(sl["cx"] + sl["w"] / 2, MAINS_H, W - WALL - 0.3 - sl["cx"] - sl["w"] / 2, DIV_T, fill=CUT)
+    s.rect(WALL + 0.3, HV_H, sl["cx"] - sl["w"] / 2 - WALL - 0.3, DIV_T, fill=CUT)
+    s.rect(sl["cx"] + sl["w"] / 2, HV_H, W - WALL - 0.3 - sl["cx"] - sl["w"] / 2, DIV_T, fill=CUT)
     s.text(sl["cx"], Z_DIV_TOP + 2, "feed-through", 2.4, INK)
     # beyond the cut: back pads, corner columns, back-wall components
     for px, py in PADS[1::2]:
-        s.rect(px - 5, MAINS_H - 10, 10, 10, HID, sw=0.3, dash="1 1")
+        s.rect(px - 5, HV_H - 10, 10, 10, HID, sw=0.3, dash="1 1")
     for cx in (COL_C, W - COL_C):
         s.rect(cx - COL_R, 0, 2 * COL_R, H, HID, sw=0.25, dash="1 1")
     for name, x in SOCKETS:
@@ -373,21 +386,21 @@ def section_c():
     z_pi = Z_DIV_TOP + p["standoff"]
     for hx, _ in p["holes"][:2]:
         s.rect(hx - 2.5, Z_DIV_TOP, 5, p["standoff"], BRASS, "#f3e5ab", 0.35, "1 0.6")
-        s.rect(hx - 3.5, MAINS_H - p["boss"], 7, p["boss"], HID, sw=0.3, dash="1 1")
+        s.rect(hx - 3.5, HV_H - p["boss"], 7, p["boss"], HID, sw=0.3, dash="1 1")
     s.rect(p["x"], z_pi, p["w"], 1.6, PART, "#f8bbd0", 0.4)
     s.rect(p["x"], z_pi + 1.6, p["w"], 17, PART, sw=0.3, dash="1 1")
     s.text(p["x"] + p["w"] / 2, z_pi + 9, "Pi components (USB/Eth end left)", 2.6, PART)
     # relay board: standoffs beyond, PCB + relays cut
-    z_pcb = MAINS_H - r["standoff"]
+    z_pcb = HV_H - r["standoff"]
     for hx, _ in r["holes"][:2]:
         s.rect(hx - 4, z_pcb, 8, r["standoff"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(r["x"], z_pcb - r["pcb"], r["w"], r["pcb"], "#7b1fa2", "#e1bee7", 0.4)
     s.rect(r["x"] + 3, z_pcb - r["pcb"] - r["relays"], r["w"] - 6, r["relays"], "#7b1fa2", sw=0.35, dash="1.5 1")
     s.text(r["x"] + r["w"] / 2, z_pcb - 11, "relays (facing down)", 2.6, "#7b1fa2")
     # adapter: cut, brackets beyond, cable ties cut, plug envelope
-    z_bot = MAINS_H - a["h"]
+    z_bot = HV_H - a["h"]
     for bx in (a["x"] - 2.5, a["x"] + a["w"] + 0.5):
-        s.rect(bx, MAINS_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
+        s.rect(bx, HV_H - a["fence"], 2, a["fence"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(a["x"], z_bot, a["w"], a["h"], "#7b1fa2", "#e1bee7", 0.45)
     s.text(a["x"] + a["w"] / 2, z_bot + 15, "USB-C adapter", 3, "#7b1fa2", weight="bold")
     s.text(a["x"] + a["w"] / 2, z_bot + 10, "port faces down", 2.4, "#7b1fa2")
@@ -404,8 +417,8 @@ def section_c():
     s.dim_h(a["x"], a["x"] + a["w"], H, 6, "adapter 50")
     s.dim_h(r["x"], r["x"] + r["w"], z_pcb - r["pcb"] - r["relays"], -6, "relay 75")
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
-    s.dim_v(z_pcb, MAINS_H, 0, -10, "10")
-    s.dim_v(z_pcb - r["pcb"] - r["relays"], MAINS_H, 0, -18, "≈28")
+    s.dim_v(z_pcb, HV_H, 0, -10, "10")
+    s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "≈28")
     s.dim_v(0, z_bot, a["x"] + a["w"] + 2.5, 6, "43 free")
     s.save("section-c-c.svg", [
         "Cut faces filled. Dashed = beyond the cut (back pads, corner columns, back-wall components) or component envelopes.",
@@ -413,5 +426,50 @@ def section_c():
         "Relay board / adapter hang between the divider pads, so the whole divider module can be lowered in from the top."])
 
 
+def detail_joints():
+    K = 5                                                   # scale 5:1
+    s = Sheet("Details X and Y: lid joints (section through a wall, scale 5:1)", -8, 232, -8, 92)
+    s.text(55, 88, "Detail X: top lid in the rebate (F15, F20)", 3.6, weight="bold")
+    s.text(175, 88, "Detail Y: bottom lid lip (F33)", 3.6, weight="bold")
+    X = lambda u, v: (10 + K * u, K * (v - 110))            # detail X shows z 110…126
+    Y = lambda u, v: (130 + K * u, K * (v + 5))             # detail Y shows z −5…11
+    # --- X: wall with rim, top lid, column hint
+    s.poly([X(0, 110), X(WALL, 110), X(WALL, H), X(RIM, H), X(RIM, H_BODY), X(0, H_BODY)])
+    s.poly([X(RIM + CLR, H), X(16, H), X(16, H_BODY), X(RIM + CLR, H_BODY)], fill="#f4f4f4")
+    s.line(*X(0, 110), *X(WALL, 110), HID, 0.3, "2 1")
+    s.text(*X(-1.2, 114), "body wall", 3, HID, "end")
+    s.text(*X(10, 121.1), "top lid", 3.2)
+    s.text(*X(9, 112.5), "inside (low-voltage part)", 2.8, HID)
+    s.text(*X(-1.2, 121), "rim", 3, HID, "end")
+    x0, x15, x17, x3 = X(0, 0)[0], X(RIM, 0)[0], X(RIM + CLR, 0)[0], X(WALL, 0)[0]
+    s.dim_h(x0, x15, X(0, H_BODY)[1], 14, "rim 1.5")
+    s.dim_h(x15, x17, X(0, H_BODY)[1], 6, " ")
+    s.text(x17 + 2, X(0, H_BODY)[1] + 6.6, "0.2 clearance", 3.2, DIM, "start")
+    s.line(*X(2.4, H - 0.2), *X(6, 116.5), HID, 0.3)
+    s.text(*X(6.2, 116), "lid seat 1.5 (+ column tops)", 3, HID, "start")
+    s.dim_h(x0, x3, X(0, 110)[1], -6, "wall 3")
+    s.dim_v(X(0, H)[1], X(0, H_BODY)[1], x0, -10, "3")
+    s.dim_v(X(0, H)[1], X(0, H_BODY)[1], X(16, 0)[0], 6, "lid 3")
+    # --- Y: wall with outer bottom chamfer, bottom lid with lip
+    s.poly([Y(0, 0.6), Y(0.6, 0), Y(WALL, 0), Y(WALL, 11), Y(0, 11)])
+    s.poly([Y(0, -LID_T), Y(16, -LID_T), Y(16, 0), Y(WALL + CLR + LIP_T, 0), Y(WALL + CLR + LIP_T, LIP_H),
+            Y(WALL + CLR, LIP_H), Y(WALL + CLR, 0), Y(0, 0)], fill="#f4f4f4")
+    s.line(*Y(0, 11), *Y(WALL, 11), HID, 0.3, "2 1")
+    s.text(*Y(-1.2, 7), "body wall", 3, HID, "end")
+    s.text(*Y(11, -1.9), "bottom lid", 3.2)
+    s.text(*Y(12.5, 1.5), "inside (high-voltage part)", 2.8, HID)
+    y0, y3, y32, y52 = Y(0, 0)[0], Y(WALL, 0)[0], Y(WALL + CLR, 0)[0], Y(WALL + CLR + LIP_T, 0)[0]
+    s.dim_h(y0, y3, Y(0, 11)[1], 6, "wall 3")
+    s.dim_h(y3, y32, Y(0, LIP_H)[1], 16, " ")
+    s.text(y32 + 2, Y(0, LIP_H)[1] + 16.6, "0.2 clearance", 3.2, DIM, "start")
+    s.dim_h(y32, y52, Y(0, LIP_H)[1], 6, "lip 2")
+    s.dim_v(Y(0, 0)[1], Y(0, LIP_H)[1], y52, 14, "4")
+    s.dim_v(Y(0, -LID_T)[1], Y(0, 0)[1], y0, -8, "3")
+    s.save("detail-joints.svg", [
+        "X: the outer 1.5 mm of the wall rises 3 mm above the lid seat (rim). The top lid drops in with 0.2 per side, sits on the 1.5 mm seat + column tops and is flush with the rim.",
+        "Y: the bottom lid's 2 × 4 mm lip reaches inside the walls with 0.2 per side (skipping the corner columns). Lid edges flush with the body.",
+        "Both: the lids cannot slide or twist. The 4 M3 screws per lid only clamp. Pry notch (F16) in the back rim to lift the top lid."])
+
+
 if __name__ == "__main__":
-    front(); back(); top(); section_a(); section_b(); section_c()
+    front(); back(); top(); section_a(); section_b(); section_c(); detail_joints()

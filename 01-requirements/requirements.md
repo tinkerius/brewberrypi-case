@@ -1,6 +1,6 @@
 # Requirements
 
-Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, `I3`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
+Status: **complete (2026-10-19)**, updated after the spec reviews (rounds 3 and 4, `I3`, `I4`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
  Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8` (see `inputs/`).
 
 ## Purpose
@@ -11,7 +11,7 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 ## Layout
 | ID | Requirement | Source |
 |---|---|---|
-| R2 | Two compartments stacked vertically, separated by a horizontal **divider**: upper **RPI part** (low voltage), lower **MAINS part**. | S1, S2, S3 |
+| R2 | Two compartments stacked vertically, separated by a horizontal **divider**: upper **low-voltage part** (Pi), lower **high-voltage part** (mains). Called "RPI part" / "MAINS part" in sketch S1. | S1, S2, S3, I4 |
 | R3 | The Pi sits on standoffs **on top of** the divider. The relay board hangs on standoffs **under** the divider, **directly below the Pi** (stacked). | S1, I3 |
 | R4 | A **cable feed-through** in the divider for the Pi ↔ relay-board wiring (GPIO jumper cable) and the Pi power cable. | S1 |
 | R5 | The USB-C power adapter (C2) is mounted **under the divider, next to the relay board**. The bottom lid carries no components. | S1, C2, I3 |
@@ -19,9 +19,9 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 ## Openings
 | ID | Requirement | Source |
 |---|---|---|
-| R6 | **Front, MAINS part:** 1 × main switch (C6, I/0) + 2 × switches boiler/pump (C7, I/0/II), side by side. | S2, C6, C7 |
-| R7 | **Back, MAINS part:** 1 × IEC C14 inlet with fuse (C4) + 2 × panel sockets boiler/pump (C5), each with its screw holes. | S3, C4, C5 |
-| R8 | **Back, RPI part:** 1 × 3.5 mm jack socket for the temperature sensor (C3). | S3, C3 |
+| R6 | **Front, high-voltage part:** 1 × main switch (C6, I/0) + 2 × switches boiler/pump (C7, I/0/II), side by side. | S2, C6, C7 |
+| R7 | **Back, high-voltage part:** 1 × IEC C14 inlet with fuse (C4) + 2 × panel sockets boiler/pump (C5), each with its screw holes. | S3, C4, C5 |
+| R8 | **Back, low-voltage part:** 1 × 3.5 mm jack socket for the temperature sensor (C3). | S3, C3 |
 
 ## Hardware & replaceability
 | ID | Requirement | Source |
@@ -32,7 +32,7 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 ## Construction
 | ID | Requirement | Source |
 |---|---|---|
-| R11 | The **top lid** opens for access to the RPI part. The **bottom** opens for access to the MAINS part. | I1, S1 |
+| R11 | The **top lid** opens for access to the low-voltage part. The **bottom** opens for access to the high-voltage part. | I1, S1 |
 | R12 | Screw joints use **brass heat-set inserts + screws**, with as few different sizes as possible. | I1 |
 | R13 | **Easily FDM-printable**: no tiny details, **single filament/colour**, **minimum number of printed parts**. | I1 |
 | R14 | **Parametric**: every uncertain dimension is a named parameter with a documented default. | I1 |
@@ -42,6 +42,7 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 | R19 | Freestanding on a table, on **adhesive rubber feet**. | I2-Q6 |
 | R20 | **Raised labels** (switch and socket names, logo) that can be painted with a touch-up pen. | I2-Q7 |
 | R21 | Each printed part fits in **200 × 200 × 200 mm**. | I2-Q8 |
+| R22 | Each lid ↔ wall connection has an **interlocking feature** (groove / notch / lip) so the joint is stronger than with screws alone. | I4 |
 
 ## Safety
 | ID | Requirement | Source |
@@ -59,7 +60,7 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 - **A4** Fastener set: **M3** inserts + screws for everything (lids, divider, relay board, power adapter, IEC inlet, sockets via M3 + washer in their Ø4.5 holes). **M2.5** only for the Pi, because its holes (Ø2.75) do not take M3.
 - **A5** No Pi ports are exposed. Network via Wi-Fi, and Pi access by opening the top lid.
 - **A6** The Pi is powered from the USB-C adapter (C2) through the divider feed-through (Pi 3 needs a USB-C → micro-USB cable).
-- **A7** Passive ventilation slots in the RPI part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
+- **A7** Passive ventilation slots in the low-voltage part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
 - **A8** Freestanding on a table, with no wall mount.
 - **A9** USB-C adapter: mounting-hole position unknown → held by a fence + 2 cable ties. A screw fixing is added once the hole is measured (C2).
 
@@ -67,4 +68,4 @@ Status: **complete (2026-10-19)**, updated after the spec v0.1 review (round 3, 
 - None blocking. **Relay board dimensions (Q2)**: measure on arrival and update parameters `relay_board`, `relay_holes`.
 
 ## Answered (round 2)
-Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21
+Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21 · round 4 → R2 (names), R22

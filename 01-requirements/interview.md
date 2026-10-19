@@ -40,3 +40,14 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 - v0.1 shifted the boards because the Pi's insert bosses (4 mm under the plate) would have left only ≈ 0.5 mm above the relay board's solder joints with 6 mm relay standoffs. Fix: **10 mm relay standoffs** → boards **stacked** as in sketch S1.
 - v0.1 put the adapter on the bottom lid because its mounting hole is unknown and a holder on a lid is easy. No hard reason. Moving it **under the divider next to the relay board** puts all electronics on one removable module, keeps the bottom lid a plain plate, and the adapter no longer hangs on its wires when the bottom is opened.
 - Jack: clamped between a front nut and a hex nut → wall locally thinned to 2 mm (thread length unknown).
+
+## Round 4: review of spec draft v0.2 (2026-10-19)
+
+**User input** (verbatim):
+- *Please also add another sectional cut, similar to A-A but looking at it from front/back.* → section C-C added (v0.2 drawings).
+- *Add a groove/notch/... on the connection lid <-> outer wall to make the connection stronger (if not already planned, it's just not visible in the drawings).* → was not planned. New R22.
+- *Rename the RPI part to 'low-voltage part' and the mains part to 'high-voltage part'.* → R2 and all documents renamed.
+
+**Decisions** (Claude, spec v0.3):
+- Top: **rebate**. The outer 1.5 mm of the wall rises 3 mm above the lid seat as a rim, and the lid drops in flush. This keeps the top lid printable outer-face-up with the raised logo.
+- Bottom: **locating lip** (2 × 4 mm) on the bottom lid, reaching inside the walls. A rebate there would leave the corner columns starting in mid-air when the body is printed upright.
