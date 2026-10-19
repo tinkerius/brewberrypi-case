@@ -27,7 +27,7 @@ Values marked **(drawing)** are read from a dimensioned drawing. **(photo)** = f
 - Rated **10 A 250 V~**.
 - Panel cutout ≈ 27.5 × 31.5 mm with corner radius ≈ 4 mm **(derived)**.
 
-## C5: Panel-mount earthed power socket (Schuko type), 16 A, 2P+E, with hinged cover
+## C5: Panel-mount earthed power socket (Schuko type), 16 A, 2P+E, with hinged cover. Picture: [component-C5-power-socket.png](component-C5-power-socket.png)
 Manufacturer drawing (St. Martin im Innkreis, Austria), 1:1 table:
 
 | Dim | Meaning | mm |
@@ -41,13 +41,14 @@ Manufacturer drawing (St. Martin im Innkreis, Austria), 1:1 table:
 | g | body Ø = panel cutout | **43** |
 | h | mounting holes | **Ø4.5** (M4) |
 
-## C6: Rocker switch, 2-position I/0, illuminated, splash-proof boot (main switch)
+## C6: Rocker switch, 2-position I/0, illuminated, splash-proof boot (main switch). Picture: [component-C6-rocker-switch-2pos.png](component-C6-rocker-switch-2pos.png)
 - Front bezel **35.3 × 29 mm** (boot 22.4 wide), bezel height **4 mm** **(drawing)**.
 - Body **26 × 21.7 mm**, depth **15.1 mm** + terminals **10.2 mm** (6.3 mm tabs), 4 pins **(drawing)**.
 - **Panel cutout 27 × 22 mm** **(drawing)**. Snap-in clips.
 
-## C7: Rocker switch, 3-position I/0/II, illuminated, splash-proof boot (boiler + pump, 2 ×)
-- Front bezel **35 × 21 mm** (rocker 25.5), total height incl. terminals **40.5 mm**, terminal length 9.5 mm, 6 pins **(drawing)**.
+## C7: Rocker switch, 3-position I/0/II, illuminated, splash-proof boot (boiler + pump, 2 ×). Picture: [component-C7-rocker-switch-3pos.png](component-C7-rocker-switch-3pos.png)
+- Front bezel **35 mm** long (rocker 25.5) **(drawing)**. Short side ≈ **26.7 mm**, scaled from the side view (the 21 mm dimension there is the body, not the bezel).
+- Total height incl. terminals **40.5 mm**, terminal length 9.5 mm, 6 pins **(drawing)**.
 - **Panel cutout 28.5 × 21.5 mm** **(drawing)**. Snap-in clips.
 
 ## C8: Raspberry Pi (not pictured, public data)
