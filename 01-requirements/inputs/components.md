@@ -3,17 +3,17 @@
 Values marked **(drawing)** are read from a dimensioned drawing. **(photo)** = from a product photo with dimension arrows.
 **(assumed)** = not in the material, typical value. Must be confirmed or measured, and becomes a parameter.
 
-## C1: 4-channel relay module (main relay board)
+## C1: 4-channel relay module (main relay board). Picture: [component-C1-relay-board.png](component-C1-relay-board.png)
 - 4 × SONGLE **SRD-05VDC-SL-C** relays, rated **10 A 250 VAC / 10 A 30 VDC**. High/low-level trigger jumpers.
 - Screw terminals: control (DC+, DC−, IN1–IN4) on one long edge; NO/COM/NC per relay on the other long edge.
 - 4 corner mounting holes.
 - Board size ≈ 75 × 55 mm, hole spacing ≈ 69 × 49 mm, hole Ø ≈ 3.1 mm, height incl. relays ≈ 19 mm **(assumed, must be measured)**.
 
-## C2: USB-C PD power adapter, model **ZQ-P3020C** ("PD Charger")
+## C2: USB-C PD power adapter, model **ZQ-P3020C** ("PD Charger"). Picture: [component-C2-usb-c-adapter.png](component-C2-usb-c-adapter.png)
 - Input 100–240 V~ 50/60 Hz 0.8 A. Output USB-C PD max 30 W (5 V 3 A, 9 V 3 A, 12 V 2.5 A, 15 V 2 A, 20 V 1.5 A).
 - Size **50 × 49 × 27 mm (photo)**. Flying mains leads (brown/blue) with WAGO 221 connectors. One through-hole lug for a screw on top.
 - Made for mounting inside a wall/junction box.
-- From the photo: the **USB-C port** is on a 50 × 49 face (near one edge, centred). The **mains leads** come out of a 49 × 27 side face. Mounting-hole position and size **not measurable** from the photo.
+- From the photo: the **USB-C port** is on a 50 × 49 face (near one edge, centred). The **mains leads** come out of a 49 × 27 side face. The mounting hole sits near the top-right corner of the port face and appears to run through the 27 mm depth. Exact position and size **not measurable** from the photo (A9).
 
 ## C3: 3.5 mm panel-mount jack socket (temperature sensor). Picture: [component-C3-jack-socket.png](component-C3-jack-socket.png)
 - Overall length **20 mm**, front part **10 mm**, jack opening **3.5 mm (photo)**. Solder lugs at the back.
