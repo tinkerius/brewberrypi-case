@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.7 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.8 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -72,10 +72,6 @@ adapter_pos = [123, 61];
 // P30 adapter mounting hole [x, y] relative to the adapter corner; [] = none (measure on arrival)
 adapter_screw = [];
 
-/* [Bottom lid] */
-// P33 feet marking pockets [diameter, depth]: diameter = foot Ø + about 0.5
-feet = [13, 0.6];
-
 /* [Top lid] */
 // P20 fan mount in the top lid: 0 = none
 fan = 0; // [0, 30, 40]
@@ -143,7 +139,6 @@ front_label_z = 12;  back_label_z = 4;  temp_label_z = 82;   // F5, F8 baselines
 logo = "BrewberryPi";  logo_size = 12.6;  // F21: OpenSCAD text size 12.6 → capitals ≥ 12 mm
 logo_raise = 0.8;  logo_pos = [95, 30];   // F21
 fan_pos = [72, 79];                       // F22
-feet_inset = 20;                          // F32 feet centres 20 mm in from the outer edges
 m3_clear = 3.4;                           // screw through-holes
 
 $fa = 4;  $fs = 0.4;
