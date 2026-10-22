@@ -1,12 +1,12 @@
-# tools/check.sh output, 2026-10-22, model from spec v0.6
+# tools/check.sh output, 2026-10-22, model from spec v0.7
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-assembly.stl
    Min X =  0.000000, Max X =  190.000000
    Min Y = -4.000000, Max Y =  181.009995
    Min Z = -3.000000, Max Z =  123.800003
-   Number of facets                 : 30612               30612
-   Number of parts       :    20        Volume   :  1078649.625000
+   Number of facets                 : 32052               32052
+   Number of parts       :    20        Volume   :  1078333.125000
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -31,8 +31,8 @@
    Min X =  0.000000, Max X =  190.000000
    Min Y =  0.000000, Max Y =  160.000000
    Min Z =  0.000000, Max Z =  7.000000
-   Number of facets                 :   780                 780
-   Number of parts       :     1        Volume   :  95850.578125
+   Number of facets                 :  2220                2220
+   Number of parts       :     1        Volume   :  95532.406250
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -185,7 +185,11 @@
    sloped               area     7.0 mm²  x  187.0… 190.0  y  110.9… 113.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y  118.9… 121.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y  118.9… 121.1  z  109.6… 110.0
-== 04-stl/brewberrypi-case-bottom_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
+== 04-stl/brewberrypi-case-bottom_lid.stl: 4 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
+   flat (bridge/ledge)  area   132.6 mm²  x   13.5…  26.5  y   13.5…  26.5  z    0.6…   0.6
+   flat (bridge/ledge)  area   132.6 mm²  x  163.5… 176.5  y   13.5…  26.5  z    0.6…   0.6
+   flat (bridge/ledge)  area   132.6 mm²  x   13.5…  26.5  y  133.5… 146.5  z    0.6…   0.6
+   flat (bridge/ledge)  area   132.6 mm²  x  163.5… 176.5  y  133.5… 146.5  z    0.6…   0.6
 == 04-stl/brewberrypi-case-divider.stl: 4 region(s) ≥ 5 mm², 3 tiny (2.4 mm² in total)
    flat (bridge/ledge)  area    10.1 mm²  x   96.7… 100.3  y   99.7… 103.3  z    6.5…   6.5
    flat (bridge/ledge)  area    10.1 mm²  x   96.7… 100.3  y   50.7…  54.3  z    6.5…   6.5
