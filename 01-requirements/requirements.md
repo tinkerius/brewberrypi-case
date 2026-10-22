@@ -1,6 +1,6 @@
 # Requirements
 
-Status: **complete (2026-10-19)**, updated after the spec reviews (rounds 3 and 4, `I3`, `I4`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
+Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6, `I3`, `I4`, `I6`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
  Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8` (see `inputs/`).
 
 ## Purpose
@@ -19,9 +19,9 @@ Status: **complete (2026-10-19)**, updated after the spec reviews (rounds 3 and 
 ## Openings
 | ID | Requirement | Source |
 |---|---|---|
-| R6 | **Front, high-voltage part:** 1 × main switch (C6, I/0) + 2 × switches boiler/pump (C7, I/0/II), side by side. | S2, C6, C7 |
-| R7 | **Back, high-voltage part:** 1 × IEC C14 inlet with fuse (C4) + 2 × panel sockets boiler/pump (C5), each with its screw holes. | S3, C4, C5 |
-| R8 | **Back, low-voltage part:** 1 × 3.5 mm jack socket for the temperature sensor (C3). | S3, C3 |
+| R6 | **Front, high-voltage part:** 1 × main switch (C6, I/0) + 2 × switches boiler/pump (C7, I/0/II), side by side. Order seen from the top, left to right: **mains, boiler (heater), pump**. | S2, C6, C7, I6 |
+| R7 | **Back, high-voltage part:** 1 × IEC C14 inlet with fuse (C4) + 2 × panel sockets boiler/pump (C5), each with its screw holes. Order seen from the top, left to right: **mains inlet, boiler (heater), pump**, the same as the switches at the front. | S3, C4, C5, I6 |
+| R8 | **Back, low-voltage part:** 1 × 3.5 mm jack socket for the temperature sensor (C3), above the power inlet. | S3, C3, I6 |
 
 ## Hardware & replaceability
 | ID | Requirement | Source |

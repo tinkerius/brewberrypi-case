@@ -57,3 +57,12 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 **User** (verbatim):
 - *Why is the hole for the temp sensor jack in a drop shape?* → Claude: FDM rule 3 (teardrop holes in vertical walls print without support; the point is hidden under the Ø10 front nut). Offered a round hole as an option.
 - *OpenSCAD models look fine to me. Go on with the generation.* → model accepted including the v0.4 corrections; teardrop jack hole kept.
+
+## Round 6: change request after the STLs (2026-10-22)
+
+**User** (verbatim): *Align the order of switches (front) and outlets/inputs (back). Looking from the top, the order shall be Mains, heater, pump (left to right).*
+
+**Decisions** (Claude, spec v0.5):
+- Front was already MAIN, BOILER, PUMP from the left. The back was reversed (PUMP, BOILER, POWER) → back panel mirrored: POWER x 155 → 35, BOILER 100 → 90, PUMP 45 → 145.
+- The temperature jack moves with the inlet (x 155 → 35), so it stays above the power inlet as in sketch S3 and away from the PUMP socket's flip cover. To be confirmed.
+- "Heater" = the boiler. Labels stay "BOILER".

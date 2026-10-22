@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.4"
+SPEC_VERSION = "0.5"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -40,10 +40,10 @@ SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth 
     ("PUMP", 150, 21.5, 28.5, 26.7, 35, 48),
 ]
 Z_BACK = 38                        # back panel component centre height
-IEC = dict(x=155, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
-SOCKETS = [("BOILER", 100), ("PUMP", 45)]            # x centres; cutout Ø43 flat-top at r 24
+IEC = dict(x=35, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
+SOCKETS = [("BOILER", 90), ("PUMP", 145)]            # x centres; cutout Ø43 flat-top at r 24
 SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
-JACK = dict(x=155, z=98, d=6, nut=10, pocket=16)
+JACK = dict(x=35, z=98, d=6, nut=10, pocket=16)
 Y_CUT = 85                         # section C-C: through the Pi/relay stack, feed-through and adapter
 
 # --- tiny SVG helper ----------------------------------------------------------
@@ -308,14 +308,15 @@ def section_a():
     s.rect(r["y"], z_pcb - r["pcb"], r["d"], r["pcb"], "#7b1fa2", "#e1bee7", 0.4)
     s.rect(r["y"] + 3, z_pcb - r["pcb"] - r["relays"], r["d"] - 6, r["relays"], "#7b1fa2", sw=0.35, dash="1.5 1")
     s.text(r["y"] + r["d"] / 2, z_pcb - 11, "relays (facing down)", 2.6, "#7b1fa2")
-    # MAIN switch (front), PUMP socket (back)
+    # MAIN switch (front), IEC inlet (back)
     name, _, _, ch, _, bh, depth = SWITCHES[0]
     s.rect(-4, Z_PANEL - bh / 2, 4, bh, PART, sw=0.35, dash="1.5 1")
     s.rect(WALL, Z_PANEL - 13, depth - WALL, 26, PART, sw=0.35, dash="1.5 1")
     s.text(WALL + (depth - WALL) / 2, Z_PANEL, "MAIN switch", 2.6, PART)
-    so = SOCKET
-    s.rect(D - WALL - so["depth"], Z_BACK - so["d"] / 2, so["depth"], so["d"], SOFT, sw=0.35, dash="1.5 1")
-    s.text(D - WALL - so["depth"] / 2, Z_BACK, "PUMP socket", 2.6, SOFT, rot=-90)
+    i = IEC
+    s.rect(D - WALL - i["depth"], Z_BACK - i["ch"] / 2, i["depth"], i["ch"], SOFT, sw=0.35, dash="1.5 1")
+    s.rect(D, Z_BACK - i["fh"] / 2, 3.1, i["fh"], SOFT, sw=0.35, dash="1.5 1")
+    s.text(D - WALL - i["depth"] / 2, Z_BACK, "IEC inlet", 2.6, SOFT, rot=-90)
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
     s.dim_v(z_pcb, HV_H, 0, -10, "10")
     s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "≈28")
@@ -324,7 +325,7 @@ def section_a():
     s.save("section-a-a.svg", [
         "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
         "Pi bosses reach 4 mm under the plate → ≥ 4 mm above the relay board's solder side (10 mm relay standoffs).",
-        "Relay board ↔ switch backs ≥ 3 mm (Y), ↔ socket bodies ≥ 18 mm (Y). Free height above the Pi board ≈ 35 mm."])
+        "Relay board ↔ switch backs ≥ 3 mm (Y), ↔ IEC body ≥ 19 mm (Y). Free height above the Pi board ≈ 35 mm."])
 
 
 def section_b():
@@ -347,17 +348,16 @@ def section_b():
     s.rect(-4, Z_PANEL - bh / 2, 4, bh, PART, sw=0.35, dash="1.5 1")
     s.rect(WALL, Z_PANEL - ch / 2, depth - WALL, ch, PART, sw=0.35, dash="1.5 1")
     s.text(WALL + (depth - WALL) / 2, Z_PANEL, "PUMP switch", 2.6, PART)
-    i = IEC
-    s.rect(D - WALL - i["depth"], Z_BACK - i["ch"] / 2, i["depth"], i["ch"], SOFT, sw=0.35, dash="1.5 1")
-    s.rect(D, Z_BACK - i["fh"] / 2, 3.1, i["fh"], SOFT, sw=0.35, dash="1.5 1")
-    s.text(D - WALL - i["depth"] / 2, Z_BACK, "IEC inlet", 2.6, SOFT, rot=-90)
+    so = SOCKET
+    s.rect(D - WALL - so["depth"], Z_BACK - so["d"] / 2, so["depth"], so["d"], SOFT, sw=0.35, dash="1.5 1")
+    s.text(D - WALL - so["depth"] / 2, Z_BACK, "PUMP socket", 2.6, SOFT, rot=-90)
     s.dim_v(z_bot, HV_H, 0, -10, "27")
     s.dim_v(0, z_bot, 0, -10, "43 free")
     s.dim_h(a["y"], a["y"] + a["d"], H, 6, "adapter 49")
     s.dim_h(depth, a["y"] - 2.5, Z_PANEL + 20, 0)
     s.save("section-b-b.svg", [
         "Adapter hangs 27 mm under the divider in 4 corner brackets (10 high), held by 2 cable ties. Port faces down: 43 mm free for plug + cable.",
-        "Adapter brackets ↔ switch backs ≥ 3 mm (Y), ↔ IEC body ≥ 16 mm (Y)."])
+        "Adapter brackets ↔ switch backs ≥ 3 mm (Y), ↔ PUMP socket body ≥ 18 mm (Y)."])
 
 
 def section_c():
