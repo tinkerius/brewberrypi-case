@@ -76,3 +76,7 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 **User** (verbatim): *Add some markings for rubber feet to the bottom lid.*
 
 **Decision** (Claude, spec v0.7): shallow round pockets Ø13 × 0.6 mm on the outer face at the four foot positions (F32). They mark and centre the feet. A pocket rather than a thin outline groove, because a fine groove on the bed face tends to close up in the first layer. Pocket size is a parameter (P33) for other feet.
+
+## Round 9: rubber feet markings (2026-10-22)
+
+**User** (verbatim): *I don't like them. Remove them again.* → spec v0.8: feet pockets (F32 geometry, P33) and the bottom view drawing removed; F32 is back to positions only.

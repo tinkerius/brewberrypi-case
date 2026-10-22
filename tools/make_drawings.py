@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.7"
+SPEC_VERSION = "0.8"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -24,7 +24,6 @@ H_BODY = H + LID_T                 # 123 body height incl. rim (lid flush with r
 CLR = 0.2                          # P9 fit clearance
 LIP_T, LIP_H = 2, 4                # P32 bottom lid locating lip
 NOTCH_W = 12                       # F16 pry notch, centred on the back wall
-FEET = dict(inset=20, d=13, depth=0.6)   # F32 / P33 feet markings
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
 PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=4,
@@ -472,31 +471,5 @@ def detail_joints():
         "Both: the lids cannot slide or twist. The 4 M3 screws per lid only clamp. Pry notch (F16) in the back rim to lift the top lid."])
 
 
-def bottom():
-    s = Sheet("Bottom view: bottom lid from below (front at bottom, mirrored X: u = 190 - x)", -12, W + 22, -22, D + 14)
-    s.rect(0, 0, W, D, fill="#f4f4f4", rx=4)
-    u = lambda x: W - x
-    for cx in (COL_C, W - COL_C):
-        for cy in (COL_C, D - COL_C):
-            s.circle(u(cx), cy, 1.7, fill="#fff")
-    f = FEET
-    for x in (f["inset"], W - f["inset"]):
-        for y in (f["inset"], D - f["inset"]):
-            s.circle(u(x), y, f["d"] / 2, fill=CUT, sw=0.4)
-            s.text(u(x), y - 1, "foot", 2.6)
-    s.text(W / 2, D / 2, "bottom lid, outer face (printed on the bed)", 3.2, HID)
-    s.text(W / 2, D / 2 - 5, "4 × M3 button head at the corners", 2.8, HID)
-    s.dim_h(0, W, 0, -12)
-    s.dim_v(0, D, W, 12)
-    s.dim_h(0, f["inset"], D, 6)
-    s.dim_h(W - f["inset"], W, D, 6)
-    s.dim_v(0, f["inset"], 0, -6)
-    s.dim_v(D - f["inset"], D, 0, -6)
-    s.dim_h(u(f["inset"]) - f["d"] / 2, u(f["inset"]) + f["d"] / 2, f["inset"] + f["d"] / 2, 8, "Ø13")
-    s.save("bottom-view.svg", [
-        "Grey = foot marking pockets Ø13 × 0.6 deep (F32, P33): they mark and centre adhesive feet up to Ø12.5.",
-        "Feet ≥ 3 mm high stand ≥ 2.4 mm proud of the lid and clear the M3 button heads (1.65 mm)."])
-
-
 if __name__ == "__main__":
-    front(); back(); top(); section_a(); section_b(); section_c(); detail_joints(); bottom()
+    front(); back(); top(); section_a(); section_b(); section_c(); detail_joints()
