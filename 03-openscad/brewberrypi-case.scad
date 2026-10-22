@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.4 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.5 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -127,11 +127,11 @@ switch_z = 40;                            // F3
 switches = [["MAIN", 40, switch_main], ["BOILER", 115, switch_3pos], ["PUMP", 150, switch_3pos]];
 pocket_margin = 8;                        // F3 thinning pocket margin around each cutout
 back_z = 38;                              // F6, F7
-iec_x = 155;                              // F6
-sockets = [["BOILER", 100], ["PUMP", 45]];   // F7
+iec_x = 35;                              // F6
+sockets = [["BOILER", 90], ["PUMP", 145]];   // F7
 socket_flat = 24;                         // F7 flat-top teardrop
 panel_boss = [8, 6];                      // F6/F7 insert bosses behind the back wall [diameter, length]
-jack_pos = [155, 98];  jack_pocket_d = 16;   // F8
+jack_pos = [35, 98];  jack_pocket_d = 16;   // F8
 vent = [11, 3, 30, 8, 40, 80];            // F9 [count, width, length, pitch, first y, bottom z]
 pry_w = 12;                               // F16
 label_size = 6.4;                         // F5, F8: OpenSCAD text size 6.4 → capitals ≥ 6 mm

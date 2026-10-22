@@ -24,8 +24,8 @@ def show(name, pts, axis_up, axis_out, base):
 
 
 body = list(points("04-stl/brewberrypi-case-body.stl"))
-front = [("MAIN", 40), ("BOILER", 115), ("PUMP", 150)]                 # x centres, F5
-back = [("POWER", 155, 20), ("BOILER", 100, 20), ("PUMP", 45, 20), ("TEMP", 155, 200)]   # F8
+front = [("MAIN", 40), ("BOILER", 115), ("PUMP", 150)]                 # x centres, F5 (keep in sync with the model)
+back = [("POWER", 35, 20), ("BOILER", 90, 20), ("PUMP", 145, 20), ("TEMP", 35, 200)]   # F8 (keep in sync with the model)
 for name, x in front:
     half = 10 if name == "MAIN" else 14
     show(name + " (front)", [p for p in body if p[1] < -0.05 and abs(p[0] - x) < half], 2, 1, 0)
