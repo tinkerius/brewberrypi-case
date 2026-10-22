@@ -37,7 +37,6 @@ module lid_screw_holes(z0) {
 }
 
 // ---- bottom lid -----------------------------------------------------------
-// F32 feet positions (20, 20) … have no geometry.
 module bottom_lid() {
     difference() {
         union() {
@@ -45,7 +44,14 @@ module bottom_lid() {
             bottom_lid_lip();                                                               // F33
         }
         lid_screw_holes(-lid_t);                                                            // F30
+        feet_markings();                                                                    // F32
     }
+}
+
+// F32 feet markings: shallow round pockets in the outer face that mark and centre the adhesive feet.
+module feet_markings() {
+    for (x = [feet_inset, case_w - feet_inset], y = [feet_inset, case_d - feet_inset])
+        translate([x, y, -lid_t - 1]) cylinder(d = feet[0], h = feet[1] + 1);
 }
 
 // F33 locating lip inside the walls, interrupted at the corner columns.
