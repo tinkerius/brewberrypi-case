@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.5"
+SPEC_VERSION = "0.6"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -36,12 +36,12 @@ ADAPTER = dict(x=123, y=61, w=50, d=49, h=27, fence=10)                      # F
 Z_PANEL = 40                       # front switch centre height
 SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth behind panel incl. connectors
     ("MAIN", 40, 22, 27, 29, 35.3, 37),
-    ("BOILER", 115, 21.5, 28.5, 26.7, 35, 48),
+    ("HEATER", 115, 21.5, 28.5, 26.7, 35, 48),
     ("PUMP", 150, 21.5, 28.5, 26.7, 35, 48),
 ]
 Z_BACK = 38                        # back panel component centre height
 IEC = dict(x=35, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
-SOCKETS = [("BOILER", 90), ("PUMP", 145)]            # x centres; cutout Ø43 flat-top at r 24
+SOCKETS = [("HEATER", 90), ("PUMP", 145)]            # x centres; cutout Ø43 flat-top at r 24
 SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
 JACK = dict(x=35, z=98, d=6, nut=10, pocket=16)
 Y_CUT = 85                         # section C-C: through the Pi/relay stack, feed-through and adapter

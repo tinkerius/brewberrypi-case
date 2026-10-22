@@ -66,3 +66,7 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 - Front was already MAIN, BOILER, PUMP from the left. The back was reversed (PUMP, BOILER, POWER) → back panel mirrored: POWER x 155 → 35, BOILER 100 → 90, PUMP 45 → 145.
 - The temperature jack moves with the inlet (x 155 → 35), so it stays above the power inlet as in sketch S3 and away from the PUMP socket's flip cover. To be confirmed.
 - "Heater" = the boiler. Labels stay "BOILER".
+
+## Round 7: label text (2026-10-22)
+
+**Claude:** the labels still read "BOILER"; change to "HEATER"? **User** (verbatim): *yes, change to heater* → spec v0.6, labels HEATER front and back.
