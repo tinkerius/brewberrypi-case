@@ -70,3 +70,9 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 ## Round 7: label text (2026-10-22)
 
 **Claude:** the labels still read "BOILER"; change to "HEATER"? **User** (verbatim): *yes, change to heater* → spec v0.6, labels HEATER front and back.
+
+## Round 8: rubber feet (2026-10-22)
+
+**User** (verbatim): *Add some markings for rubber feet to the bottom lid.*
+
+**Decision** (Claude, spec v0.7): shallow round pockets Ø13 × 0.6 mm on the outer face at the four foot positions (F32). They mark and centre the feet. A pocket rather than a thin outline groove, because a fine groove on the bed face tends to close up in the first layer. Pocket size is a parameter (P33) for other feet.
