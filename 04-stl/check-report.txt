@@ -1,12 +1,25 @@
-# tools/check.sh output, 2026-10-22, model from spec v0.5
+# tools/check.sh output, 2026-10-22, model from spec v0.6
 
 ### AC1 / AC2: meshes and bounding boxes
+== 04-stl/brewberrypi-case-assembly.stl
+   Min X =  0.000000, Max X =  190.000000
+   Min Y = -4.000000, Max Y =  181.009995
+   Min Z = -3.000000, Max Z =  123.800003
+   Number of facets                 : 30612               30612
+   Number of parts       :    20        Volume   :  1078649.625000
+   Degenerate facets     :     0
+   Edges fixed           :     0
+   Facets removed        :     0
+   Facets added          :     0
+   Backwards edges       :     0
+   Normals fixed         :     0
+   ok
 == 04-stl/brewberrypi-case-body.stl
    Min X =  0.000000, Max X =  190.000000
    Min Y = -0.599999, Max Y =  160.600006
    Min Z =  0.000000, Max Z =  123.000000
-   Number of facets                 : 20436               20436
-   Number of parts       :     1        Volume   :  264950.968750
+   Number of facets                 : 17756               17756
+   Number of parts       :     1        Volume   :  264960.625000
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -55,7 +68,88 @@
    ok
 
 ### AC6: overhangs steeper than 45° (print orientation, not on the bed)
-== 04-stl/brewberrypi-case-body.stl: 35 region(s) ≥ 5 mm², 103 tiny (138.9 mm² in total)
+== 04-stl/brewberrypi-case-assembly.stl: 80 region(s) ≥ 5 mm², 124 tiny (170.8 mm² in total)
+   flat (bridge/ledge)  area 28052.9 mm²  x    3.0… 187.0  y    3.0… 157.0  z  120.0… 120.0
+   flat (bridge/ledge)  area 25189.6 mm²  x    3.3… 186.7  y    5.3… 154.7  z   70.0…  70.0
+   flat (bridge/ledge)  area  4695.0 mm²  x   17.0… 102.0  y   55.0… 111.0  z   83.0…  83.0
+   flat (bridge/ledge)  area  3381.0 mm²  x   20.0…  89.0  y   61.0… 110.0  z   42.4…  42.4
+   flat (bridge/ledge)  area  2369.0 mm²  x  123.0… 173.0  y   61.0… 110.0  z   43.0…  43.0
+   flat (bridge/ledge)  area  1050.0 mm²  x   65.0… 115.0  y  160.0… 181.0  z   13.0…  13.0
+   flat (bridge/ledge)  area  1050.0 mm²  x  120.0… 170.0  y  160.0… 181.0  z   13.0…  13.0
+   flat (bridge/ledge)  area  1008.0 mm²  x  104.5… 125.5  y    0.0…  48.0  z   26.0…  26.0
+   flat (bridge/ledge)  area  1008.0 mm²  x  139.5… 160.5  y    0.0…  48.0  z   26.0…  26.0
+   sloped               area   897.1 mm²  x   74.5… 105.5  y  134.0… 160.0  z   16.5…  23.1
+   sloped               area   897.1 mm²  x  129.5… 160.5  y  134.0… 160.0  z   16.5…  23.1
+   flat (bridge/ledge)  area   802.9 mm²  x   29.1…  50.9  y    0.0…  37.0  z   27.0…  27.0
+   flat (bridge/ledge)  area   744.0 mm²  x   17.0…  92.0  y   58.0… 113.0  z   58.4…  58.4
+   sloped               area   732.8 mm²  x   21.8…  48.2  y  132.4… 160.0  z   22.5…  22.8
+   flat (bridge/ledge)  area   320.0 mm²  x   15.0… 175.0  y    3.3…   5.3  z   64.0…  64.0
+   flat (bridge/ledge)  area   320.0 mm²  x   15.0… 175.0  y  154.7… 156.7  z   64.0…  64.0
+   flat (bridge/ledge)  area   135.8 mm²  x   13.1…  56.9  y  160.0… 163.1  z   21.6…  21.6
+   flat (bridge/ledge)  area   115.7 mm²  x   25.5…  54.5  y   -4.0…  -0.0  z   22.4…  22.4
+   flat (bridge/ledge)  area   106.5 mm²  x  136.7… 163.3  y   -4.0…  -0.0  z   22.5…  22.5
+   flat (bridge/ledge)  area   106.5 mm²  x  101.7… 128.3  y   -4.0…  -0.0  z   22.5…  22.5
+   sloped               area    82.4 mm²  x   21.3…  48.7  y  157.0… 160.0  z   53.7…  54.0
+   flat (bridge/ledge)  area    81.0 mm²  x  143.5… 152.5  y   81.0…  90.0  z   13.0…  13.0
+   sloped               area    78.9 mm²  x   31.7…  38.1  y  145.0… 156.0  z   93.5…  94.9
+   flat (bridge/ledge)  area    72.9 mm²  x   96.0… 168.9  y    2.0…   3.0  z   62.5…  62.5
+   flat (bridge/ledge)  area    44.8 mm²  x   28.8…  51.2  y    0.0…   2.0  z   53.7…  53.7
+   flat (bridge/ledge)  area    44.0 mm²  x  120.5… 132.5  y   58.5…  70.5  z   60.0…  60.0
+   flat (bridge/ledge)  area    44.0 mm²  x  120.5… 132.5  y  100.5… 112.5  z   60.0…  60.0
+   flat (bridge/ledge)  area    44.0 mm²  x  163.5… 175.5  y   58.5…  70.5  z   60.0…  60.0
+   flat (bridge/ledge)  area    44.0 mm²  x  163.5… 175.5  y  100.5… 112.5  z   60.0…  60.0
+   flat (bridge/ledge)  area    43.8 mm²  x  104.0… 126.0  y    0.0…   2.0  z   54.5…  54.5
+   flat (bridge/ledge)  area    43.8 mm²  x  139.1… 160.9  y    0.0…   2.0  z   54.5…  54.5
+   flat (bridge/ledge)  area    40.1 mm²  x   83.3…  96.7  y  157.0… 160.0  z   62.0…  62.0
+   flat (bridge/ledge)  area    40.1 mm²  x  138.3… 151.7  y  157.0… 160.0  z   62.0…  62.0
+   flat (bridge/ledge)  area    38.4 mm²  x   95.0… 102.0  y  104.0… 111.0  z   66.0…  66.0
+   flat (bridge/ledge)  area    38.4 mm²  x   95.0… 102.0  y   55.0…  62.0  z   66.0…  66.0
+   flat (bridge/ledge)  area    38.4 mm²  x   37.0…  44.0  y  104.0… 111.0  z   66.0…  66.0
+   flat (bridge/ledge)  area    38.4 mm²  x   37.0…  44.0  y   55.0…  62.0  z   66.0…  66.0
+   flat (bridge/ledge)  area    38.4 mm²  x   20.8…  59.2  y    2.0…   3.0  z   61.7…  61.7
+   flat (bridge/ledge)  area    37.7 mm²  x   16.0…  24.0  y   57.0…  65.0  z   60.0…  60.0
+   flat (bridge/ledge)  area    37.7 mm²  x   85.0…  93.0  y   57.0…  65.0  z   60.0…  60.0
+   flat (bridge/ledge)  area    37.7 mm²  x   16.0…  24.0  y  106.0… 114.0  z   60.0…  60.0
+   flat (bridge/ledge)  area    37.7 mm²  x   85.0…  93.0  y  106.0… 114.0  z   60.0…  60.0
+   sloped               area    23.9 mm²  x   31.4…  38.5  y  160.0… 163.0  z   93.0…  94.6
+   flat (bridge/ledge)  area    16.2 mm²  x   96.0… 101.0  y   56.3…  60.7  z   73.0…  73.0
+   flat (bridge/ledge)  area    16.2 mm²  x   96.0… 101.0  y  105.3… 109.7  z   73.0…  73.0
+   flat (bridge/ledge)  area    16.2 mm²  x   38.0…  43.0  y   56.3…  60.7  z   73.0…  73.0
+   flat (bridge/ledge)  area    16.2 mm²  x   38.0…  43.0  y  105.3… 109.7  z   73.0…  73.0
+   sloped               area    12.8 mm²  x   29.2…  40.8  y  157.0… 158.0  z  103.6… 106.0
+   flat (bridge/ledge)  area    12.5 mm²  x   87.0…  91.0  y   59.0…  63.0  z   66.5…  66.5
+   flat (bridge/ledge)  area    12.5 mm²  x   87.0…  91.0  y  108.0… 112.0  z   66.5…  66.5
+   flat (bridge/ledge)  area    12.5 mm²  x   18.0…  22.0  y   59.0…  63.0  z   66.5…  66.5
+   flat (bridge/ledge)  area    12.5 mm²  x   18.0…  22.0  y  108.0… 112.0  z   66.5…  66.5
+   flat (bridge/ledge)  area    12.5 mm²  x  181.0… 185.0  y  151.0… 155.0  z    6.5…   6.5
+   flat (bridge/ledge)  area    12.5 mm²  x  181.0… 185.0  y    5.0…   9.0  z    6.5…   6.5
+   flat (bridge/ledge)  area    12.5 mm²  x    5.0…   9.0  y  151.0… 155.0  z    6.5…   6.5
+   flat (bridge/ledge)  area    12.5 mm²  x    5.0…   9.0  y    5.0…   9.0  z    6.5…   6.5
+   flat (bridge/ledge)  area    11.9 mm²  x   32.0…  38.0  y  156.0… 158.0  z   92.8…  92.8
+   sloped               area     9.5 mm²  x   32.9…  37.1  y  158.0… 160.0  z   95.0…  95.9
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   38.9…  41.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   38.9…  41.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   46.9…  49.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   46.9…  49.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   54.9…  57.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   54.9…  57.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   62.9…  65.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   62.9…  65.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   70.9…  73.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   70.9…  73.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   78.9…  81.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   78.9…  81.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   86.9…  89.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   86.9…  89.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   94.9…  97.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   94.9…  97.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y  102.9… 105.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y  102.9… 105.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y  110.9… 113.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y  110.9… 113.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y  118.9… 121.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y  118.9… 121.1  z  109.6… 110.0
+== 04-stl/brewberrypi-case-body.stl: 35 region(s) ≥ 5 mm², 111 tiny (141.9 mm² in total)
    sloped               area    82.4 mm²  x   21.3…  48.7  y  157.0… 160.0  z   53.7…  54.0
    flat (bridge/ledge)  area    72.9 mm²  x   96.0… 168.9  y    2.0…   3.0  z   62.5…  62.5
    flat (bridge/ledge)  area    44.8 mm²  x   28.8…  51.2  y    0.0…   2.0  z   53.7…  53.7
@@ -101,10 +195,10 @@
 
 ### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)
    MAIN (front) capitals  6.12 mm   raised 0.60 mm
-   BOILER (front) capitals  6.29 mm   raised 0.60 mm
+   HEATER (front) capitals  6.12 mm   raised 0.60 mm
    PUMP (front) capitals  6.20 mm   raised 0.60 mm
    POWER (back) capitals  6.29 mm   raised 0.60 mm
-   BOILER (back) capitals  6.29 mm   raised 0.60 mm
+   HEATER (back) capitals  6.12 mm   raised 0.60 mm
    PUMP (back) capitals  6.20 mm   raised 0.60 mm
    TEMP (back) capitals  6.12 mm   raised 0.60 mm
    logo 'B' capitals 12.04 mm   raised 0.80 mm
@@ -115,10 +209,10 @@
 ### AC4 / AC5: dimensions as modelled
    F1 body 190 x 160 x 123, lid seat z = 120, divider 70…73
    F3 MAIN cutout [22.4, 27.4] at x = 40, z = 40
-   F3 BOILER cutout [21.9, 28.9] at x = 115, z = 40
+   F3 HEATER cutout [21.9, 28.9] at x = 115, z = 40
    F3 PUMP cutout [21.9, 28.9] at x = 150, z = 40
    F6 IEC cutout [27.9, 31.9] r1 at x = 35, z = 38, screws 36 apart
-   F7 BOILER socket Ø43.4 flat top at 24, at x = 90, z = 38, holes □38
+   F7 HEATER socket Ø43.4 flat top at 24, at x = 90, z = 38, holes □38
    F7 PUMP socket Ø43.4 flat top at 24, at x = 145, z = 38, holes □38
    F8 jack Ø6.4 at x = 35, z = 98
    F11 Pi holes [[98.5, 58.5], [98.5, 107.5], [40.5, 58.5], [40.5, 107.5]]
