@@ -24,14 +24,15 @@ def show(name, pts, axis_up, axis_out, base):
 
 
 body = list(points("04-stl/brewberrypi-case-body.stl"))
-front = [("MAIN", 40), ("BOILER", 115), ("PUMP", 150)]                 # x centres, F5 (keep in sync with the model)
-back = [("POWER", 35, 20), ("BOILER", 90, 20), ("PUMP", 145, 20), ("TEMP", 35, 200)]   # F8 (keep in sync with the model)
+front = [("MAIN", 40), ("HEATER", 115), ("PUMP", 150)]                 # x centres, F5 (keep in sync with the model)
+back = [("POWER", 35, 20), ("HEATER", 90, 20), ("PUMP", 145, 20), ("TEMP", 35, 200)]   # F8 (keep in sync with the model)
 for name, x in front:
-    half = 10 if name == "MAIN" else 14
+    half = {"MAIN": 10, "HEATER": 18}.get(name, 14)
     show(name + " (front)", [p for p in body if p[1] < -0.05 and abs(p[0] - x) < half], 2, 1, 0)
 for name, x, zmax in back:
     zmin = 70 if name == "TEMP" else 0
-    show(name + " (back)", [p for p in body if p[1] > 160.05 and abs(p[0] - x) < 14 and zmin < p[2] < zmax], 2, 1, 160)
+    half = 18 if name in ("HEATER", "POWER") else 14
+    show(name + " (back)", [p for p in body if p[1] > 160.05 and abs(p[0] - x) < half and zmin < p[2] < zmax], 2, 1, 160)
 lid = [p for p in points("04-stl/brewberrypi-case-top_lid.stl") if p[2] > 3.05]
 x0 = min(p[0] for p in lid)
 show("logo 'B'", [p for p in lid if p[0] < x0 + 8], 1, 2, 3)

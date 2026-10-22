@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.5 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.6 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -124,11 +124,11 @@ slot = [111, 85, 14, 46];                 // F13 feed-through [cx, cy, w, l]
 bracket = [12, 2, 10];  adapter_clear = 0.5;  // F14 L-brackets [leg, thickness, height]
 tie_slot = [5.5, 2.5];  tie_x = [15, 35];     // F14 tie slots, adapter-local x positions
 switch_z = 40;                            // F3
-switches = [["MAIN", 40, switch_main], ["BOILER", 115, switch_3pos], ["PUMP", 150, switch_3pos]];
+switches = [["MAIN", 40, switch_main], ["HEATER", 115, switch_3pos], ["PUMP", 150, switch_3pos]];
 pocket_margin = 8;                        // F3 thinning pocket margin around each cutout
 back_z = 38;                              // F6, F7
 iec_x = 35;                              // F6
-sockets = [["BOILER", 90], ["PUMP", 145]];   // F7
+sockets = [["HEATER", 90], ["PUMP", 145]];   // F7
 socket_flat = 24;                         // F7 flat-top teardrop
 panel_boss = [8, 6];                      // F6/F7 insert bosses behind the back wall [diameter, length]
 jack_pos = [35, 98];  jack_pocket_d = 16;   // F8
