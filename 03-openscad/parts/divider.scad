@@ -9,14 +9,13 @@ module divider() {
             divider_ribs();                                                         // F10
             pi_bosses();                                                            // F11
             relay_standoffs();                                                      // F12
-            adapter_brackets();                                                     // F14
+            adapter_standoffs();                                                    // F14
         }
         divider_screw_holes();                                                      // F10
         pi_inserts();                                                               // F11
         relay_inserts();                                                            // F12
         feedthrough_slot();                                                         // F13
-        tie_slots();                                                                // F14
-        adapter_screw_hole();                                                       // F14 (P30)
+        adapter_inserts();                                                          // F14
     }
 }
 
@@ -67,32 +66,15 @@ module feedthrough_slot() {
         hull() for (dy = [-1, 1]) translate([0, dy * (slot[3] - slot[2]) / 2]) circle(d = slot[2]);
 }
 
-// F14 adapter holder: 4 L-shaped corner brackets around the adapter footprint.
-module adapter_brackets() {
-    for (mx = [0, 1], my = [0, 1])
-        translate([adapter_pos.x + mx * adapter.x, adapter_pos.y + my * adapter.y, hv_h - bracket.z])
-            scale([mx ? -1 : 1, my ? -1 : 1, 1]) adapter_bracket();
+// F14 adapter: 2 printed standoffs under its two diagonal mounting holes, M3 inserts from the tip.
+module adapter_standoffs() {
+    for (h = adapter_holes)
+        translate([adapter_pos.x + h.x, adapter_pos.y + h.y, hv_h - adapter_standoff_h])
+            cylinder(d = adapter_standoff_d, h = adapter_standoff_h + 0.01);
 }
 
-module adapter_bracket() {       // lower-left corner, inner faces adapter_clear away from the adapter
-    o = adapter_clear + bracket.y;
-    translate([-o, -o, 0]) {
-        cube([bracket.x, bracket.y, bracket.z + 0.01]);
-        cube([bracket.y, bracket.x, bracket.z + 0.01]);
-    }
-}
-
-// F14 tie slots through the plate, next to the adapter's front and back faces.
-module tie_slots() {
-    for (tx = tie_x, side = [0, 1]) {
-        y = side == 0 ? adapter_pos.y - adapter_clear - tie_slot.y : adapter_pos.y + adapter.y + adapter_clear;
-        translate([adapter_pos.x + tx - tie_slot.x / 2, y, hv_h - 1]) cube([tie_slot.x, tie_slot.y, divider_t + 2]);
-    }
-}
-
-// F14 / P30 optional through-hole for an M3 screw through the adapter's own hole (nut on top).
-module adapter_screw_hole() {
-    if (len(adapter_screw) == 2)
-        translate([adapter_pos.x + adapter_screw.x, adapter_pos.y + adapter_screw.y, hv_h - 1])
-            cylinder(d = m3_clear, h = divider_t + 2);
+module adapter_inserts() {
+    for (h = adapter_holes)
+        translate([adapter_pos.x + h.x, adapter_pos.y + h.y, hv_h - adapter_standoff_h - 1])
+            cylinder(d = insert_m3[0], h = adapter_insert_depth + 1);
 }

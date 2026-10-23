@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.10 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.11 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -69,8 +69,10 @@ relay_standoff_h = 10;
 adapter = [51, 49, 27];
 // P29 adapter corner (x, y)
 adapter_pos = [123, 61];
-// P30 adapter mounting hole [x, y] relative to the adapter corner (measured); [] = none
-adapter_screw = [43, 45.5];
+// P30 the adapter's two mounting holes (diagonal) [x, y] relative to the adapter corner (measured)
+adapter_holes = [[43, 45.5], [8, 3.5]];
+// P34 gap between divider and adapter (standoffs); M3 x 30 = 22 through the adapter + 8 into standoff and plate
+adapter_standoff_h = 6;
 
 /* [Top lid] */
 // P20 fan mount in the top lid: 0 = none
@@ -122,8 +124,7 @@ pi_standoff = 10;                         // F11 bought brass standoffs
 relay_standoff_d = 8;                     // F12
 relay_h = 17;  relay_pins = 3;            // C1 measured: PCB underside → relay tops, solder pins (envelope only)
 slot = [111, 85, 14, 46];                 // F13 feed-through [cx, cy, w, l]
-bracket = [12, 2, 10];  adapter_clear = 0.5;  // F14 L-brackets [leg, thickness, height]
-tie_slot = [5.5, 2.5];  tie_x = [15, 35];     // F14 tie slots, adapter-local x positions
+adapter_standoff_d = 8;  adapter_insert_depth = 8.5;   // F14 standoffs, insert hole depth from the tip (M3 x 30)
 switch_z = 40;                            // F3
 switches = [["MAIN", 40, switch_main, switch_panel_t[0]], ["HEATER", 115, switch_3pos, switch_panel_t[1]],
             ["PUMP", 150, switch_3pos, switch_panel_t[1]]];   // name, x, cutout, wall at the clips
@@ -190,7 +191,7 @@ if (part != "collision_check") {
     echo(str("REPORT F6 IEC cutout ", [iec_cutout.x, iec_cutout.y] + c2, " r", iec_cutout[2], " at x = ", iec_x, ", z = ", back_z, ", screws ", iec_screw_spacing, " apart"));
     for (s = sockets) echo(str("REPORT F7 ", s[0], " socket Ø", socket_d + 2 * fit_clearance, " flat top at ", socket_flat, ", at x = ", s[1], ", z = ", back_z, ", holes □", socket_holes));
     echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
-    echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, ", screw hole at ", adapter_pos + adapter_screw));
+    echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, " on ", adapter_standoff_h, " mm standoffs at ", [for (h = adapter_holes) adapter_pos + h]));
     echo(str("REPORT inserts: M3 hole ", insert_m3, " (case), M2.5 hole ", insert_m25, " (Pi, relay board)"));
     echo(str("REPORT F11 Pi holes ", pi_hole_positions()));
     echo(str("REPORT F12 relay holes ", relay_hole_positions()));

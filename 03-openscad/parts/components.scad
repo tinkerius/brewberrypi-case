@@ -18,9 +18,10 @@ module relay_envelope() {                         // C1 + F12: PCB on the stando
     }
 }
 
-module adapter_envelope() {                       // C2 + F14: adapter against the plate, USB-C plug + cable below
-    translate([adapter_pos.x, adapter_pos.y, hv_h - adapter.z]) cube([adapter.x, adapter.y, adapter.z - 0.01]);
-    translate([adapter_pos.x + adapter.x / 2 - 4.5, adapter_pos.y + adapter.y / 2 - 4.5, hv_h - adapter.z - 30])
+module adapter_envelope() {                       // C2 + F14: adapter on its standoffs, USB-C plug + cable below
+    z_top = hv_h - adapter_standoff_h - 0.01;      // 0.01 off the standoff tips: touching is not a collision
+    translate([adapter_pos.x, adapter_pos.y, z_top - adapter.z]) cube([adapter.x, adapter.y, adapter.z]);
+    translate([adapter_pos.x + adapter.x / 2 - 4.5, adapter_pos.y + adapter.y / 2 - 4.5, z_top - adapter.z - 30])
         cube([9, 9, 30]);
 }
 
