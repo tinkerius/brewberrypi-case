@@ -1,4 +1,4 @@
-# tools/check.sh output, 2026-10-23, model from spec v0.17
+# tools/check.sh output, 2026-10-23, model from spec v0.18
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-body.stl
@@ -31,8 +31,8 @@
    Min X =  3.300003, Max X =  186.699997
    Min Y =  3.300000, Max Y =  156.699997
    Min Z =  0.000000, Max Z =  13.000000
-   Number of facets                 :  4764                4764
-   Number of parts       :     1        Volume   :  87657.007812
+   Number of facets                 :  4896                4896
+   Number of parts       :     1        Volume   :  87753.984375
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -124,4 +124,4 @@
    F14 adapter [51, 49, 27] at [123, 61] on 6 mm standoffs: inserts at [[161, 64.5], [136, 106.5]], solid at [[136, 64.5], [161, 106.5]]
    inserts: M3 hole [4, 7] (case), M2.5 hole [3.2, 6] (Pi, relay board)
    F11 Pi holes [[92.5, 41], [43.5, 41], [92.5, 99], [43.5, 99]]
-   F12 relay holes [[45, 45], [45, 115], [91, 45], [91, 115]]
+   F12 relay holes [[29.5, 57], [29.5, 103], [99.5, 57], [99.5, 103]]
