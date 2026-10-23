@@ -15,9 +15,9 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | Stage | State | Notes |
 |---|---|---|
 | 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10) |
-| 2. Specification | done | **v0.14 approved** 2026-10-23, no open questions |
-| 3. OpenSCAD | done | from spec v0.14: 4 parts, all manifold, collision check empty |
-| 4. STL | done | 4 STLs from spec v0.14, AC1–AC8 + AC10 pass, **AC9 print test open** |
+| 2. Specification | done | **v0.15 approved** 2026-10-23, no open questions |
+| 3. OpenSCAD | done | from spec v0.15: 4 parts, all manifold, collision check empty |
+| 4. STL | done | 4 STLs from spec v0.15, AC1–AC8 + AC10 pass, **AC9 print test open** |
 
 ## Folders
 

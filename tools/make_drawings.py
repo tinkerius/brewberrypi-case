@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.14"
+SPEC_VERSION = "0.15"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -26,11 +26,11 @@ LIP_T, LIP_H = 2, 4                # P32 bottom lid locating lip
 NOTCH_W = 12                       # F16 pry notch, centred on the back wall
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
-PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=3.5, boss_d=7,
-          holes=[(40.5, 58.5), (98.5, 58.5), (40.5, 107.5), (98.5, 107.5)])  # F11
-GPIO = (43.9, 56, 51, 5)           # header footprint (x, y, w, d)
-RELAY = dict(x=17, y=58, w=75, d=52, standoff=10, pcb=1.6, relays=15.4,
-             holes=[(19.5, 61), (89.5, 61), (19.5, 107), (89.5, 107)])       # F12 (measured)
+PI = dict(x=40, y=55, w=56, d=85, standoff=10, boss=3.5, boss_d=7,      # turned: USB/Ethernet to the front
+          holes=[(43.5, 78.5), (92.5, 78.5), (43.5, 136.5), (92.5, 136.5)])  # F11
+GPIO = (90, 82, 5, 51)             # header footprint (x, y, w, d), along the right edge
+RELAY = dict(x=42, y=50, w=52, d=75, standoff=10, pcb=1.6, relays=15.4,  # turned 90° with the Pi
+             holes=[(45, 52.5), (91, 52.5), (45, 122.5), (91, 122.5)])       # F12 (measured)
 SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
 ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)], rests=[(13, 3.5), (38, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
@@ -223,17 +223,19 @@ def top():
     s.rect(*GPIO, PART, "#f8bbd0", 0.3)
     for hx, hy in p["holes"]:
         s.circle(hx, hy, 1.4, PART)
-    s.text(p["x"] + p["w"] / 2, p["y"] + 40, "Raspberry Pi 3/4/5 (on top)", 3.4, PART, weight="bold")
-    s.text(p["x"] + p["w"] / 2, p["y"] + 35, "85×56, holes 58×49, M2.5 inserts + 10 mm M/F standoffs", 2.4, PART)
-    s.text(p["x"] + p["w"] / 2, p["y"] + 7.5, "GPIO header (front)", 2.4, PART)
-    s.text(p["x"] + p["w"] / 2, p["y"] + p["d"] - 3, "power socket (back)", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2 - 2, p["y"] + 70, "Raspberry Pi 3/4/5", 3.4, PART, weight="bold")
+    s.text(p["x"] + p["w"] / 2 - 2, p["y"] + 65.5, "on top, turned 90°", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2 - 2, p["y"] + 61.5, "M2.5 inserts, 10 mm standoffs", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2, p["y"] + 2.5, "USB / Ethernet (front)", 2.4, PART)
+    s.text(GPIO[0] - 1.5, GPIO[1] + GPIO[3] / 2, "GPIO", 2.4, PART, rot=-90)
+    s.text(p["x"] + 3, p["y"] + 45, "power socket", 2.4, PART, rot=-90)
     # below: relay board + adapter (dashed)
     r = RELAY
     s.rect(r["x"], r["y"], r["w"], r["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
     for hx, hy in r["holes"]:
         s.circle(hx, hy, 4, "#7b1fa2", dash="1 1")
-    s.text(r["x"] + r["w"] / 2, r["y"] + 22, "Relay board (BELOW, directly under the Pi)", 2.6, "#7b1fa2")
-    s.text(r["x"] + r["w"] / 2, r["y"] + 18, "75×52, holes 70×46, 10 mm standoffs, M2.5 inserts", 2.4, "#7b1fa2")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 30, "Relay board (BELOW)", 2.6, "#7b1fa2", weight="bold")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 26, "75×52 turned, M2.5 inserts", 2.4, "#7b1fa2")
     a = ADAPTER
     s.rect(a["x"], a["y"], a["w"], a["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
     for hx, hy in a["holes"]:                              # standoffs with M3 inserts under the two holes
@@ -317,12 +319,12 @@ def section_a():
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
     s.dim_v(z_pcb, HV_H, 0, -10, "10")
     s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "27")
-    s.dim_h(p["y"], p["y"] + p["d"], H, 6, "Pi 56")
-    s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 55")
+    s.dim_h(p["y"], p["y"] + p["d"], H, 6, "Pi 85")
+    s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 75")
     s.save("section-a-a.svg", [
         "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
         "Pi bosses (M2.5 inserts) reach 3.5 mm under the plate → 3.5 mm above the relay board's 3 mm solder pins (10 mm relay standoffs).",
-        "Relay board ↔ switch backs ≥ 3 mm (Y), ↔ IEC body ≥ 22 mm (Y). Free height above the Pi board ≈ 35 mm."])
+        "Relay board ↔ switch backs ≥ 13 mm (Y), ↔ IEC body ≥ 7 mm (Y). Free height above the Pi board ≈ 35 mm, 52 mm in front of its USB/Ethernet ports."])
 
 
 def section_b():
@@ -381,15 +383,17 @@ def section_c():
     s.text(JACK["x"], JACK["z"] - 8, "jack (beyond)", 2.2, SOFT)
     # Pi: standoffs + bosses beyond (back row), board cut, components envelope
     z_pi = Z_DIV_TOP + p["standoff"]
-    for hx, _ in p["holes"][:2]:
+    for hx, hy in p["holes"]:
+        if hy < Y_CUT: continue                            # in front of the cut
         s.rect(hx - 2.5, Z_DIV_TOP, 5, p["standoff"], BRASS, "#f3e5ab", 0.35, "1 0.6")
         s.rect(hx - p["boss_d"] / 2, HV_H - p["boss"], p["boss_d"], p["boss"], HID, sw=0.3, dash="1 1")
     s.rect(p["x"], z_pi, p["w"], 1.6, PART, "#f8bbd0", 0.4)
     s.rect(p["x"], z_pi + 1.6, p["w"], 17, PART, sw=0.3, dash="1 1")
-    s.text(p["x"] + p["w"] / 2, z_pi + 9, "Pi components (USB/Eth end left)", 2.6, PART)
+    s.text(p["x"] + p["w"] / 2, z_pi + 9, "Pi (USB/Eth at the front)", 2.6, PART)
     # relay board: standoffs beyond, PCB + relays cut
     z_pcb = HV_H - r["standoff"]
-    for hx, _ in r["holes"][:2]:
+    for hx, hy in r["holes"]:
+        if hy < Y_CUT: continue
         s.rect(hx - 4, z_pcb, 8, r["standoff"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(r["x"], z_pcb - r["pcb"], r["w"], r["pcb"], "#7b1fa2", "#e1bee7", 0.4)
     s.rect(r["x"] + 3, z_pcb - r["pcb"] - r["relays"], r["w"] - 6, r["relays"], "#7b1fa2", sw=0.35, dash="1.5 1")
@@ -408,10 +412,10 @@ def section_c():
     s.text(px - 6, z_bot - 18, "USB-C plug", 2.4, SOFT, "end")
     # dims
     s.dim_h(0, p["x"], H, 6)
-    s.dim_h(p["x"], p["x"] + p["w"], H, 6, "Pi 85")
+    s.dim_h(p["x"], p["x"] + p["w"], H, 6, "Pi 56")
     s.dim_h(sl["cx"] - sl["w"] / 2, sl["cx"] + sl["w"] / 2, H, 6)
     s.dim_h(a["x"], a["x"] + a["w"], H, 6, "adapter 51")
-    s.dim_h(r["x"], r["x"] + r["w"], z_pcb - r["pcb"] - r["relays"], -6, "relay 75")
+    s.dim_h(r["x"], r["x"] + r["w"], z_pcb - r["pcb"] - r["relays"], -6, "relay 52")
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
     s.dim_v(z_pcb, HV_H, 0, -10, "10")
     s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "27")

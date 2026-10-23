@@ -146,3 +146,9 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *Also only two inserts are needed, add two more dummy inserts (without holes for inserts) so the adapter is resting at 4 points (also only two have inserts).*
 
 **Decision** (Claude, spec v0.14): 2 solid rest standoffs Ø8 × 6 at the other two corners of the hole rectangle, (136, 64.5) and (161, 106.5). The adapter rests on 4 points; only the 2 diagonal ones have M3 inserts and screws.
+
+## Round 16: Pi orientation (2026-10-23)
+
+**User** (verbatim): *Let's turn the RPi by 90 degree so that the USB and Ethernet ports are not blocked by the wall.*
+
+**Decision** (Claude, spec v0.15): Pi turned 90° with the **USB/Ethernet end to the front**, 52 mm free in front of the ports. This puts the GPIO header on the right (next to the feed-through) and the power socket on the left (37 mm to the wall). Ports to the back was not chosen: the temperature jack sits there at the Pi's height. The **relay board turns too** (52 × 75 in plan), so it stays directly under the Pi (R3).
