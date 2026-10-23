@@ -119,3 +119,10 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 
 No open design questions left. Remaining: print test (AC9).
 
+## Round 13: adapter mounting (2026-10-23)
+
+**User** (verbatim, with a photo → `inputs/component-C2-usb-c-adapter-holes.png`):
+- *That is not true. There are two screw holes top-right and bottom-left (completely symmetric).*
+- *Can't we lift the adapter up a little? Similarly to the relay board?*
+
+**Decision** (Claude, spec v0.11): the adapter sits on **2 printed standoffs** (Ø8 × 6) under its two diagonal holes, each with an **M3 insert**; **2 × M3 × 30** from below (22 mm through the adapter + 8 mm into the standoff). Two diagonal screws stop it turning → corner brackets and tie slots removed, no nut.

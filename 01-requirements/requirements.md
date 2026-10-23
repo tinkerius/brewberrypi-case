@@ -62,7 +62,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 - **A6** The Pi is powered from the USB-C adapter (C2) through the divider feed-through (Pi 3 needs a USB-C → micro-USB cable).
 - **A7** Passive ventilation slots in the low-voltage part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
 - **A8** Freestanding on a table, with no wall mount.
-- **A9** ~~Adapter hole unknown~~ → **measured** (I10): through-hole Ø3.5, 3.5 mm from the top edge, 8 mm from the side opposite the cable, 5 mm recess; adapter 51 × 49 × 27.
+- **A9** ~~Adapter hole unknown~~ → **measured** (I10, I13): **two** through-holes Ø3.5, diagonally opposite (top-right / bottom-left), centres 3.5 mm from the top/bottom edge and 8 mm from the side edge, 5 mm recess; adapter 51 × 49 × 27.
 
 ## Open questions
 - None. All parts measured (round 10).
