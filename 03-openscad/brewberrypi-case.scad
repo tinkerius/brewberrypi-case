@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.13 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.14 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -126,6 +126,8 @@ relay_standoff_d = 8;                     // F12
 relay_h = 17;  relay_pins = 3;            // C1 measured: PCB underside → relay tops, solder pins (envelope only)
 slot = [111, 85, 14, 46];                 // F13 feed-through [cx, cy, w, l]
 adapter_standoff_d = 8;  adapter_insert_depth = 8.5;   // F14 standoffs, insert hole depth from the tip (M3 x 30)
+// F14 solid rest standoffs at the other two corners of the hole rectangle: the adapter rests on 4 points
+function adapter_rests() = [[adapter_holes[1].x, adapter_holes[0].y], [adapter_holes[0].x, adapter_holes[1].y]];
 switch_z = 40;                            // F3
 switches = [["MAIN", 40, switch_main, switch_panel_t[0]], ["HEATER", 115, switch_3pos, switch_panel_t[1]],
             ["PUMP", 150, switch_3pos, switch_panel_t[1]]];   // name, x, cutout, wall at the clips
@@ -192,7 +194,7 @@ if (part != "collision_check") {
     echo(str("REPORT F6 IEC cutout ", [iec_cutout.x, iec_cutout.y] + c2, " r", iec_cutout[2], " at x = ", iec_x, ", z = ", back_z, ", screws ", iec_screw_spacing, " apart"));
     for (s = sockets) echo(str("REPORT F7 ", s[0], " socket Ø", socket_d + 2 * fit_clearance, " flat top at ", socket_flat, ", at x = ", s[1], ", z = ", back_z, ", holes □", socket_holes));
     echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
-    echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, " on ", adapter_standoff_h, " mm standoffs at ", [for (h = adapter_holes) adapter_pos + h]));
+    echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, " on ", adapter_standoff_h, " mm standoffs: inserts at ", [for (h = adapter_holes) adapter_pos + h], ", solid at ", [for (h = adapter_rests()) adapter_pos + h]));
     echo(str("REPORT inserts: M3 hole ", insert_m3, " (case), M2.5 hole ", insert_m25, " (Pi, relay board)"));
     echo(str("REPORT F11 Pi holes ", pi_hole_positions()));
     echo(str("REPORT F12 relay holes ", relay_hole_positions()));

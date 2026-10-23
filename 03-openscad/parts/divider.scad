@@ -66,9 +66,10 @@ module feedthrough_slot() {
         hull() for (dy = [-1, 1]) translate([0, dy * (slot[3] - slot[2]) / 2]) circle(d = slot[2]);
 }
 
-// F14 adapter: 2 printed standoffs under its two diagonal mounting holes, M3 inserts from the tip.
+// F14 adapter: 4 printed standoffs; the 2 under its diagonal mounting holes get M3 inserts from the tip,
+// the 2 at the other corners (adapter_rests) stay solid, so the adapter rests on 4 points.
 module adapter_standoffs() {
-    for (h = adapter_holes)
+    for (h = concat(adapter_holes, adapter_rests()))
         translate([adapter_pos.x + h.x, adapter_pos.y + h.y, hv_h - adapter_standoff_h])
             cylinder(d = adapter_standoff_d, h = adapter_standoff_h + 0.01);
 }
