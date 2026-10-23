@@ -158,3 +158,7 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *On the opposite side of the USB/Ethernet is the SD card. Put the Pi in the middle, so SD card and USB/Ethernet have similar amount of space.*
 
 **Decision** (Claude, spec v0.16): Pi centred front to back (y 37.5–122.5): 34.5 mm in front of the ports and behind the SD card. Relay board centred under it (y 42.5–117.5). The back relay standoffs merge with the Pi bosses above (inserts from opposite sides, holes 4.3 mm apart, 1 mm apart in height).
+
+**User** (follow-up, verbatim): *Also, turn it around, so that the GPIOs are on the outside wall, not close to the passthrough hole.*
+
+**Decision** (Claude, spec v0.17): Pi turned 180° (a board can only be turned, not mirrored): GPIO header along the left edge (outer wall), power socket facing the feed-through (short USB-C cable), **USB/Ethernet to the back, SD card to the front**, still centred with 34.5 mm at both ends.
