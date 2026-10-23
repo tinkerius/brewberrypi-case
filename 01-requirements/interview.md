@@ -94,3 +94,4 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 | 5 | Jack: thread diameter, usable thread length, hex nut | Thread **M8**, usable thread length **4 mm**, hex nut **2 mm** thick, **11 mm** at its widest |
 | 6 | Jack: diameter of the black front nose | **Ø10 mm** |
 | 7 | Rocker switches: clip gap (bezel underside → clip tip), bezel outer size | Clip gap: I/O (MAIN) **4 mm**, I/O/II (HEATER, PUMP) **3 mm**. Bezel outer size (plastic frame below the rubber cap): I/O **25.5 × 34.5 mm**, I/O/II **25.7 × 34.5 mm** |
+| 8 | Rocker switches: body size below the bezel | I/O: **21 × 25 mm** without clips, **34 mm** across the clips. I/O/II: **21.5 × 27 mm** without clips, **33 mm** across the clips |
