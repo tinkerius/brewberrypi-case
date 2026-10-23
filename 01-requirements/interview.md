@@ -80,3 +80,14 @@ Questions Q1–Q8 as listed in `requirements.md` (each with a default assumption
 ## Round 9: rubber feet markings (2026-10-22)
 
 **User** (verbatim): *I don't like them. Remove them again.* → spec v0.8: feet pockets (F32 geometry, P33) and the bottom view drawing removed; F32 is back to positions only.
+
+## Round 10: measurements of the delivered parts (2026-10-23)
+
+The user has all parts and measures what was assumed. Asked one question at a time.
+
+| # | Question | Answer (user) |
+|---|---|---|
+| 1 | Relay board PCB outer size | **75 × 52 mm** |
+| 2 | Relay board holes: spacing centre to centre, diameter | **70 × 46 mm**, **Ø3 mm** |
+| 3 | Relay board height | **17 mm** from the PCB underside to the top of the relays; solder pins stick out **3 mm** on the underside |
+| 4 | USB-C adapter: mounting hole, size | Hole goes **through** the 27 mm depth, with a **~5 mm recess** on the port side, so the screw is in the hole for 22 mm. Hole centre **3.5 mm** from the top edge and **8 mm** from the side edge (the side opposite the cable), **Ø3.5 mm**. Size **51 (cable side) × 49 × 27 mm**, measured at the bottom |
