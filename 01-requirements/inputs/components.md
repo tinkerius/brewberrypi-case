@@ -13,7 +13,7 @@ Values marked **(drawing)** are read from a dimensioned drawing. **(photo)** = f
 - Input 100–240 V~ 50/60 Hz 0.8 A. Output USB-C PD max 30 W (5 V 3 A, 9 V 3 A, 12 V 2.5 A, 15 V 2 A, 20 V 1.5 A).
 - Size **50 × 49 × 27 mm (photo)**. Flying mains leads (brown/blue) with WAGO 221 connectors. One through-hole lug for a screw on top.
 - Made for mounting inside a wall/junction box.
-- From the photo: the **USB-C port** is on a 50 × 49 face (near one edge, centred). The **mains leads** come out of a 49 × 27 side face. **Two mounting holes**, top-right and bottom-left of the port face, diagonally opposite and symmetric (I13), running through the 27 mm depth. **Measured (I10):** size **51 (cable side) × 49 × 27 mm** at the bottom; holes go through, **Ø3.5**, centres **3.5 mm** from the top/bottom edge and **8 mm** from the side edge (top-right and bottom-left); **~5 mm recess** on the port side (screw in the hole for 22 mm).
+- From the photo: the **USB-C port** is on a 50 × 49 face (near one edge, centred). The **mains leads** come out of a 49 × 27 side face. **Two mounting holes**, top-right and bottom-left of the port face, diagonally opposite and symmetric (I13), running through the 27 mm depth. **Measured (I10):** size **51 (cable side) × 49 × 27 mm** at the bottom; holes go through, **Ø3.5**, centres **3.5 mm** from the top/bottom edge and **13 mm** from the side edge (top-right and bottom-left; 25 × 42 mm apart, diagonal 48.5 mm measured); **~5 mm recess** on the port side (screw in the hole for 22 mm).
 
 ## C3: 3.5 mm panel-mount jack socket (temperature sensor). Picture: [component-C3-jack-socket.png](component-C3-jack-socket.png)
 - Overall length **20 mm**, front part **10 mm**, jack opening **3.5 mm (photo)**. Solder lugs at the back.

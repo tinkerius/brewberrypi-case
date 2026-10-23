@@ -136,3 +136,7 @@ No open design questions left. Remaining: print test (AC9).
 **User** (follow-up, verbatim): *The distance (center hole to center hole) is 55 mm. However, it should be 48.5 mm only.*
 
 **Claude:** the edge distances (3.5 / 8 mm on a 51 × 49 face) give 35 × 42 → 54.7 mm diagonal, so they don't describe the hole pattern (probably measured on the smaller, chamfered port face). **Open:** centre-to-centre spacing across and up/down, and whether the pair is centred on the adapter. Until then the divider must not be printed.
+
+**User** (re-measured, verbatim): *Holes are: 3.5 mm from the top/bottom; 13 mm from the left/right. Width of the device: 51 mm; height: 49 mm. Diagonal: center hole to center hole → 48.5.*
+
+**Claude:** 13 / 3.5 mm give 25 × 42 mm → 48.9 mm diagonal, 0.4 mm from the measured 48.5: within measuring accuracy and within the ~0.5 mm play of an M3 screw in the Ø3.5 holes. The direct edge measurements are used. (The earlier "8 mm" was wrong.) → spec v0.13: standoffs at (161, 64.5) and (136, 106.5).

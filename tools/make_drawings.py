@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.12"
+SPEC_VERSION = "0.13"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -32,7 +32,7 @@ GPIO = (43.9, 56, 51, 5)           # header footprint (x, y, w, d)
 RELAY = dict(x=17, y=58, w=75, d=52, standoff=10, pcb=1.6, relays=15.4,
              holes=[(19.5, 61), (89.5, 61), (19.5, 107), (89.5, 107)])       # F12 (measured)
 SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
-ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(43, 3.5), (8, 45.5)])   # port face down: its top edge is at the front                      # F14
+ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
 SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth behind panel incl. connectors
     ("MAIN", 40, 22, 27, 25.5, 34.5, 37),

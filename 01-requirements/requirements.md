@@ -62,10 +62,10 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 - **A6** The Pi is powered from the USB-C adapter (C2) through the divider feed-through (Pi 3 needs a USB-C → micro-USB cable).
 - **A7** Passive ventilation slots in the low-voltage part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
 - **A8** Freestanding on a table, with no wall mount.
-- **A9** ~~Adapter hole unknown~~ → **measured** (I10, I13): **two** through-holes Ø3.5, diagonally opposite (top-right / bottom-left), centres 3.5 mm from the top/bottom edge and 8 mm from the side edge, 5 mm recess; adapter 51 × 49 × 27.
+- **A9** ~~Adapter hole unknown~~ → **measured** (I10, I13, I14): **two** through-holes Ø3.5, diagonally opposite (top-right / bottom-left), centres **3.5 mm** from the top/bottom edge and **13 mm** from the side edge (25 × 42 mm apart, 48.5–48.9 mm diagonal), 5 mm recess; adapter 51 × 49 × 27.
 
 ## Open questions
-- **Adapter hole spacing (round 14):** diagonal centre-to-centre is 48.5 mm (user), the model has 54.7 mm. Needs the spacing across / up-down → then spec update. **Do not print the divider yet.**
+- None. Adapter hole spacing re-measured (round 14): 13 mm from the sides, 3.5 mm from the top/bottom.
 
 ## Answered (round 2)
 Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21 · round 4 → R2 (names), R22
