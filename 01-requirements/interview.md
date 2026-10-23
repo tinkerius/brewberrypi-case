@@ -126,3 +126,9 @@ No open design questions left. Remaining: print test (AC9).
 - *Can't we lift the adapter up a little? Similarly to the relay board?*
 
 **Decision** (Claude, spec v0.11): the adapter sits on **2 printed standoffs** (Ø8 × 6) under its two diagonal holes, each with an **M3 insert**; **2 × M3 × 30** from below (22 mm through the adapter + 8 mm into the standoff). Two diagonal screws stop it turning → corner brackets and tie slots removed, no nut.
+
+## Round 14: adapter holes (2026-10-23)
+
+**User** (verbatim): *The holes for the USB-C power brick are completely off.*
+
+**Claude:** cause found: the hole pattern was placed mirrored. Mounted port face down with the cable side towards −X, the port face's **top edge points to the front** (−Y), not the back. So the top-right hole (seen on the port face) is at front-right (166, 64.5) and the bottom-left hole at back-left (131, 106.5). v0.9–v0.11 had them on the other diagonal. → spec v0.12.
