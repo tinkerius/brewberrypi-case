@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.14 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.15 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -49,8 +49,8 @@ insert_m3 = [4.0, 7.0];
 insert_m25 = [3.2, 6.0];
 
 /* [Raspberry Pi] */
-// P13 Pi board corner (x, y); board rotated with the GPIO edge to the front
-pi_pos = [17, 55];
+// P13 corner (x, y) of the Pi's footprint (56 x 85): board turned so the USB/Ethernet end faces the front, GPIO header right
+pi_pos = [40, 55];
 // P14 Pi hole pattern (same for Pi 3/4/5)
 pi_holes = [58, 49];
 
@@ -59,8 +59,8 @@ pi_holes = [58, 49];
 relay_board = [75, 52];
 // P16 relay board hole pattern, centre to centre (measured, holes Ø3)
 relay_holes = [70, 46];
-// P17 relay board corner (x, y), directly under the Pi
-relay_pos = [17, 58];
+// P17 corner (x, y) of the relay board's footprint (52 x 75, board turned 90 degrees), directly under the Pi
+relay_pos = [42, 50];
 // P18 gap between divider and relay PCB
 relay_standoff_h = 10;
 
@@ -145,7 +145,7 @@ label_size = 6.4;                         // F5, F8: OpenSCAD text size 6.4 → 
 front_label_z = 12;  back_label_z = 4;  temp_label_z = 82;   // F5, F8 baselines
 logo = "BrewberryPi";  logo_size = 12.6;  // F21: OpenSCAD text size 12.6 → capitals ≥ 12 mm
 logo_raise = 0.8;  logo_pos = [95, 30];   // F21
-fan_pos = [72, 79];                       // F22
+fan_pos = [72, 110];                      // F22 over the Pi SoC
 m3_clear = 3.4;                           // screw through-holes
 
 $fa = 4;  $fs = 0.4;
@@ -159,12 +159,17 @@ module outline2d(inset = 0) {
 function col_centres() = [[col_inset, col_inset], [case_w - col_inset, col_inset],
                           [col_inset, case_d - col_inset], [case_w - col_inset, case_d - col_inset]];
 function pad_centres() = [for (y = pad_y) for (x = [wall + pad_size.x / 2, case_w - wall - pad_size.x / 2]) [x, y]];
-function pi_hole_positions() =       // Pi rotated 180°: SD-card end at +X, GPIO edge at the front
-    [for (dx = [0, pi_holes.x]) for (dy = [0, pi_holes.y])
-        [pi_pos.x + pi_board.x - pi_hole_inset - dx, pi_pos.y + pi_hole_inset + dy]];
+// Pi turned 90°: board length (85, SD end → USB/Ethernet end) runs from the back to the front (-Y),
+// board width (56, power edge → GPIO edge) runs from left to right (+X).
+function pi_footprint() = [pi_board.y, pi_board.x];
+function pi_hole_positions() =
+    [for (du = [0, pi_holes.x]) for (dv = [0, pi_holes.y])
+        [pi_pos.x + pi_hole_inset + dv, pi_pos.y + pi_board.x - pi_hole_inset - du]];
+// Relay board turned 90° with the Pi: footprint 52 x 75, hole pattern 46 x 70.
+function relay_footprint() = [relay_board.y, relay_board.x];
 function relay_hole_positions() =
-    [for (dx = [0, relay_holes.x]) for (dy = [0, relay_holes.y])
-        [relay_pos.x + (relay_board.x - relay_holes.x) / 2 + dx, relay_pos.y + (relay_board.y - relay_holes.y) / 2 + dy]];
+    [for (dx = [0, relay_holes.y]) for (dy = [0, relay_holes.x])
+        [relay_pos.x + (relay_board.y - relay_holes.y) / 2 + dx, relay_pos.y + (relay_board.x - relay_holes.x) / 2 + dy]];
 
 include <parts/body.scad>
 include <parts/divider.scad>

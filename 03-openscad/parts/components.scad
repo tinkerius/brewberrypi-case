@@ -4,16 +4,18 @@
 // ---- envelopes --------------------------------------------------------------
 module pi_envelope() {                            // C8 + F11: brass standoffs, board, components / GPIO wires
     for (p = pi_hole_positions()) translate([p.x, p.y, z_div_top + 0.02]) cylinder(d = 5, h = pi_standoff - 0.02, $fn = 6);
-    translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff]) cube([pi_board.x, pi_board.y, 1.6]);
-    translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff + 1.6]) cube([pi_board.x, pi_board.y, 17]);
+    translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff]) cube([pi_footprint().x, pi_footprint().y, 1.6]);
+    translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff + 1.6]) cube([pi_footprint().x, pi_footprint().y, 17]);
+    // R23: 40 mm of free space in front of the USB/Ethernet ports (plugs, sticks)
+    translate([pi_pos.x, pi_pos.y - 40, z_div_top + pi_standoff + 1.6]) cube([pi_footprint().x, 40 - 0.01, 15]);
 }
 
 module relay_envelope() {                         // C1 + F12: PCB on the standoffs, relays below, solder pins above
     z_pcb = hv_h - relay_standoff_h - 1.6 - 0.01;  // 0.01 off the standoff tips: touching is not a collision
-    translate([relay_pos.x, relay_pos.y, z_pcb]) cube([relay_board.x, relay_board.y, 1.6]);
-    translate([relay_pos.x + 3, relay_pos.y + 3, z_pcb - (relay_h - 1.6)]) cube([relay_board.x - 6, relay_board.y - 6, relay_h - 1.6]);
+    translate([relay_pos.x, relay_pos.y, z_pcb]) cube([relay_footprint().x, relay_footprint().y, 1.6]);
+    translate([relay_pos.x + 3, relay_pos.y + 3, z_pcb - (relay_h - 1.6)]) cube([relay_footprint().x - 6, relay_footprint().y - 6, relay_h - 1.6]);
     difference() {                                 // solder pins towards the divider, around the standoffs
-        translate([relay_pos.x + 1, relay_pos.y + 1, z_pcb + 1.6]) cube([relay_board.x - 2, relay_board.y - 2, relay_pins]);
+        translate([relay_pos.x + 1, relay_pos.y + 1, z_pcb + 1.6]) cube([relay_footprint().x - 2, relay_footprint().y - 2, relay_pins]);
         for (p = relay_hole_positions()) translate([p.x, p.y, z_pcb]) cylinder(d = relay_standoff_d + 1, h = 10);
     }
 }
