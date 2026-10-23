@@ -109,3 +109,13 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 **User** (verbatim, on the M2.5 nut pockets for the Pi): *I don't like this. You convinced me. Use 2.5x5x3.5 for the PCBs and the 3x... for the rest. Does this separation make sense?*
 
 **Claude:** yes. M2.5 for the PCBs (Pi: Ø2.75 holes only take M2.5; relay board: Ø3 holes, M2.5 fits easily where M3 is a tight fit), M3 for the case. → spec v0.10: M2.5 inserts 2.5 × 5 × 3.5 (M2.5, 5 long, Ø3.5) for the Pi and the relay board, M3 inserts 3 × 6 × 4.5 for everything else. Nut pockets removed. Pi standoffs need a male end (male-female).
+
+## Round 12: confirmations (2026-10-23)
+
+| Question | Answer (user) |
+|---|---|
+| Jack at x = 35, above the power inlet (spec v0.5)? | *Yes, sounds good* → confirmed |
+| M3 inserts 3 × 6 × 4.5 = 6 mm long, Ø4.5 outside? | *3 × 6 × 4.5 is correct* → confirmed |
+
+No open design questions left. Remaining: print test (AC9).
+

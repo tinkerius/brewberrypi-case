@@ -2,7 +2,7 @@
 
 | Version | Status | Approved by / date |
 |---|---|---|
-| 0.10 | **approved** (requested by the user; jack move from v0.5 to confirm) | v0.3: user (tinkerius), 2026-10-19 · v0.4 confirmed 2026-10-19 · v0.5–v0.8 requested 2026-10-22 · v0.9 measured, v0.10 requested 2026-10-23 |
+| 0.10 | **approved** | v0.3: user (tinkerius), 2026-10-19 · v0.4 confirmed 2026-10-19 · v0.5–v0.8 requested 2026-10-22 · v0.9 measured, v0.10 requested 2026-10-23 · jack position and insert size confirmed 2026-10-23 |
 
 Traces to `01-requirements/requirements.md` (R…, A…) and `01-requirements/inputs/components.md` (C…).
 
