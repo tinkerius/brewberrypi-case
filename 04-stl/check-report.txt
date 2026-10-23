@@ -1,4 +1,4 @@
-# tools/check.sh output, 2026-10-23, model from spec v0.9
+# tools/check.sh output, 2026-10-23, model from spec v0.10
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-body.stl
@@ -6,7 +6,7 @@
    Min Y = -0.599999, Max Y =  160.600006
    Min Z =  0.000000, Max Z =  123.000000
    Number of facets                 : 17808               17808
-   Number of parts       :     1        Volume   :  267976.750000
+   Number of parts       :     1        Volume   :  267976.812500
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -31,8 +31,8 @@
    Min X =  3.300003, Max X =  186.699997
    Min Y =  3.300000, Max Y =  156.699997
    Min Z =  0.000000, Max Z =  13.000000
-   Number of facets                 :  4208                4208
-   Number of parts       :     1        Volume   :  87990.039062
+   Number of facets                 :  3920                3920
+   Number of parts       :     1        Volume   :  88329.859375
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -75,24 +75,28 @@
    sloped               area     7.0 mm²  x  187.0… 190.0  y   46.9…  49.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y   54.9…  57.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y   54.9…  57.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x    0.0…   3.0  y   70.9…  73.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x  187.0… 190.0  y   70.9…  73.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x    0.0…   3.0  y   86.9…  89.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x  187.0… 190.0  y   86.9…  89.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x    0.0…   3.0  y  110.9… 113.1  z  109.6… 110.0
-   sloped               area     7.0 mm²  x  187.0… 190.0  y  110.9… 113.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y   62.9…  65.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y   62.9…  65.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   70.9…  73.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   70.9…  73.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y   78.9…  81.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y   78.9…  81.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y   86.9…  89.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y   86.9…  89.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y   94.9…  97.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y   94.9…  97.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y  102.9… 105.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y  102.9… 105.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x    0.0…   3.0  y  110.9… 113.1  z  109.6… 110.0
+   sloped               area     7.0 mm²  x  187.0… 190.0  y  110.9… 113.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x    0.0…   3.0  y  118.9… 121.1  z  109.6… 110.0
    sloped               area     7.0 mm²  x  187.0… 190.0  y  118.9… 121.1  z  109.6… 110.0
 == 04-stl/brewberrypi-case-bottom_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
-== 04-stl/brewberrypi-case-divider.stl: 0 region(s) ≥ 5 mm², 3 tiny (2.4 mm² in total)
+== 04-stl/brewberrypi-case-divider.stl: 4 region(s) ≥ 5 mm², 3 tiny (2.4 mm² in total)
+   flat (bridge/ledge)  area     8.0 mm²  x   96.9… 100.1  y   99.9… 103.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   38.9…  42.1  y   99.9… 103.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   96.9… 100.1  y   50.9…  54.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   38.9…  42.1  y   50.9…  54.1  z    6.0…   6.0
 == 04-stl/brewberrypi-case-top_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
 
 ### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)
@@ -118,5 +122,6 @@
    F7 PUMP socket Ø43.4 flat top at 24, at x = 145, z = 38, holes □38
    F8 jack Ø8.4 flat top at 4.7, wall 1.6, at x = 35, z = 98
    F14 adapter [51, 49, 27] at [123, 61], screw hole at [166, 106.5]
+   inserts: M3 hole [4, 7] (case), M2.5 hole [3.2, 6] (Pi, relay board)
    F11 Pi holes [[98.5, 58.5], [98.5, 107.5], [40.5, 58.5], [40.5, 107.5]]
    F12 relay holes [[19.5, 61], [19.5, 107], [89.5, 61], [89.5, 107]]
