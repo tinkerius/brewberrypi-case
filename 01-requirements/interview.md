@@ -91,3 +91,5 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 | 2 | Relay board holes: spacing centre to centre, diameter | **70 × 46 mm**, **Ø3 mm** |
 | 3 | Relay board height | **17 mm** from the PCB underside to the top of the relays; solder pins stick out **3 mm** on the underside |
 | 4 | USB-C adapter: mounting hole, size | Hole goes **through** the 27 mm depth, with a **~5 mm recess** on the port side, so the screw is in the hole for 22 mm. Hole centre **3.5 mm** from the top edge and **8 mm** from the side edge (the side opposite the cable), **Ø3.5 mm**. Size **51 (cable side) × 49 × 27 mm**, measured at the bottom |
+| 5 | Jack: thread diameter, usable thread length, hex nut | Thread **M8**, usable thread length **4 mm**, hex nut **2 mm** thick, **11 mm** at its widest |
+| 6 | Jack: diameter of the black front nose | **Ø10 mm** |
