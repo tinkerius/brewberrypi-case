@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.8 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.9 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -35,18 +35,18 @@ divider_t = 3; // [2.4:0.1:4]
 corner_r = 4;
 // P9 clearance per side for every cutout and mating fit
 fit_clearance = 0.2; // [0.1:0.05:0.5]
-// P10 local wall thickness at the rocker switches (>= wall: no thinning)
-switch_panel_t = 2.0;
+// P10 local wall thickness at the rocker switches [MAIN, HEATER/PUMP] = measured clip gap - 0.3 (> wall: inside frame, < wall: inside pocket)
+switch_panel_t = [3.7, 2.7];
 // P31 rim above the lid seat (top rebate)
 rim_t = 1.5; // [1.2:0.1:2]
 // P32 bottom lid locating lip [thickness, height]
 lip = [2, 4];
 
 /* [Fasteners] */
-// P11 M3 heat-set insert hole [diameter, depth]
-insert_m3 = [4.0, 6.5];
-// P12 M2.5 heat-set insert hole [diameter, depth]
-insert_m25 = [3.6, 6.5];
+// P11 M3 heat-set insert hole [diameter, depth] for inserts 3 x 6 x 4.5 (6 long, Ø4.5)
+insert_m3 = [4.0, 7.0];
+// P12 hex pocket for the M2.5 nuts under the Pi standoffs [across flats, depth] (no M2.5 inserts)
+pi_nut = [5.1, 2.2];
 
 /* [Raspberry Pi] */
 // P13 Pi board corner (x, y); board rotated with the GPIO edge to the front
@@ -55,22 +55,22 @@ pi_pos = [17, 55];
 pi_holes = [58, 49];
 
 /* [Relay board] */
-// P15 relay board size (assumed, measure on arrival)
-relay_board = [75, 55];
-// P16 relay board hole pattern (assumed, measure on arrival)
-relay_holes = [69, 49];
+// P15 relay board size (measured)
+relay_board = [75, 52];
+// P16 relay board hole pattern, centre to centre (measured, holes Ø3)
+relay_holes = [70, 46];
 // P17 relay board corner (x, y), directly under the Pi
 relay_pos = [17, 58];
 // P18 gap between divider and relay PCB
 relay_standoff_h = 10;
 
 /* [USB-C adapter] */
-// P19 adapter size [x, y, height]
-adapter = [50, 49, 27];
+// P19 adapter size [x (cable side), y, height] (measured)
+adapter = [51, 49, 27];
 // P29 adapter corner (x, y)
 adapter_pos = [123, 61];
-// P30 adapter mounting hole [x, y] relative to the adapter corner; [] = none (measure on arrival)
-adapter_screw = [];
+// P30 adapter mounting hole [x, y] relative to the adapter corner (measured); [] = none
+adapter_screw = [43, 45.5];
 
 /* [Top lid] */
 // P20 fan mount in the top lid: 0 = none
@@ -97,10 +97,10 @@ iec_screw_spacing = 36;
 socket_d = 43;
 // P26 socket screw square
 socket_holes = 38;
-// P27 jack hole diameter (assumed, measure on arrival)
-jack_d = 6;
-// P28 local wall thickness at the jack (>= wall: no thinning)
-jack_panel_t = 2.0;
+// P27 jack thread diameter (measured: M8)
+jack_d = 8;
+// P28 local wall thickness at the jack: nut 2 + wall <= 4 mm usable thread (>= wall: no thinning)
+jack_panel_t = 1.6;
 
 /* [Hidden] */
 // ---- derived levels -------------------------------------------------------
@@ -117,21 +117,25 @@ divider_gap = 0.3;                        // F10 divider plate <-> inner walls
 notch = 12;                               // F10 corner notch, measured from the plate corner
 rib = [2, 6];  rib_x = [15, 175];         // F10 stiffening ribs [thickness, height], x range
 pi_board = [85, 56];  pi_hole_inset = 3.5;   // F11
-pi_boss = [7, 4];                         // F11 boss [diameter, protrusion under the plate]
+pi_boss = [8, 2.2];                       // F11 nut holder [diameter, protrusion under the plate]
+m25_clear = 2.9;                          // F11 hole for the M2.5 standoff thread / screw
 pi_standoff = 10;                         // F11 bought brass standoffs
 relay_standoff_d = 8;                     // F12
+relay_h = 17;  relay_pins = 3;            // C1 measured: PCB underside → relay tops, solder pins (envelope only)
 slot = [111, 85, 14, 46];                 // F13 feed-through [cx, cy, w, l]
 bracket = [12, 2, 10];  adapter_clear = 0.5;  // F14 L-brackets [leg, thickness, height]
 tie_slot = [5.5, 2.5];  tie_x = [15, 35];     // F14 tie slots, adapter-local x positions
 switch_z = 40;                            // F3
-switches = [["MAIN", 40, switch_main], ["HEATER", 115, switch_3pos], ["PUMP", 150, switch_3pos]];
-pocket_margin = 8;                        // F3 thinning pocket margin around each cutout
+switches = [["MAIN", 40, switch_main, switch_panel_t[0]], ["HEATER", 115, switch_3pos, switch_panel_t[1]],
+            ["PUMP", 150, switch_3pos, switch_panel_t[1]]];   // name, x, cutout, wall at the clips
+pocket_margin = 8;                        // F3 frame / pocket margin around each cutout
 back_z = 38;                              // F6, F7
 iec_x = 35;                              // F6
 sockets = [["HEATER", 90], ["PUMP", 145]];   // F7
 socket_flat = 24;                         // F7 flat-top teardrop
 panel_boss = [8, 6];                      // F6/F7 insert bosses behind the back wall [diameter, length]
 jack_pos = [35, 98];  jack_pocket_d = 16;   // F8
+jack_flat = 4.7;                          // F8 flat-top teardrop: flat 4.7 above the centre (under the Ø10 nose)
 vent = [11, 3, 30, 8, 40, 80];            // F9 [count, width, length, pitch, first y, bottom z]
 pry_w = 12;                               // F16
 label_size = 6.4;                         // F5, F8: OpenSCAD text size 6.4 → capitals ≥ 6 mm
@@ -183,10 +187,11 @@ if (part == "body") {
 if (part != "collision_check") {
     c2 = 2 * [fit_clearance, fit_clearance];
     echo(str("REPORT F1 body ", case_w, " x ", case_d, " x ", body_h, ", lid seat z = ", H, ", divider ", hv_h, "…", z_div_top));
-    for (s = switches) echo(str("REPORT F3 ", s[0], " cutout ", s[2] + c2, " at x = ", s[1], ", z = ", switch_z));
+    for (s = switches) echo(str("REPORT F3 ", s[0], " cutout ", s[2] + c2, " at x = ", s[1], ", z = ", switch_z, ", wall at the clips ", s[3]));
     echo(str("REPORT F6 IEC cutout ", [iec_cutout.x, iec_cutout.y] + c2, " r", iec_cutout[2], " at x = ", iec_x, ", z = ", back_z, ", screws ", iec_screw_spacing, " apart"));
     for (s = sockets) echo(str("REPORT F7 ", s[0], " socket Ø", socket_d + 2 * fit_clearance, " flat top at ", socket_flat, ", at x = ", s[1], ", z = ", back_z, ", holes □", socket_holes));
-    echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " at x = ", jack_pos.x, ", z = ", jack_pos.y));
+    echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
+    echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, ", screw hole at ", adapter_pos + adapter_screw));
     echo(str("REPORT F11 Pi holes ", pi_hole_positions()));
     echo(str("REPORT F12 relay holes ", relay_hole_positions()));
 }

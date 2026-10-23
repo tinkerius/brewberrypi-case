@@ -8,10 +8,14 @@ module pi_envelope() {                            // C8 + F11: brass standoffs, 
     translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff + 1.6]) cube([pi_board.x, pi_board.y, 17]);
 }
 
-module relay_envelope() {                         // C1 + F12: PCB on the standoffs, relays hanging below
+module relay_envelope() {                         // C1 + F12: PCB on the standoffs, relays below, solder pins above
     z_pcb = hv_h - relay_standoff_h - 1.6 - 0.01;  // 0.01 off the standoff tips: touching is not a collision
     translate([relay_pos.x, relay_pos.y, z_pcb]) cube([relay_board.x, relay_board.y, 1.6]);
-    translate([relay_pos.x + 3, relay_pos.y + 3, z_pcb - 16]) cube([relay_board.x - 6, relay_board.y - 6, 16]);
+    translate([relay_pos.x + 3, relay_pos.y + 3, z_pcb - (relay_h - 1.6)]) cube([relay_board.x - 6, relay_board.y - 6, relay_h - 1.6]);
+    difference() {                                 // solder pins towards the divider, around the standoffs
+        translate([relay_pos.x + 1, relay_pos.y + 1, z_pcb + 1.6]) cube([relay_board.x - 2, relay_board.y - 2, relay_pins]);
+        for (p = relay_hole_positions()) translate([p.x, p.y, z_pcb]) cylinder(d = relay_standoff_d + 1, h = 10);
+    }
 }
 
 module adapter_envelope() {                       // C2 + F14: adapter against the plate, USB-C plug + cable below
@@ -23,8 +27,8 @@ module adapter_envelope() {                       // C2 + F14: adapter against t
 module switch_envelope(i) {                       // C6 / C7 + F3: bezel outside, body + connectors inside
     s = switches[i];
     main = i == 0;
-    bezel = main ? [29, 35.3] : [26.7, 35];
-    body_ = main ? [21.7, 26] : [21, 28];
+    bezel = main ? [25.5, 34.5] : [25.7, 34.5];   // measured plastic frame
+    body_ = main ? [21, 25] : [21.5, 27];         // measured body below the bezel
     depth = main ? 37 : 48;                       // from the outer face, incl. spade connectors
     translate([s[1] - bezel.x / 2, -4, switch_z - bezel.y / 2]) cube([bezel.x, 4 - 0.01, bezel.y]);
     translate([s[1] - body_.x / 2, 0.01, switch_z - body_.y / 2]) cube([body_.x, depth, body_.y]);
@@ -44,8 +48,8 @@ module iec_envelope() {                           // C4 + F6: body behind the pa
 
 module jack_envelope() {                          // C3 + F8: body + hex nut inside, thread in the hole, front nut outside
     translate([jack_pos.x, 0, jack_pos.y]) rotate([-90, 0, 0]) {
-        translate([0, 0, case_d - 15]) cylinder(d = 9, h = 13);                       // body
-        translate([0, 0, case_d - 3.99]) cylinder(d = 12, h = 1.98, $fn = 6);         // hex nut, in the pocket
+        translate([0, 0, case_d - 15]) cylinder(d = jack_d + 2, h = 11);              // body
+        translate([0, 0, case_d - jack_panel_t - 2]) cylinder(d = 11, h = 1.99, $fn = 6);   // hex nut 11 / 2 mm, in the pocket
         translate([0, 0, case_d - jack_panel_t - 0.5]) cylinder(d = jack_d, h = 3);   // thread
         translate([0, 0, case_d + 0.01]) cylinder(d = 10, h = 3);                     // front nut
     }

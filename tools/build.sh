@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Renders every printable part to 04-stl/ and PNG previews to 04-stl/previews/.
-# Usage: tools/build.sh [part ...]     (default: all parts in PARTS)
+# Usage: tools/build.sh [part ...]     (default: all parts in PARTS + assembly previews; non-printable parts get previews only)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -28,7 +28,9 @@ render_previews() {   # $1 = part name
 if [[ $# -gt 0 ]]; then targets=("$@"); else targets=("${PARTS[@]}"); fi
 for p in "${targets[@]}"; do
     echo "build: $p"
-    openscad -q -D "part=\"$p\"" --export-format binstl -o "$OUT/brewberrypi-case-$p.stl" "$SRC"
+    if [[ " ${PARTS[*]} " == *" $p "* ]]; then       # STLs only for printable parts; e.g. `assembly` = previews only
+        openscad -q -D "part=\"$p\"" --export-format binstl -o "$OUT/brewberrypi-case-$p.stl" "$SRC"
+    fi
     render_previews "$p"
 done
 [[ $# -eq 0 ]] && { echo "build: assembly previews"; render_previews assembly; }

@@ -7,6 +7,7 @@ module body() {
         union() {
             shell();                                  // F1, F15
             corner_columns();                         // F2
+            switch_frames();                          // F3
             divider_pads();                           // F4
             back_panel_bosses();                      // F6, F7
             if (labels) { front_labels(); back_labels(); }   // F5, F8
@@ -69,14 +70,24 @@ module divider_pad_inserts() {
     for (p = pad_centres()) translate([p.x, p.y, hv_h - insert_m3[1]]) cylinder(d = insert_m3[0], h = insert_m3[1] + 1);
 }
 
-// F3 switch cutouts (portrait, + clearance) and the inside pocket that thins the wall to switch_panel_t.
+// F3 switch cutouts (portrait, + clearance). Where the clips need a thinner wall, an inside pocket thins it
+// to the switch's wall thickness (s[3]); where they need a thicker wall, switch_frames() adds material.
 module switch_cutouts() {
     for (s = switches) {
+        x = s[1];  c = s[2] + 2 * [fit_clearance, fit_clearance];  t = s[3];
+        translate([x - c.x / 2, -1, switch_z - c.y / 2]) cube([c.x, max(wall, t) + 2, c.y]);
+        if (t < wall)
+            translate([x - c.x / 2 - pocket_margin, t, switch_z - c.y / 2 - pocket_margin])
+                cube([c.x + 2 * pocket_margin, wall - t + 1, c.y + 2 * pocket_margin]);
+    }
+}
+
+// F3 inside frame around a switch whose clips need a wall thicker than `wall` (MAIN: 3.7 mm).
+module switch_frames() {
+    for (s = switches) if (s[3] > wall) {
         x = s[1];  c = s[2] + 2 * [fit_clearance, fit_clearance];
-        translate([x - c.x / 2, -1, switch_z - c.y / 2]) cube([c.x, wall + 2, c.y]);
-        if (switch_panel_t < wall)
-            translate([x - c.x / 2 - pocket_margin, switch_panel_t, switch_z - c.y / 2 - pocket_margin])
-                cube([c.x + 2 * pocket_margin, wall - switch_panel_t + 1, c.y + 2 * pocket_margin]);
+        translate([x - c.x / 2 - pocket_margin, wall - 0.01, switch_z - c.y / 2 - pocket_margin])
+            cube([c.x + 2 * pocket_margin, s[3] - wall + 0.01, c.y + 2 * pocket_margin]);
     }
 }
 
@@ -115,9 +126,9 @@ module socket_cutouts() {
         translate([s[1], case_d + 1, back_z]) teardrop_hole(socket_d + 2 * fit_clearance, wall + 2, flat = socket_flat);
 }
 
-// F8 jack: Ø6 teardrop + inside pocket Ø16 that thins the wall to jack_panel_t.
+// F8 jack: Ø8 flat-top teardrop (flat under the Ø10 nose) + inside pocket Ø16 that thins the wall to jack_panel_t.
 module jack_cutout() {
-    translate([jack_pos.x, case_d + 1, jack_pos.y]) teardrop_hole(jack_d + 2 * fit_clearance, wall + 2);
+    translate([jack_pos.x, case_d + 1, jack_pos.y]) teardrop_hole(jack_d + 2 * fit_clearance, wall + 2, flat = jack_flat);
     if (jack_panel_t < wall)
         translate([jack_pos.x, case_d - wall - 1, jack_pos.y]) rotate([-90, 0, 0])
             cylinder(d = jack_pocket_d, h = 1 + wall - jack_panel_t);

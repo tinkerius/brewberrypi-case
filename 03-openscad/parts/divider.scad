@@ -12,7 +12,7 @@ module divider() {
             adapter_brackets();                                                     // F14
         }
         divider_screw_holes();                                                      // F10
-        pi_inserts();                                                               // F11
+        pi_nut_pockets();                                                           // F11
         relay_inserts();                                                            // F12
         feedthrough_slot();                                                         // F13
         tie_slots();                                                                // F14
@@ -41,13 +41,17 @@ module divider_screw_holes() {
     for (p = pad_centres()) translate([p.x, p.y, hv_h - 1]) cylinder(d = m3_clear, h = divider_t + 2);
 }
 
-// F11 Pi: Ø7 bosses protruding under the plate, M2.5 inserts pressed in from the top face.
+// F11 Pi: nut holders under the plate; the M2.5 brass standoffs screw into nuts held in hex pockets.
 module pi_bosses() {
     for (p = pi_hole_positions()) translate([p.x, p.y, hv_h - pi_boss.y]) cylinder(d = pi_boss.x, h = pi_boss.y + 0.01);
 }
 
-module pi_inserts() {
-    for (p = pi_hole_positions()) translate([p.x, p.y, z_div_top - insert_m25[1]]) cylinder(d = insert_m25[0], h = insert_m25[1] + 1);
+module pi_nut_pockets() {
+    for (p = pi_hole_positions()) {
+        translate([p.x, p.y, hv_h - pi_boss.y - 1]) cylinder(d = m25_clear, h = pi_boss.y + divider_t + 2);
+        translate([p.x, p.y, hv_h - pi_boss.y - 0.01])
+            cylinder(d = pi_nut.x / cos(30), h = pi_nut.y + 0.01, $fn = 6);     // nut sits against the plate
+    }
 }
 
 // F12 relay board: printed standoffs Ø8 × relay_standoff_h, M3 inserts from the tip.
