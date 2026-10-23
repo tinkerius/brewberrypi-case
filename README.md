@@ -15,7 +15,7 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | Stage | State | Notes |
 |---|---|---|
 | 1. Requirements | done | 2026-10-19 · relay board size still assumed (A1) |
-| 2. Specification | done | **v0.8 approved** 2026-10-22 (jack move to confirm) |
+| 2. Specification | done | **v0.9 approved** 2026-10-23 (jack move to confirm) |
 | 3. OpenSCAD | done | from spec v0.4: 4 parts, all manifold, collision check empty |
 | 4. STL | done | 4 STLs from spec v0.4, AC1–AC8 + AC10 pass, **AC9 print test open** |
 

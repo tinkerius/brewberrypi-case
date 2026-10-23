@@ -95,3 +95,11 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 | 6 | Jack: diameter of the black front nose | **Ø10 mm** |
 | 7 | Rocker switches: clip gap (bezel underside → clip tip), bezel outer size | Clip gap: I/O (MAIN) **4 mm**, I/O/II (HEATER, PUMP) **3 mm**. Bezel outer size (plastic frame below the rubber cap): I/O **25.5 × 34.5 mm**, I/O/II **25.7 × 34.5 mm** |
 | 8 | Rocker switches: body size below the bezel | I/O: **21 × 25 mm** without clips, **34 mm** across the clips. I/O/II: **21.5 × 27 mm** without clips, **33 mm** across the clips |
+| 9 | Inserts, Pi standoffs | M3 inserts **3 × 6 × 4.5** (M3, 6 mm long, Ø4.5 outside). **Only M3 inserts** shall be used. Brass standoffs for the Pi: **10 mm** |
+
+**Decisions** (Claude, spec v0.9):
+- Relay board 75 × 52, holes 70 × 46 (Ø3: M3 screws are a snug fit), height 17 + 3 mm pins → standoff positions updated; pins end 4.8 mm below the Pi nut holders.
+- USB-C adapter 51 × 49 × 27, fixed with an **M3 × 30 screw** through its own hole (head in the 5 mm recess) and a nut on top of the divider; hole at adapter (43, 45.5) = (166, 106.5). Cable ties optional.
+- Jack M8: hole Ø8 (+ clearance), **flat-top** teardrop cut at 4.7 mm (hidden under the Ø10 nose), wall 1.6 mm (nut 2 + wall 1.6 ≤ 4 mm thread).
+- Switch walls = clip gap − 0.3: MAIN **3.7 mm** (inside frame), HEATER/PUMP **2.7 mm** (inside pocket). Cutouts confirmed by the body sizes.
+- Insert holes Ø4.0 × 7 deep. **No M2.5 inserts**: the Pi's Ø2.75 holes only take M2.5, so the Pi standoffs go into **M2.5 nuts held in hex pockets** under the divider (or M2.5 screws from below for female-female standoffs).

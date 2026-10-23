@@ -33,7 +33,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 | ID | Requirement | Source |
 |---|---|---|
 | R11 | The **top lid** opens for access to the low-voltage part. The **bottom** opens for access to the high-voltage part. | I1, S1 |
-| R12 | Screw joints use **brass heat-set inserts + screws**, with as few different sizes as possible. | I1 |
+| R12 | Screw joints use **brass heat-set inserts + screws**: **M3 inserts only** (3 × 6 × 4.5). The Pi needs M2.5 screws/nuts (its holes are Ø2.75). | I1, I10 |
 | R13 | **Easily FDM-printable**: no tiny details, **single filament/colour**, **minimum number of printed parts**. | I1 |
 | R14 | **Parametric**: every uncertain dimension is a named parameter with a documented default. | I1 |
 | R16 | **Part split A**: body (walls only), separate **divider plate**, top lid, bottom lid. Pi and relay board mount on the divider plate. | I2-Q1 |
@@ -54,18 +54,18 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 - No printer or slicer settings are part of the design.
 
 ## Assumptions (apply unless the user says otherwise)
-- **A1** Relay board ≈ 75 × 55 mm, holes ≈ 69 × 49 mm Ø3.1, height ≈ 19 mm (C1, to be measured). Parameters.
-- **A2** Jack socket needs a Ø6 mm hole and is clamped between two nuts. Thread length unknown → the wall is locally thinned to 2 mm around it (C3).
+- **A1** ~~Relay board size assumed~~ → **measured** (I10): 75 × 52, holes 70 × 46 Ø3, height 17 + 3 mm pins.
+- **A2** ~~Jack hole assumed Ø6~~ → **measured** (I10): M8 thread, 4 mm usable, hex nut 2 mm / 11 mm, nose Ø10.
 - **A3** Rocker switches snap into a panel of ≈ 1.5–2 mm → the front wall is locally thinned around the cutouts (C6, C7).
-- **A4** Fastener set: **M3** inserts + screws for everything (lids, divider, relay board, power adapter, IEC inlet, sockets via M3 + washer in their Ø4.5 holes). **M2.5** only for the Pi, because its holes (Ø2.75) do not take M3.
+- **A4** Fastener set: **M3** inserts + screws for everything (lids, divider, relay board, IEC inlet, sockets via M3 + washer in their Ø4.5 holes), M3 × 30 + nut for the adapter. **M2.5** screws/nuts only for the Pi (no M2.5 inserts, I10).
 - **A5** No Pi ports are exposed. Network via Wi-Fi, and Pi access by opening the top lid.
 - **A6** The Pi is powered from the USB-C adapter (C2) through the divider feed-through (Pi 3 needs a USB-C → micro-USB cable).
 - **A7** Passive ventilation slots in the low-voltage part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
 - **A8** Freestanding on a table, with no wall mount.
-- **A9** USB-C adapter: mounting-hole position unknown → held by a fence + 2 cable ties. A screw fixing is added once the hole is measured (C2).
+- **A9** ~~Adapter hole unknown~~ → **measured** (I10): through-hole Ø3.5, 3.5 mm from the top edge, 8 mm from the side opposite the cable, 5 mm recess; adapter 51 × 49 × 27.
 
 ## Open questions
-- None blocking. **Relay board dimensions (Q2)**: measure on arrival and update parameters `relay_board`, `relay_holes`.
+- None. All parts measured (round 10).
 
 ## Answered (round 2)
 Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21 · round 4 → R2 (names), R22
