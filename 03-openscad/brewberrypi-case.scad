@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.9 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.10 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -43,10 +43,10 @@ rim_t = 1.5; // [1.2:0.1:2]
 lip = [2, 4];
 
 /* [Fasteners] */
-// P11 M3 heat-set insert hole [diameter, depth] for inserts 3 x 6 x 4.5 (6 long, Ø4.5)
+// P11 M3 heat-set insert hole [diameter, depth] for inserts 3 x 6 x 4.5 (6 long, Ø4.5): case, lids, divider, panel parts
 insert_m3 = [4.0, 7.0];
-// P12 hex pocket for the M2.5 nuts under the Pi standoffs [across flats, depth] (no M2.5 inserts)
-pi_nut = [5.1, 2.2];
+// P12 M2.5 heat-set insert hole [diameter, depth] for inserts 2.5 x 5 x 3.5 (5 long, Ø3.5): circuit boards (Pi, relay board)
+insert_m25 = [3.2, 6.0];
 
 /* [Raspberry Pi] */
 // P13 Pi board corner (x, y); board rotated with the GPIO edge to the front
@@ -117,8 +117,7 @@ divider_gap = 0.3;                        // F10 divider plate <-> inner walls
 notch = 12;                               // F10 corner notch, measured from the plate corner
 rib = [2, 6];  rib_x = [15, 175];         // F10 stiffening ribs [thickness, height], x range
 pi_board = [85, 56];  pi_hole_inset = 3.5;   // F11
-pi_boss = [8, 2.2];                       // F11 nut holder [diameter, protrusion under the plate]
-m25_clear = 2.9;                          // F11 hole for the M2.5 standoff thread / screw
+pi_boss = [7, 3.5];                       // F11 insert boss [diameter, protrusion under the plate]
 pi_standoff = 10;                         // F11 bought brass standoffs
 relay_standoff_d = 8;                     // F12
 relay_h = 17;  relay_pins = 3;            // C1 measured: PCB underside → relay tops, solder pins (envelope only)
@@ -192,6 +191,7 @@ if (part != "collision_check") {
     for (s = sockets) echo(str("REPORT F7 ", s[0], " socket Ø", socket_d + 2 * fit_clearance, " flat top at ", socket_flat, ", at x = ", s[1], ", z = ", back_z, ", holes □", socket_holes));
     echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
     echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, ", screw hole at ", adapter_pos + adapter_screw));
+    echo(str("REPORT inserts: M3 hole ", insert_m3, " (case), M2.5 hole ", insert_m25, " (Pi, relay board)"));
     echo(str("REPORT F11 Pi holes ", pi_hole_positions()));
     echo(str("REPORT F12 relay holes ", relay_hole_positions()));
 }
