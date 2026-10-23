@@ -162,3 +162,9 @@ No open design questions left. Remaining: print test (AC9).
 **User** (follow-up, verbatim): *Also, turn it around, so that the GPIOs are on the outside wall, not close to the passthrough hole.*
 
 **Decision** (Claude, spec v0.17): Pi turned 180° (a board can only be turned, not mirrored): GPIO header along the left edge (outer wall), power socket facing the feed-through (short USB-C cable), **USB/Ethernet to the back, SD card to the front**, still centred with 34.5 mm at both ends.
+
+## Round 18: relay board orientation (2026-10-23)
+
+**User** (verbatim): *Why did you turn the relay board too?* → Claude: to keep it inside the Pi's footprint (R3); unturned also fits, with more clearance and the mains terminals facing the sockets. **User:** *Yes, turn back.*
+
+**Decision** (Claude, spec v0.18): relay board in its original orientation (75 × 52) at (27, 54), under the Pi, 2 mm clear of the feed-through. Mains terminals to the back, control terminals to the front. All standoffs separate from the Pi bosses.

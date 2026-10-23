@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.17"
+SPEC_VERSION = "0.18"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -29,8 +29,8 @@ PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y)
 PI = dict(x=40, y=37.5, w=56, d=85, standoff=10, boss=3.5, boss_d=7,      # GPIO left, USB/Ethernet back, SD front
           holes=[(43.5, 41), (92.5, 41), (43.5, 99), (92.5, 99)])  # F11
 GPIO = (41, 44.5, 5, 51)             # header footprint (x, y, w, d), along the left edge
-RELAY = dict(x=42, y=42.5, w=52, d=75, standoff=10, pcb=1.6, relays=15.4,  # turned 90° with the Pi
-             holes=[(45, 45), (91, 45), (45, 115), (91, 115)])               # F12 (measured)
+RELAY = dict(x=27, y=54, w=75, d=52, standoff=10, pcb=1.6, relays=15.4,    # original orientation
+             holes=[(29.5, 57), (99.5, 57), (29.5, 103), (99.5, 103)])               # F12 (measured)
 SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
 ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)], rests=[(13, 3.5), (38, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
@@ -236,7 +236,7 @@ def top():
     for hx, hy in r["holes"]:
         s.circle(hx, hy, 4, "#7b1fa2", dash="1 1")
     s.text(r["x"] + r["w"] / 2, r["y"] + 30, "Relay board (BELOW)", 2.6, "#7b1fa2", weight="bold")
-    s.text(r["x"] + r["w"] / 2, r["y"] + 26, "75×52 turned, M2.5 inserts", 2.4, "#7b1fa2")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 26, "75×52, M2.5 inserts", 2.4, "#7b1fa2")
     a = ADAPTER
     s.rect(a["x"], a["y"], a["w"], a["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
     for hx, hy in a["holes"]:                              # standoffs with M3 inserts under the two holes
@@ -321,11 +321,11 @@ def section_a():
     s.dim_v(z_pcb, HV_H, 0, -10, "10")
     s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "27")
     s.dim_h(p["y"], p["y"] + p["d"], H, 6, "Pi 85")
-    s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 75")
+    s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 52")
     s.save("section-a-a.svg", [
         "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
         "Pi bosses (M2.5 inserts) reach 3.5 mm under the plate → 3.5 mm above the relay board's 3 mm solder pins (10 mm relay standoffs).",
-        "Relay board ↔ switch backs ≥ 5.5 mm (Y), ↔ IEC body ≥ 15 mm (Y). Pi centred: 34.5 mm at the SD card (front) and the USB/Ethernet ports (back)."])
+        "Relay board ↔ switch backs ≥ 17 mm (Y), ↔ IEC body ≥ 26 mm (Y). Pi centred: 34.5 mm at the SD card (front) and the USB/Ethernet ports (back)."])
 
 
 def section_b():
@@ -416,7 +416,7 @@ def section_c():
     s.dim_h(p["x"], p["x"] + p["w"], H, 6, "Pi 56")
     s.dim_h(sl["cx"] - sl["w"] / 2, sl["cx"] + sl["w"] / 2, H, 6)
     s.dim_h(a["x"], a["x"] + a["w"], H, 6, "adapter 51")
-    s.dim_h(r["x"], r["x"] + r["w"], z_pcb - r["pcb"] - r["relays"], -6, "relay 52")
+    s.dim_h(r["x"], r["x"] + r["w"], z_pcb - r["pcb"] - r["relays"], -6, "relay 75")
     s.dim_v(Z_DIV_TOP, z_pi, 0, -10, "10")
     s.dim_v(z_pcb, HV_H, 0, -10, "10")
     s.dim_v(z_pcb - r["pcb"] - r["relays"], HV_H, 0, -18, "27")
