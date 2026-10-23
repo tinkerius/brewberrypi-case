@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.17 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.18 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -59,8 +59,8 @@ pi_holes = [58, 49];
 relay_board = [75, 52];
 // P16 relay board hole pattern, centre to centre (measured, holes Ø3)
 relay_holes = [70, 46];
-// P17 corner (x, y) of the relay board's footprint (52 x 75, board turned 90 degrees), centred under the Pi
-relay_pos = [42, 42.5];
+// P17 relay board corner (x, y), original orientation (75 x 52), under the Pi, 2 mm clear of the feed-through
+relay_pos = [27, 54];
 // P18 gap between divider and relay PCB
 relay_standoff_h = 10;
 
@@ -165,11 +165,11 @@ function pi_footprint() = [pi_board.y, pi_board.x];
 function pi_hole_positions() =
     [for (du = [0, pi_holes.x]) for (dv = [0, pi_holes.y])
         [pi_pos.x + pi_board.y - pi_hole_inset - dv, pi_pos.y + pi_hole_inset + du]];
-// Relay board turned 90° with the Pi: footprint 52 x 75, hole pattern 46 x 70.
-function relay_footprint() = [relay_board.y, relay_board.x];
+// Relay board in its original orientation: footprint 75 x 52, hole pattern 70 x 46.
+function relay_footprint() = relay_board;
 function relay_hole_positions() =
-    [for (dx = [0, relay_holes.y]) for (dy = [0, relay_holes.x])
-        [relay_pos.x + (relay_board.y - relay_holes.y) / 2 + dx, relay_pos.y + (relay_board.x - relay_holes.x) / 2 + dy]];
+    [for (dx = [0, relay_holes.x]) for (dy = [0, relay_holes.y])
+        [relay_pos.x + (relay_board.x - relay_holes.x) / 2 + dx, relay_pos.y + (relay_board.y - relay_holes.y) / 2 + dy]];
 
 include <parts/body.scad>
 include <parts/divider.scad>
