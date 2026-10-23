@@ -93,3 +93,4 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 | 4 | USB-C adapter: mounting hole, size | Hole goes **through** the 27 mm depth, with a **~5 mm recess** on the port side, so the screw is in the hole for 22 mm. Hole centre **3.5 mm** from the top edge and **8 mm** from the side edge (the side opposite the cable), **Ø3.5 mm**. Size **51 (cable side) × 49 × 27 mm**, measured at the bottom |
 | 5 | Jack: thread diameter, usable thread length, hex nut | Thread **M8**, usable thread length **4 mm**, hex nut **2 mm** thick, **11 mm** at its widest |
 | 6 | Jack: diameter of the black front nose | **Ø10 mm** |
+| 7 | Rocker switches: clip gap (bezel underside → clip tip), bezel outer size | Clip gap: I/O (MAIN) **4 mm**, I/O/II (HEATER, PUMP) **3 mm**. Bezel outer size (plastic frame below the rubber cap): I/O **25.5 × 34.5 mm**, I/O/II **25.7 × 34.5 mm** |
