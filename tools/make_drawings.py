@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.13"
+SPEC_VERSION = "0.14"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -32,7 +32,7 @@ GPIO = (43.9, 56, 51, 5)           # header footprint (x, y, w, d)
 RELAY = dict(x=17, y=58, w=75, d=52, standoff=10, pcb=1.6, relays=15.4,
              holes=[(19.5, 61), (89.5, 61), (19.5, 107), (89.5, 107)])       # F12 (measured)
 SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
-ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)])   # port face down: its top edge is at the front                      # F14
+ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)], rests=[(13, 3.5), (38, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
 SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth behind panel incl. connectors
     ("MAIN", 40, 22, 27, 25.5, 34.5, 37),
@@ -239,9 +239,11 @@ def top():
     for hx, hy in a["holes"]:                              # standoffs with M3 inserts under the two holes
         s.circle(a["x"] + hx, a["y"] + hy, 4, "#7b1fa2", dash="1 1")
         s.circle(a["x"] + hx, a["y"] + hy, 2, "#7b1fa2")
+    for hx, hy in a["rests"]:                              # solid rest standoffs at the other two corners
+        s.circle(a["x"] + hx, a["y"] + hy, 4, "#7b1fa2", "#e1bee7", dash="1 1")
     s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 + 3, "USB-C adapter (BELOW)", 2.8, "#7b1fa2", weight="bold")
     s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 1.5, "51×49, port faces down", 2.4, "#7b1fa2")
-    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 5.5, "2 × M3×30 into inserts, 6 mm standoffs", 2.4, "#7b1fa2")
+    s.text(a["x"] + a["w"] / 2, a["y"] + a["d"] / 2 - 5.5, "4 × 6 mm standoffs, 2 with inserts (M3×30)", 2.4, "#7b1fa2")
     sl = SLOT
     s.rect(sl["cx"] - sl["w"] / 2, sl["cy"] - sl["h"] / 2, sl["w"], sl["h"], fill=CUT, rx=7)
     s.text(sl["cx"] + 1, sl["cy"], "feed-through 14×46", 2.4, rot=-90)
@@ -261,7 +263,7 @@ def top():
     s.dim_v(r["y"], r["y"] + r["d"], 0, -6)
     s.dim_v(a["y"], a["y"] + a["d"], a["x"] + a["w"], 5)
     s.save("plan-view.svg", [
-        "Pink solid = on top of the divider. Purple dashed = hanging UNDER the divider (relay board on 10 mm standoffs, adapter on 2 × 6 mm standoffs at its diagonal holes).",
+        "Pink solid = on top of the divider. Purple dashed = hanging UNDER the divider (relay board on 10 mm standoffs, adapter on 4 × 6 mm standoffs, 2 with inserts).",
         "Divider plate rests on 4 pads (10×14, M3 inserts) and clears the Ø10 corner columns. Front = bottom edge of this sheet.",
         "Blue dash-dot = section lines A–A, B–B (side sections) and C–C (front section)."])
 
@@ -351,7 +353,7 @@ def section_b():
     s.dim_h(a["y"], a["y"] + a["d"], H, 6, "adapter 49")
     s.dim_h(depth, a["y"], Z_PANEL + 20, 0)
     s.save("section-b-b.svg", [
-        "Adapter on 2 printed standoffs (Ø8 × 6, M3 inserts) under its two diagonal holes, 2 × M3 × 30 from below. Port faces down: 37 mm free for plug + cable.",
+        "Adapter rests on 4 printed standoffs (Ø8 × 6): 2 with M3 inserts under its diagonal holes (2 × M3 × 30 from below), 2 solid. Port faces down: 37 mm free.",
         "Adapter ↔ switch backs ≥ 3 mm (Y), ↔ PUMP socket body ≥ 21 mm (Y)."])
 
 
@@ -395,7 +397,7 @@ def section_c():
     # adapter: cut, standoff beyond (the back one), plug envelope
     z_top = HV_H - a["standoff"]
     z_bot = z_top - a["h"]
-    for hx, hy in a["holes"]:
+    for hx, hy in a["holes"] + a["rests"]:
         if a["y"] + hy > Y_CUT:
             s.rect(a["x"] + hx - 4, z_top, 8, a["standoff"], "#7b1fa2", sw=0.3, dash="1 1")
     s.rect(a["x"], z_bot, a["w"], a["h"], "#7b1fa2", "#e1bee7", 0.45)

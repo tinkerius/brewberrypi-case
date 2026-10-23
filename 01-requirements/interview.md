@@ -140,3 +140,9 @@ No open design questions left. Remaining: print test (AC9).
 **User** (re-measured, verbatim): *Holes are: 3.5 mm from the top/bottom; 13 mm from the left/right. Width of the device: 51 mm; height: 49 mm. Diagonal: center hole to center hole → 48.5.*
 
 **Claude:** 13 / 3.5 mm give 25 × 42 mm → 48.9 mm diagonal, 0.4 mm from the measured 48.5: within measuring accuracy and within the ~0.5 mm play of an M3 screw in the Ø3.5 holes. The direct edge measurements are used. (The earlier "8 mm" was wrong.) → spec v0.13: standoffs at (161, 64.5) and (136, 106.5).
+
+## Round 15: adapter support (2026-10-23)
+
+**User** (verbatim): *Also only two inserts are needed, add two more dummy inserts (without holes for inserts) so the adapter is resting at 4 points (also only two have inserts).*
+
+**Decision** (Claude, spec v0.14): 2 solid rest standoffs Ø8 × 6 at the other two corners of the hole rectangle, (136, 64.5) and (161, 106.5). The adapter rests on 4 points; only the 2 diagonal ones have M3 inserts and screws.
