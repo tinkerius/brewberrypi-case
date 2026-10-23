@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.9"
+SPEC_VERSION = "0.10"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -26,7 +26,7 @@ LIP_T, LIP_H = 2, 4                # P32 bottom lid locating lip
 NOTCH_W = 12                       # F16 pry notch, centred on the back wall
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
-PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=2.2, boss_d=8,
+PI = dict(x=17, y=55, w=85, d=56, standoff=10, boss=3.5, boss_d=7,
           holes=[(40.5, 58.5), (98.5, 58.5), (40.5, 107.5), (98.5, 107.5)])  # F11
 GPIO = (43.9, 56, 51, 5)           # header footprint (x, y, w, d)
 RELAY = dict(x=17, y=58, w=75, d=52, standoff=10, pcb=1.6, relays=15.4,
@@ -224,7 +224,7 @@ def top():
     for hx, hy in p["holes"]:
         s.circle(hx, hy, 1.4, PART)
     s.text(p["x"] + p["w"] / 2, p["y"] + 40, "Raspberry Pi 3/4/5 (on top)", 3.4, PART, weight="bold")
-    s.text(p["x"] + p["w"] / 2, p["y"] + 35, "85×56, holes 58×49 M2.5, 10 mm brass standoffs", 2.4, PART)
+    s.text(p["x"] + p["w"] / 2, p["y"] + 35, "85×56, holes 58×49, M2.5 inserts + 10 mm M/F standoffs", 2.4, PART)
     s.text(p["x"] + p["w"] / 2, p["y"] + 7.5, "GPIO header (front)", 2.4, PART)
     s.text(p["x"] + p["w"] / 2, p["y"] + p["d"] - 3, "power socket (back)", 2.4, PART)
     # below: relay board + adapter (dashed)
@@ -233,7 +233,7 @@ def top():
     for hx, hy in r["holes"]:
         s.circle(hx, hy, 4, "#7b1fa2", dash="1 1")
     s.text(r["x"] + r["w"] / 2, r["y"] + 22, "Relay board (BELOW, directly under the Pi)", 2.6, "#7b1fa2")
-    s.text(r["x"] + r["w"] / 2, r["y"] + 18, "75×52, holes 70×46, 10 mm standoffs", 2.4, "#7b1fa2")
+    s.text(r["x"] + r["w"] / 2, r["y"] + 18, "75×52, holes 70×46, 10 mm standoffs, M2.5 inserts", 2.4, "#7b1fa2")
     a = ADAPTER
     s.rect(a["x"], a["y"], a["w"], a["d"], "#7b1fa2", sw=0.5, dash="3 1.5")
     for cx, cy, sx, sy in ((a["x"], a["y"], 1, 1), (a["x"] + a["w"], a["y"], -1, 1),
@@ -325,7 +325,7 @@ def section_a():
     s.dim_h(r["y"], r["y"] + r["d"], z_pcb - r["pcb"] - r["relays"], -6, "relay 55")
     s.save("section-a-a.svg", [
         "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
-        "Pi nut holders reach 2.2 mm under the plate → 4.8 mm above the relay board's 3 mm solder pins (10 mm relay standoffs).",
+        "Pi bosses (M2.5 inserts) reach 3.5 mm under the plate → 3.5 mm above the relay board's 3 mm solder pins (10 mm relay standoffs).",
         "Relay board ↔ switch backs ≥ 3 mm (Y), ↔ IEC body ≥ 22 mm (Y). Free height above the Pi board ≈ 35 mm."])
 
 

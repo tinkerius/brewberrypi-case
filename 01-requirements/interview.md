@@ -103,3 +103,9 @@ The user has all parts and measures what was assumed. Asked one question at a ti
 - Jack M8: hole Ø8 (+ clearance), **flat-top** teardrop cut at 4.7 mm (hidden under the Ø10 nose), wall 1.6 mm (nut 2 + wall 1.6 ≤ 4 mm thread).
 - Switch walls = clip gap − 0.3: MAIN **3.7 mm** (inside frame), HEATER/PUMP **2.7 mm** (inside pocket). Cutouts confirmed by the body sizes.
 - Insert holes Ø4.0 × 7 deep. **No M2.5 inserts**: the Pi's Ø2.75 holes only take M2.5, so the Pi standoffs go into **M2.5 nuts held in hex pockets** under the divider (or M2.5 screws from below for female-female standoffs).
+
+## Round 11: inserts for the circuit boards (2026-10-23)
+
+**User** (verbatim, on the M2.5 nut pockets for the Pi): *I don't like this. You convinced me. Use 2.5x5x3.5 for the PCBs and the 3x... for the rest. Does this separation make sense?*
+
+**Claude:** yes. M2.5 for the PCBs (Pi: Ø2.75 holes only take M2.5; relay board: Ø3 holes, M2.5 fits easily where M3 is a tight fit), M3 for the case. → spec v0.10: M2.5 inserts 2.5 × 5 × 3.5 (M2.5, 5 long, Ø3.5) for the Pi and the relay board, M3 inserts 3 × 6 × 4.5 for everything else. Nut pockets removed. Pi standoffs need a male end (male-female).

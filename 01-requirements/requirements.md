@@ -33,7 +33,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 | ID | Requirement | Source |
 |---|---|---|
 | R11 | The **top lid** opens for access to the low-voltage part. The **bottom** opens for access to the high-voltage part. | I1, S1 |
-| R12 | Screw joints use **brass heat-set inserts + screws**: **M3 inserts only** (3 × 6 × 4.5). The Pi needs M2.5 screws/nuts (its holes are Ø2.75). | I1, I10 |
+| R12 | Screw joints use **brass heat-set inserts + screws**: **M2.5 inserts 2.5 × 5 × 3.5 for the circuit boards** (Pi, relay board), **M3 inserts 3 × 6 × 4.5 for everything else**. | I1, I10, I11 |
 | R13 | **Easily FDM-printable**: no tiny details, **single filament/colour**, **minimum number of printed parts**. | I1 |
 | R14 | **Parametric**: every uncertain dimension is a named parameter with a documented default. | I1 |
 | R16 | **Part split A**: body (walls only), separate **divider plate**, top lid, bottom lid. Pi and relay board mount on the divider plate. | I2-Q1 |
@@ -57,7 +57,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 - **A1** ~~Relay board size assumed~~ → **measured** (I10): 75 × 52, holes 70 × 46 Ø3, height 17 + 3 mm pins.
 - **A2** ~~Jack hole assumed Ø6~~ → **measured** (I10): M8 thread, 4 mm usable, hex nut 2 mm / 11 mm, nose Ø10.
 - **A3** Rocker switches snap into a panel of ≈ 1.5–2 mm → the front wall is locally thinned around the cutouts (C6, C7).
-- **A4** Fastener set: **M3** inserts + screws for everything (lids, divider, relay board, IEC inlet, sockets via M3 + washer in their Ø4.5 holes), M3 × 30 + nut for the adapter. **M2.5** screws/nuts only for the Pi (no M2.5 inserts, I10).
+- **A4** Fastener set: **M3** inserts + screws for the case (lids, divider, IEC inlet, sockets via M3 + washer in their Ø4.5 holes), M3 × 30 + nut for the adapter. **M2.5** inserts + screws for the PCBs (Pi, relay board) (I11).
 - **A5** No Pi ports are exposed. Network via Wi-Fi, and Pi access by opening the top lid.
 - **A6** The Pi is powered from the USB-C adapter (C2) through the divider feed-through (Pi 3 needs a USB-C → micro-USB cable).
 - **A7** Passive ventilation slots in the low-voltage part. Optional 30 mm or 40 mm fan mount as a parameter (for a Pi 5).
