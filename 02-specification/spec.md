@@ -2,7 +2,7 @@
 
 | Version | Status | Approved by / date |
 |---|---|---|
-| 0.12 | **approved** (correction of v0.11) | v0.3: user (tinkerius), 2026-10-19 · v0.4 confirmed 2026-10-19 · v0.5–v0.8 requested 2026-10-22 · v0.9 measured, v0.10–v0.12 2026-10-23 |
+| 0.12 | **approved, except the adapter hole spacing (F14/P30): open, being re-measured** | v0.3: user (tinkerius), 2026-10-19 · v0.4 confirmed 2026-10-19 · v0.5–v0.8 requested 2026-10-22 · v0.9 measured, v0.10–v0.12 2026-10-23 |
 
 Traces to `01-requirements/requirements.md` (R…, A…) and `01-requirements/inputs/components.md` (C…).
 

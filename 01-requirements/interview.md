@@ -132,3 +132,7 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *The holes for the USB-C power brick are completely off.*
 
 **Claude:** cause found: the hole pattern was placed mirrored. Mounted port face down with the cable side towards −X, the port face's **top edge points to the front** (−Y), not the back. So the top-right hole (seen on the port face) is at front-right (166, 64.5) and the bottom-left hole at back-left (131, 106.5). v0.9–v0.11 had them on the other diagonal. → spec v0.12.
+
+**User** (follow-up, verbatim): *The distance (center hole to center hole) is 55 mm. However, it should be 48.5 mm only.*
+
+**Claude:** the edge distances (3.5 / 8 mm on a 51 × 49 face) give 35 × 42 → 54.7 mm diagonal, so they don't describe the hole pattern (probably measured on the smaller, chamfered port face). **Open:** centre-to-centre spacing across and up/down, and whether the pair is centred on the adapter. Until then the divider must not be printed.

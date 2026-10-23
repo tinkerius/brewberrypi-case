@@ -15,9 +15,9 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | Stage | State | Notes |
 |---|---|---|
 | 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10) |
-| 2. Specification | done | **v0.12 approved** 2026-10-23, no open questions |
+| 2. Specification | **open item** | v0.12 · adapter hole spacing being re-measured |
 | 3. OpenSCAD | done | from spec v0.12: 4 parts, all manifold, collision check empty |
-| 4. STL | done | 4 STLs from spec v0.12, AC1–AC8 + AC10 pass, **AC9 print test open** |
+| 4. STL | done, **divider on hold** | 4 STLs from spec v0.12, AC1–AC8 + AC10 pass · **don't print the divider until the adapter hole spacing is fixed** · AC9 print test open |
 
 ## Folders
 

@@ -65,7 +65,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 - **A9** ~~Adapter hole unknown~~ → **measured** (I10, I13): **two** through-holes Ø3.5, diagonally opposite (top-right / bottom-left), centres 3.5 mm from the top/bottom edge and 8 mm from the side edge, 5 mm recess; adapter 51 × 49 × 27.
 
 ## Open questions
-- None. All parts measured (round 10).
+- **Adapter hole spacing (round 14):** diagonal centre-to-centre is 48.5 mm (user), the model has 54.7 mm. Needs the spacing across / up-down → then spec update. **Do not print the divider yet.**
 
 ## Answered (round 2)
 Q1 → R16 · Q2 → A1 · Q3 → R15 · Q4 → R17/A5 · Q5 → R18/A7 · Q6 → R19/A8 · Q7 → R20 · Q8 → R21 · round 4 → R2 (names), R22
