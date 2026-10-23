@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.12 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.13 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -71,7 +71,7 @@ adapter = [51, 49, 27];
 adapter_pos = [123, 61];
 // P30 the adapter's two mounting holes (diagonal) [x from the cable side, y from the front] relative to the adapter corner (measured).
 // Port face down → its top edge is at the front: top-right hole = front-right, bottom-left hole = back-left.
-adapter_holes = [[43, 3.5], [8, 45.5]];
+adapter_holes = [[38, 3.5], [13, 45.5]];   // 25 x 42 apart
 // P34 gap between divider and adapter (standoffs); M3 x 30 = 22 through the adapter + 8 into standoff and plate
 adapter_standoff_h = 6;
 
