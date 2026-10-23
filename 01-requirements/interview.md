@@ -152,3 +152,9 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *Let's turn the RPi by 90 degree so that the USB and Ethernet ports are not blocked by the wall.*
 
 **Decision** (Claude, spec v0.15): Pi turned 90° with the **USB/Ethernet end to the front**, 52 mm free in front of the ports. This puts the GPIO header on the right (next to the feed-through) and the power socket on the left (37 mm to the wall). Ports to the back was not chosen: the temperature jack sits there at the Pi's height. The **relay board turns too** (52 × 75 in plan), so it stays directly under the Pi (R3).
+
+## Round 17: Pi position (2026-10-23)
+
+**User** (verbatim): *On the opposite side of the USB/Ethernet is the SD card. Put the Pi in the middle, so SD card and USB/Ethernet have similar amount of space.*
+
+**Decision** (Claude, spec v0.16): Pi centred front to back (y 37.5–122.5): 34.5 mm in front of the ports and behind the SD card. Relay board centred under it (y 42.5–117.5). The back relay standoffs merge with the Pi bosses above (inserts from opposite sides, holes 4.3 mm apart, 1 mm apart in height).

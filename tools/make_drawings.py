@@ -8,7 +8,7 @@ import math
 import pathlib
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.15"
+SPEC_VERSION = "0.16"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -26,11 +26,11 @@ LIP_T, LIP_H = 2, 4                # P32 bottom lid locating lip
 NOTCH_W = 12                       # F16 pry notch, centred on the back wall
 COL_C, COL_R = 7, 5                # corner columns: centre inset, radius
 PADS = [(8, 40), (8, 120), (182, 40), (182, 120)]   # divider pads (centre x, y), 10 x 14
-PI = dict(x=40, y=55, w=56, d=85, standoff=10, boss=3.5, boss_d=7,      # turned: USB/Ethernet to the front
-          holes=[(43.5, 78.5), (92.5, 78.5), (43.5, 136.5), (92.5, 136.5)])  # F11
-GPIO = (90, 82, 5, 51)             # header footprint (x, y, w, d), along the right edge
-RELAY = dict(x=42, y=50, w=52, d=75, standoff=10, pcb=1.6, relays=15.4,  # turned 90° with the Pi
-             holes=[(45, 52.5), (91, 52.5), (45, 122.5), (91, 122.5)])       # F12 (measured)
+PI = dict(x=40, y=37.5, w=56, d=85, standoff=10, boss=3.5, boss_d=7,      # turned: USB/Ethernet to the front
+          holes=[(43.5, 61), (92.5, 61), (43.5, 119), (92.5, 119)])  # F11
+GPIO = (90, 64.5, 5, 51)             # header footprint (x, y, w, d), along the right edge
+RELAY = dict(x=42, y=42.5, w=52, d=75, standoff=10, pcb=1.6, relays=15.4,  # turned 90° with the Pi
+             holes=[(45, 45), (91, 45), (45, 115), (91, 115)])               # F12 (measured)
 SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F13
 ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)], rests=[(13, 3.5), (38, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
@@ -324,7 +324,7 @@ def section_a():
     s.save("section-a-a.svg", [
         "Cut faces grey/filled. Dashed = beyond the cut or component envelopes. Brass = M2.5 hex standoffs (bought).",
         "Pi bosses (M2.5 inserts) reach 3.5 mm under the plate → 3.5 mm above the relay board's 3 mm solder pins (10 mm relay standoffs).",
-        "Relay board ↔ switch backs ≥ 13 mm (Y), ↔ IEC body ≥ 7 mm (Y). Free height above the Pi board ≈ 35 mm, 52 mm in front of its USB/Ethernet ports."])
+        "Relay board ↔ switch backs ≥ 5.5 mm (Y), ↔ IEC body ≥ 15 mm (Y). Pi centred: 34.5 mm at the USB/Ethernet ports and at the SD card."])
 
 
 def section_b():
