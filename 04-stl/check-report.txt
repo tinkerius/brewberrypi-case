@@ -1,4 +1,4 @@
-# tools/check.sh output, 2026-10-23, model from spec v0.13
+# tools/check.sh output, 2026-10-23, model from spec v0.14
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-body.stl
@@ -31,8 +31,8 @@
    Min X =  3.300003, Max X =  186.699997
    Min Y =  3.300000, Max Y =  156.699997
    Min Z =  0.000000, Max Z =  13.000000
-   Number of facets                 :  4392                4392
-   Number of parts       :     1        Volume   :  87151.742188
+   Number of facets                 :  4896                4896
+   Number of parts       :     1        Volume   :  87753.906250
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -121,7 +121,7 @@
    F7 HEATER socket Ø43.4 flat top at 24, at x = 90, z = 38, holes □38
    F7 PUMP socket Ø43.4 flat top at 24, at x = 145, z = 38, holes □38
    F8 jack Ø8.4 flat top at 4.7, wall 1.6, at x = 35, z = 98
-   F14 adapter [51, 49, 27] at [123, 61] on 6 mm standoffs at [[161, 64.5], [136, 106.5]]
+   F14 adapter [51, 49, 27] at [123, 61] on 6 mm standoffs: inserts at [[161, 64.5], [136, 106.5]], solid at [[136, 64.5], [161, 106.5]]
    inserts: M3 hole [4, 7] (case), M2.5 hole [3.2, 6] (Pi, relay board)
    F11 Pi holes [[98.5, 58.5], [98.5, 107.5], [40.5, 58.5], [40.5, 107.5]]
    F12 relay holes [[19.5, 61], [19.5, 107], [89.5, 61], [89.5, 107]]
