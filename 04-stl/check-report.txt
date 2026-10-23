@@ -1,4 +1,4 @@
-# tools/check.sh output, 2026-10-23, model from spec v0.14
+# tools/check.sh output, 2026-10-23, model from spec v0.15
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-body.stl
@@ -32,7 +32,7 @@
    Min Y =  3.300000, Max Y =  156.699997
    Min Z =  0.000000, Max Z =  13.000000
    Number of facets                 :  4896                4896
-   Number of parts       :     1        Volume   :  87753.906250
+   Number of parts       :     1        Volume   :  87753.945312
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -93,10 +93,10 @@
    sloped               area     7.0 mm²  x  187.0… 190.0  y  118.9… 121.1  z  109.6… 110.0
 == 04-stl/brewberrypi-case-bottom_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
 == 04-stl/brewberrypi-case-divider.stl: 4 region(s) ≥ 5 mm², 3 tiny (2.4 mm² in total)
-   flat (bridge/ledge)  area     8.0 mm²  x   96.9… 100.1  y   99.9… 103.1  z    6.0…   6.0
-   flat (bridge/ledge)  area     8.0 mm²  x   38.9…  42.1  y   99.9… 103.1  z    6.0…   6.0
-   flat (bridge/ledge)  area     8.0 mm²  x   96.9… 100.1  y   50.9…  54.1  z    6.0…   6.0
-   flat (bridge/ledge)  area     8.0 mm²  x   38.9…  42.1  y   50.9…  54.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   90.9…  94.1  y   21.9…  25.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   90.9…  94.1  y   79.9…  83.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   41.9…  45.1  y   21.9…  25.1  z    6.0…   6.0
+   flat (bridge/ledge)  area     8.0 mm²  x   41.9…  45.1  y   79.9…  83.1  z    6.0…   6.0
 == 04-stl/brewberrypi-case-top_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
 
 ### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)
@@ -123,5 +123,5 @@
    F8 jack Ø8.4 flat top at 4.7, wall 1.6, at x = 35, z = 98
    F14 adapter [51, 49, 27] at [123, 61] on 6 mm standoffs: inserts at [[161, 64.5], [136, 106.5]], solid at [[136, 64.5], [161, 106.5]]
    inserts: M3 hole [4, 7] (case), M2.5 hole [3.2, 6] (Pi, relay board)
-   F11 Pi holes [[98.5, 58.5], [98.5, 107.5], [40.5, 58.5], [40.5, 107.5]]
-   F12 relay holes [[19.5, 61], [19.5, 107], [89.5, 61], [89.5, 107]]
+   F11 Pi holes [[43.5, 136.5], [92.5, 136.5], [43.5, 78.5], [92.5, 78.5]]
+   F12 relay holes [[45, 52.5], [45, 122.5], [91, 52.5], [91, 122.5]]
