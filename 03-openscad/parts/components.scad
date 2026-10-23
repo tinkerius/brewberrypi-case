@@ -6,8 +6,9 @@ module pi_envelope() {                            // C8 + F11: brass standoffs, 
     for (p = pi_hole_positions()) translate([p.x, p.y, z_div_top + 0.02]) cylinder(d = 5, h = pi_standoff - 0.02, $fn = 6);
     translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff]) cube([pi_footprint().x, pi_footprint().y, 1.6]);
     translate([pi_pos.x, pi_pos.y, z_div_top + pi_standoff + 1.6]) cube([pi_footprint().x, pi_footprint().y, 17]);
-    // R23: 40 mm of free space in front of the USB/Ethernet ports (plugs, sticks)
-    translate([pi_pos.x, pi_pos.y - 40, z_div_top + pi_standoff + 1.6]) cube([pi_footprint().x, 40 - 0.01, 15]);
+    // R23: 30 mm of free space at the SD card (front) and at the USB/Ethernet ports (back, plugs and sticks)
+    translate([pi_pos.x + 0.5, pi_pos.y - 30, z_div_top + pi_standoff]) cube([pi_footprint().x - 1, 30 - 0.01, 10]);
+    translate([pi_pos.x + 0.5, pi_pos.y + pi_footprint().y + 0.01, z_div_top + pi_standoff + 1.6]) cube([pi_footprint().x - 1, 30, 15]);
 }
 
 module relay_envelope() {                         // C1 + F12: PCB on the standoffs, relays below, solder pins above
