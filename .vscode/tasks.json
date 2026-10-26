@@ -1,0 +1,62 @@
+{
+  // Thin wrappers around the Makefile targets; the Makefile is the source of truth.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "make build",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "lint",
+      "type": "shell",
+      "command": "make lint",
+      "problemMatcher": []
+    },
+    {
+      "label": "test",
+      "type": "shell",
+      "command": "make test",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "ci",
+      "type": "shell",
+      "command": "make ci",
+      "problemMatcher": []
+    },
+    {
+      "label": "setup",
+      "type": "shell",
+      "command": "make setup",
+      "problemMatcher": []
+    },
+    {
+      "label": "status",
+      "type": "shell",
+      "command": "make status",
+      "problemMatcher": []
+    },
+    {
+      "label": "claude-scad",
+      "type": "shell",
+      "command": "make claude-scad",
+      "problemMatcher": []
+    },
+    {
+      "label": "claude-stl",
+      "type": "shell",
+      "command": "make claude-stl",
+      "problemMatcher": []
+    },
+    {
+      "label": "pipeline",
+      "type": "shell",
+      "command": "make pipeline",
+      "problemMatcher": []
+    }
+  ]
+}
