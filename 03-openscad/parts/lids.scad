@@ -14,12 +14,17 @@ module top_lid() {
     }
 }
 
-// F21 raised logo on the outer face.
+// F21 raised brand logo (B2, stacked) on the outer face: drawn area logo_w wide, centred on logo_pos.
+// The mask parts of B2 (dial ring, needle, berry dots) are already cut out of brand_logo_2d().
 module logo() {
+    b = brand_logo_box();
     translate([logo_pos.x, logo_pos.y, body_h - 0.01])
         linear_extrude(logo_raise + 0.01)
-            text(logo, size = logo_size, font = font, halign = "center", valign = "center");
+            scale(logo_w / (b[1].x - b[0].x)) translate(-(b[0] + b[1]) / 2) brand_logo_2d();
 }
+
+// F21 size of the logo's drawn area [x, y] in mm.
+function logo_size() = let(b = brand_logo_box()) [logo_w, logo_w * (b[1].y - b[0].y) / (b[1].x - b[0].x)];
 
 // F22 optional fan mount over the Pi SoC (30 or 40 mm fan, M3 screws + nuts).
 module fan_mount() {

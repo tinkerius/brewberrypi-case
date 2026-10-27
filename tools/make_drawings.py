@@ -4,11 +4,14 @@
 The numbers below mirror the tables in 02-specification/spec.md. Change the spec first, then here.
 Usage: python3 tools/make_drawings.py
 """
+import base64
 import math
 import pathlib
+import re
 
-OUT = pathlib.Path(__file__).resolve().parent.parent / "02-specification" / "drawings"
-SPEC_VERSION = "0.18"
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+OUT = ROOT / "02-specification" / "drawings"
+SPEC_VERSION = "0.19"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -45,6 +48,13 @@ SOCKETS = [("HEATER", 90), ("PUMP", 145)]            # x centres; cutout Ø43 fl
 SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
 JACK = dict(x=35, z=98, d=8, flat=4.7, nut=10, pocket=16)
 Y_CUT = 85                         # section C-C: through the Pi/relay stack, feed-through and adapter
+LID_INSET, LID_R = RIM + CLR, 2.3  # F20 top lid: offset from the body faces, corner radius
+FAN = dict(x=64, y=67.5, d=40, holes=32)   # F22 (optional, P20), drawn for a 40 mm fan
+LOGO = dict(w=130, cx=95, cy=80)   # F21, P35: drawn area of B2, centred on the lid
+LOGO_SRC = ROOT / "01-requirements" / "inputs" / "brand-logo-stacked.svg"   # B2
+LOGO_INK = (4.94, 3.5, 138.06, 90.71)   # B2 drawn area in brand units (x0, y0, x1, y1)
+SANS = "Helvetica, Arial, sans-serif"
+BRAND = "'Zilla Slab', Rockwell, serif"   # R24: case labels (the model ships the font; viewers fall back)
 
 # --- tiny SVG helper ----------------------------------------------------------
 INK, HID, CUT, PART, DIM, SOFT, BRASS = "#222", "#666", "#e6e6e6", "#c2185b", "#1565c0", "#999", "#b8860b"
@@ -82,11 +92,11 @@ class Sheet:
         d = f' stroke-dasharray="{dash}"' if dash else ""
         self.add(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
 
-    def text(self, u, v, s, size=3.5, fill=INK, anchor="middle", weight="normal", rot=0):
+    def text(self, u, v, s, size=3.5, fill=INK, anchor="middle", weight="normal", rot=0, font=SANS):
         x, y = self.P(u, v)
         r = f' transform="rotate({rot} {x:.2f} {y:.2f})"' if rot else ""
         self.add(f'<text x="{x:.2f}" y="{y:.2f}" font-size="{size}" fill="{fill}" text-anchor="{anchor}" '
-                 f'font-weight="{weight}" font-family="Helvetica, Arial, sans-serif"{r}>{s}</text>')
+                 f'font-weight="{weight}" font-family="{font}"{r}>{s}</text>')
 
     def teardrop(self, u, v, r, flat=None, fill=CUT):
         """Teardrop hole (point up), optionally truncated flat at height `flat` above the centre."""
@@ -156,7 +166,7 @@ def front():
         s.rect(x - bw / 2, Z_PANEL - bh / 2, bw, bh, PART, sw=0.35, dash="1.5 1")
         s.rect(x - cw / 2, Z_PANEL - ch / 2, cw, ch, fill=CUT)
         s.text(x, Z_PANEL - 1, f"{cw:g}×{ch:g}", 2.6, INK)
-        s.text(x, 12, name, 6, INK, weight="bold")
+        s.text(x, 12, name, 6, INK, weight="bold", font=BRAND)
     s.dim_h(0, W, -LID_T, -12)
     xs = [0] + [sw[1] for sw in SWITCHES]
     for a, b in zip(xs, xs[1:]):
@@ -165,7 +175,7 @@ def front():
     s.dim_v(0, Z_PANEL, W, 22)
     s.dim_v(0, HV_H, W, 14, "70 (divider)")
     s.save("front-view.svg", [
-        "Grey = cutout (clearance P9 added in the model), dashed pink = switch bezel. Labels raised 0.6 mm, 6 mm text.",
+        "Grey = cutout (clearance P9 added in the model), dashed pink = switch bezel. Labels raised 0.6 mm, capitals 6 mm, Zilla Slab Bold.",
         "Wall at the switch clips (P10, clip gap − 0.3): MAIN 3.7 mm (0.7 mm frame inside), HEATER/PUMP 2.7 mm (0.3 mm pocket inside)."])
 
 
@@ -179,7 +189,7 @@ def back():
     for dx in (-IEC["hole_dx"], IEC["hole_dx"]):
         s.circle(iu + dx, Z_BACK, 2, fill=CUT)
     s.text(iu, Z_BACK - 1, "27.5×31.5 r1", 2.6)
-    s.text(iu, 4, "POWER", 6, weight="bold")
+    s.text(iu, 4, "POWER", 6, weight="bold", font=BRAND)
     for name, x in SOCKETS:
         su, f, hp = u(x), SOCKET["flange"], SOCKET["holes"] / 2
         s.rect(su - f / 2, Z_BACK - f / 2, f, f, PART, sw=0.35, dash="1.5 1", rx=4)
@@ -188,12 +198,12 @@ def back():
             for dz in (-hp, hp):
                 s.circle(su + dx, Z_BACK + dz, 2, fill=CUT)
         s.text(su, Z_BACK - 1, "Ø43", 3)
-        s.text(su, 4, name, 6, weight="bold")
+        s.text(su, 4, name, 6, weight="bold", font=BRAND)
     ju = u(JACK["x"])
     s.circle(ju, JACK["z"], JACK["pocket"] / 2, HID, sw=0.3, dash="1 1")
     s.circle(ju, JACK["z"], JACK["nut"] / 2, PART, sw=0.35, dash="1.5 1")
     s.teardrop(ju, JACK["z"], JACK["d"] / 2, JACK["flat"])
-    s.text(ju, 82, "TEMP", 6, weight="bold")
+    s.text(ju, 82, "TEMP", 6, weight="bold", font=BRAND)
     s.dim_h(0, W, -LID_T, -12)
     us = sorted([0, u(IEC["x"])] + [u(x) for _, x in SOCKETS])
     for a, b in zip(us, us[1:]):
@@ -269,6 +279,46 @@ def top():
         "Pink solid = on top of the divider. Purple dashed = hanging UNDER the divider (relay board on 10 mm standoffs, adapter on 4 × 6 mm standoffs, 2 with inserts).",
         "Divider plate rests on 4 pads (10×14, M3 inserts) and clears the Ø10 corner columns. Front = bottom edge of this sheet.",
         "Blue dash-dot = section lines A–A, B–B (side sections) and C–C (front section)."])
+
+
+def top_lid():
+    s = Sheet("Top lid from above (from +Z, front at the bottom)", -12, W + 22, -24, D + 12)
+    s.rect(0, 0, W, D, SOFT, sw=0.3, rx=4)                                  # body outline (rim)
+    s.rect(LID_INSET, LID_INSET, W - 2 * LID_INSET, D - 2 * LID_INSET, rx=LID_R, fill="#f8f8f8")
+    for cx in (COL_C, W - COL_C):
+        for cy in (COL_C, D - COL_C):
+            s.circle(cx, cy, 1.7, fill=CUT)
+    # F21: B2 itself in one colour (ink), scaled so its drawn area is LOGO["w"] wide and centred on (cx, cy)
+    x0, y0, x1, y1 = LOGO_INK
+    k = LOGO["w"] / (x1 - x0)
+    lw, lh = LOGO["w"], (y1 - y0) * k
+    u0, v0 = LOGO["cx"] - lw / 2, LOGO["cy"] - lh / 2
+    src = re.sub(r"fill:#[0-9a-fA-F]{6}", "fill:#2a1d22", LOGO_SRC.read_text())
+    vb = [float(n) for n in src.split('viewBox="', 1)[1].split('"', 1)[0].split()]
+    x, y = s.P(u0 - (x0 - vb[0]) * k, v0 + lh + (y0 - vb[1]) * k)
+    data = base64.b64encode(src.encode()).decode()
+    s.add(f'<image x="{x:.3f}" y="{y:.3f}" width="{vb[2] * k:.3f}" height="{vb[3] * k:.3f}" '
+          f'href="data:image/svg+xml;base64,{data}"/>')
+    s.rect(u0, v0, lw, lh, DIM, sw=0.2, dash="1 1")
+    f = FAN                                                                 # F22, optional: drawn over the logo it cuts
+    s.circle(f["x"], f["y"], f["d"] / 2 - 1, "#e53935", sw=0.35, dash="1.5 1")
+    for dx in (-1, 1):
+        for dy in (-1, 1):
+            s.circle(f["x"] + dx * f["holes"] / 2, f["y"] + dy * f["holes"] / 2, 1.7, "#e53935", sw=0.3, dash="1 1")
+    s.text(f["x"], f["y"] - 1, "fan mount, optional (P20)", 2.6, "#e53935")
+    s.dim_h(u0, u0 + lw, v0, -v0 - 8, f"logo {lw:g}")
+    s.dim_v(v0, v0 + lh, u0 + lw, W - u0 - lw + 8, f"{lh:.2f}")
+    s.line(LOGO["cx"], 0, LOGO["cx"], v0 + lh + 3, DIM, 0.2, "3 1 0.6 1")    # centre lines
+    s.line(u0 - 3, LOGO["cy"], u0 + lw + 3, LOGO["cy"], DIM, 0.2, "3 1 0.6 1")
+    s.dim_h(0, LOGO["cx"], 0, -16)
+    s.dim_v(0, LOGO["cy"], 0, -6)
+    s.dim_h(0, W, D, 13)
+    s.dim_h(LID_INSET, W - LID_INSET, D - LID_INSET, LID_INSET + 5, f"lid {W - 2 * LID_INSET:g}")
+    s.dim_v(0, D, W, 16)
+    s.save("top-lid.svg", [
+        "Logo (F21): the brand file B2 (stacked) in one colour, drawn area 130 × 85.17 (P35), centred at (95, 80), raised 0.8. Dial ring, needle and berry dots are not raised.",
+        "Lid 186.6 × 156.6 R2.3 inside the rim (F20). Screw holes Ø3.4 over the corner columns, 7 from the body faces.",
+        "Dashed red: fan mount (F22), only with P20 = 30 / 40, drawn for 40 (Ø38 opening, holes on a 32 mm square). When on, it cuts through the logo."])
 
 
 def section_frame(s, L=D, divider=True):
@@ -473,4 +523,4 @@ def detail_joints():
 
 
 if __name__ == "__main__":
-    front(); back(); top(); section_a(); section_b(); section_c(); detail_joints()
+    front(); back(); top(); top_lid(); section_a(); section_b(); section_c(); detail_joints()

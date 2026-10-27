@@ -168,3 +168,23 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *Why did you turn the relay board too?* → Claude: to keep it inside the Pi's footprint (R3); unturned also fits, with more clearance and the mains terminals facing the sockets. **User:** *Yes, turn back.*
 
 **Decision** (Claude, spec v0.18): relay board in its original orientation (75 × 52) at (27, 54), under the Pi, 2 mm clear of the feed-through. Mains terminals to the back, control terminals to the front. All standoffs separate from the Pi bosses.
+
+## Round 19: new brand (2026-10-27)
+
+**User** (verbatim): *The GitHub project brewberrypi now specifies a new brand. Update the font on the case, as well as the logo of the case.*
+
+**Claude:** the brand lives in `tinkerius/brewberrypi`, folder `brand/` (commit `0446c5e`):
+- **Typeface:** Zilla Slab Bold for the name (SIL Open Font License).
+- **Logo:** a mash kettle in berry colour (lid with a leaf knob, berry dots, dial thermometer, ball valve, three flames) next to the name "BrewberryPi". `logo-mono.svg` is the one-colour version "for print, stamps and engraving" → input B1.
+- **Rules:** don't stretch, rotate or outline it. Clear space ≥ ⅛ of the mark's height. Never combine it with the Raspberry Pi logo.
+- **Case emboss:** the dial gap, needle and berry dots are SVG masks, which OpenSCAD's SVG import ignores. The brand guide says a flattened outline version gets made in a case spec revision, from the mono version.
+
+→ R24. All text on the case (switch and socket labels and the logo) changes to the brand. Proposed in spec v0.19 (draft): labels in Zilla Slab Bold at the same size and positions; the logo becomes the brand's one-colour side-by-side logo, 170 mm wide, at the old logo position.
+
+**User** (verbatim): *Does the brand provide a version with logo above the text and everything centered?*
+
+**Claude:** yes, `brand/logo-stacked.svg`, "for square spaces" → input B2. It exists only in colour (light and dark backgrounds); its shapes are the same as the one-colour version, and the lid is printed in one filament. Centred on the lid at 130 mm wide: name capitals 15.2 mm (as before), kettle 50.8 × 57.2 mm, finest kettle details 0.88–0.98 mm (side by side: 0.54–0.59 mm). The optional fan opening would cut through the logo.
+
+**User** (verbatim): *Perfect. Take this. Merge!*
+
+**Decision** (spec v0.19, approved): stacked logo B2, 130 mm wide, centred on the lid at (95, 80). With the optional fan mount on, its opening cuts through the logo (the fan is off by default).

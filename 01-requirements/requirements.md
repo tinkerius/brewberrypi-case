@@ -1,7 +1,7 @@
 # Requirements
 
-Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6, `I3`, `I4`, `I6`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
- Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8` (see `inputs/`).
+Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6, `I3`, `I4`, `I6`) and the brand update (round 19, `I19`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
+ Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8`, brand `B1–B2` (see `inputs/`).
 
 ## Purpose
 | ID | Requirement | Source |
@@ -40,10 +40,11 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 | R17 | No Pi port is reachable from outside. The Pi is accessed by opening the top lid. | I2-Q4 |
 | R18 | Changing to a Pi 4/5 may require reprinting **only the divider plate**. Optional fan mount (off by default). | I2-Q5 |
 | R19 | Freestanding on a table, on **adhesive rubber feet**. No markings on the bottom lid. | I2-Q6, I9 |
-| R20 | **Raised labels** (switch and socket names, logo) that can be painted with a touch-up pen. The boiler switch and socket are labelled **HEATER**. | I2-Q7, I7 |
+| R20 | **Raised labels** (switch and socket names, logo) that can be painted with a touch-up pen. The boiler switch and socket are labelled **HEATER**. Typeface and logo: R24. | I2-Q7, I7, I19 |
 | R21 | Each printed part fits in **200 × 200 × 200 mm**. | I2-Q8 |
 | R22 | Each lid ↔ wall connection has an **interlocking feature** (groove / notch / lip) so the joint is stronger than with screws alone. | I4 |
 | R23 | The Pi's **USB/Ethernet ports** and its **SD card** have free space in front of them (not blocked by a wall), **about the same at both ends**, so cables, sticks and the card can be handled with the top lid open. | I16, I17 |
+| R24 | All text and the logo follow the **BrewberryPi brand** (`tinkerius/brewberrypi`, `brand/`): typeface **Zilla Slab Bold**, and the logo is the brand's **stacked logo** (kettle mark centred above the name, B2) in one colour, centred on the top lid, unchanged in shape and proportions (brand rules: no stretching or outlining, clear space ≥ ⅛ of the mark's height, never next to the Raspberry Pi logo). | I19, B1, B2 |
 
 ## Safety
 | ID | Requirement | Source |

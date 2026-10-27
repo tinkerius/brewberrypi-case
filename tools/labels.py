@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Label and logo sizes measured on the STLs (AC8): capital height and how far they are raised.
+"""Label and logo sizes measured on the STLs (AC8): label capital height, logo drawn area and centre, how far they are raised.
 
 Usage: python3 tools/labels.py   (reads 04-stl/brewberrypi-case-body.stl and -top_lid.stl)
 """
@@ -33,6 +33,7 @@ for name, x, zmax in back:
     zmin = 70 if name == "TEMP" else 0
     half = 18 if name in ("HEATER", "POWER") else 14
     show(name + " (back)", [p for p in body if p[1] > 160.05 and abs(p[0] - x) < half and zmin < p[2] < zmax], 2, 1, 160)
-lid = [p for p in points("04-stl/brewberrypi-case-top_lid.stl") if p[2] > 3.05]
-x0 = min(p[0] for p in lid)
-show("logo 'B'", [p for p in lid if p[0] < x0 + 8], 1, 2, 3)
+lid = [p for p in points("04-stl/brewberrypi-case-top_lid.stl") if p[2] > 3.05]   # F21: everything above the plate
+xs, ys = [p[0] for p in lid], [p[1] for p in lid]
+print(f"   logo     {max(xs) - min(xs):6.2f} x {max(ys) - min(ys):5.2f} mm, centre ({(max(xs) + min(xs)) / 2:.2f}, "
+      f"{(max(ys) + min(ys)) / 2:.2f})   raised {max(p[2] for p in lid) - 3:.2f} mm")

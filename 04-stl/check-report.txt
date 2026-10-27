@@ -1,12 +1,12 @@
-# tools/check.sh output, 2026-10-23, model from spec v0.18
+# tools/check.sh output, 2026-10-27, model from spec v0.19
 
 ### AC1 / AC2: meshes and bounding boxes
 == 04-stl/brewberrypi-case-body.stl
    Min X =  0.000000, Max X =  190.000000
    Min Y = -0.599999, Max Y =  160.600006
    Min Z =  0.000000, Max Z =  123.000000
-   Number of facets                 : 17808               17808
-   Number of parts       :     1        Volume   :  267976.812500
+   Number of facets                 : 17820               17820
+   Number of parts       :     1        Volume   :  268018.156250
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -44,8 +44,8 @@
    Min X =  1.699997, Max X =  188.300003
    Min Y =  1.699997, Max Y =  158.300003
    Min Z =  0.000000, Max Z =  3.799999
-   Number of facets                 :  6268                6268
-   Number of parts       :     1        Volume   :  87970.515625
+   Number of facets                 : 15992               15992
+   Number of parts       :     1        Volume   :  89345.000000
    Degenerate facets     :     0
    Edges fixed           :     0
    Facets removed        :     0
@@ -55,7 +55,7 @@
    ok
 
 ### AC6: overhangs steeper than 45° (print orientation, not on the bed)
-== 04-stl/brewberrypi-case-body.stl: 35 region(s) ≥ 5 mm², 113 tiny (145.9 mm² in total)
+== 04-stl/brewberrypi-case-body.stl: 35 region(s) ≥ 5 mm², 191 tiny (176.4 mm² in total)
    flat (bridge/ledge)  area    82.9 mm²  x   28.8…  51.2  y    0.0…   3.7  z   53.7…  53.7
    sloped               area    82.4 mm²  x   21.3…  48.7  y  157.0… 160.0  z   53.7…  54.0
    flat (bridge/ledge)  area    59.1 mm²  x  104.0… 126.0  y    0.0…   2.7  z   54.5…  54.5
@@ -99,15 +99,15 @@
    flat (bridge/ledge)  area     8.0 mm²  x   41.9…  45.1  y   59.4…  62.6  z    6.0…   6.0
 == 04-stl/brewberrypi-case-top_lid.stl: 0 region(s) ≥ 5 mm², 0 tiny (0.0 mm² in total)
 
-### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)
-   MAIN (front) capitals  6.12 mm   raised 0.60 mm
-   HEATER (front) capitals  6.12 mm   raised 0.60 mm
-   PUMP (front) capitals  6.20 mm   raised 0.60 mm
-   POWER (back) capitals  6.29 mm   raised 0.60 mm
-   HEATER (back) capitals  6.12 mm   raised 0.60 mm
-   PUMP (back) capitals  6.20 mm   raised 0.60 mm
-   TEMP (back) capitals  6.12 mm   raised 0.60 mm
-   logo 'B' capitals 12.04 mm   raised 0.80 mm
+### AC8: label and logo sizes (capitals ≥ 6 mm, raised 0.6 / logo 130 × 85.17 at (95, 80), raised 0.8)
+   MAIN (front) capitals  6.05 mm   raised 0.60 mm
+   HEATER (front) capitals  6.05 mm   raised 0.60 mm
+   PUMP (front) capitals  6.14 mm   raised 0.60 mm
+   POWER (back) capitals  6.23 mm   raised 0.60 mm
+   HEATER (back) capitals  6.05 mm   raised 0.60 mm
+   PUMP (back) capitals  6.14 mm   raised 0.60 mm
+   TEMP (back) capitals  6.05 mm   raised 0.60 mm
+   logo     130.00 x 85.17 mm, centre (95.00, 80.00)   raised 0.80 mm
 
 ### AC3 / AC10: collision check (must be empty)
    ok: no overlaps
@@ -125,3 +125,4 @@
    inserts: M3 hole [4, 7] (case), M2.5 hole [3.2, 6] (Pi, relay board)
    F11 Pi holes [[92.5, 41], [43.5, 41], [92.5, 99], [43.5, 99]]
    F12 relay holes [[29.5, 57], [29.5, 103], [99.5, 57], [99.5, 103]]
+   F21 logo 130 x 85.17 centred at [95, 80], raised 0.8

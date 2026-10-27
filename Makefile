@@ -3,7 +3,7 @@
 #
 #   make setup   toolchain + BOSL2 submodule (tools/setup.sh)
 #   make build   STLs + previews into 04-stl/ (tools/build.sh)
-#   make lint    shell, Python and OpenSCAD checks; spec drawings and version stamps up to date
+#   make lint    shell, Python and OpenSCAD checks; spec drawings, logo outline and version stamps up to date
 #   make test    mesh, overhang, label, collision and dimension checks on the STLs (tools/check.sh)
 #   make ci      lint + build + test, what CI runs
 #   make status  which pipeline stage is done, stale or waiting for you (tools/status.py)
@@ -28,7 +28,7 @@ CLAUDE_FLAGS ?= --permission-mode acceptEdits \
                 --allowedTools 'Bash(make:*)' 'Bash(openscad:*)' 'Bash(python3 tools/:*)' 'Bash(tools/:*)' \
                                'Bash(git status:*)' 'Bash(git diff:*)' 'Bash(git add:*)' 'Bash(git commit:*)'
 
-.PHONY: help setup build lint lint-sh lint-py lint-scad lint-drawings lint-status test ci status \
+.PHONY: help setup build lint lint-sh lint-py lint-scad lint-drawings lint-logo lint-status test ci status \
         claude-scad claude-stl pipeline clean
 
 help:
@@ -40,7 +40,7 @@ setup:
 build:
 	tools/build.sh
 
-lint: lint-sh lint-py lint-scad lint-drawings lint-status
+lint: lint-sh lint-py lint-scad lint-drawings lint-logo lint-status
 
 lint-sh:
 	shellcheck tools/*.sh
@@ -59,6 +59,11 @@ lint-drawings:   # drawings must match tools/make_drawings.py
 	python3 tools/make_drawings.py >/dev/null
 	git -c safe.directory='*' diff --exit-code --stat -- 02-specification/drawings \
 	    || { echo "lint-drawings: drawings are stale, run python3 tools/make_drawings.py and commit"; exit 1; }
+
+lint-logo:   # 03-openscad/lib/brand-logo.scad must match tools/make_logo.py and the brand file B2
+	python3 tools/make_logo.py >/dev/null
+	git -c safe.directory='*' diff --exit-code --stat -- 03-openscad/lib/brand-logo.scad \
+	    || { echo "lint-logo: logo outline is stale, run python3 tools/make_logo.py and commit"; exit 1; }
 
 lint-status:   # version stamps agree with the approved spec, STLs built from the current sources
 	python3 tools/status.py --check
