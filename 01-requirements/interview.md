@@ -180,3 +180,11 @@ No open design questions left. Remaining: print test (AC9).
 - **Case emboss:** the dial gap, needle and berry dots are SVG masks, which OpenSCAD's SVG import ignores. The brand guide says a flattened outline version gets made in a case spec revision, from the mono version.
 
 → R24. All text on the case (switch and socket labels and the logo) changes to the brand. Proposed in spec v0.19 (draft): labels in Zilla Slab Bold at the same size and positions; the logo becomes the brand's one-colour side-by-side logo, 170 mm wide, at the old logo position.
+
+**User** (verbatim): *Does the brand provide a version with logo above the text and everything centered?*
+
+**Claude:** yes, `brand/logo-stacked.svg`, "for square spaces" → input B2. It exists only in colour (light and dark backgrounds); its shapes are the same as the one-colour version, and the lid is printed in one filament. Centred on the lid at 130 mm wide: name capitals 15.2 mm (as before), kettle 50.8 × 57.2 mm, finest kettle details 0.88–0.98 mm (side by side: 0.54–0.59 mm). The optional fan opening would cut through the logo.
+
+**User** (verbatim): *Perfect. Take this. Merge!*
+
+**Decision** (spec v0.19, approved): stacked logo B2, 130 mm wide, centred on the lid at (95, 80). With the optional fan mount on, its opening cuts through the logo (the fan is off by default).
