@@ -33,5 +33,8 @@ for p in "${targets[@]}"; do
     fi
     render_previews "$p"
 done
-[[ $# -eq 0 ]] && { echo "build: assembly previews"; render_previews assembly; }
+if [[ $# -eq 0 ]]; then
+    echo "build: assembly previews"; render_previews assembly
+    python3 tools/status.py --hash > "$OUT/.source-hash"   # full build only: STLs now match these .scad sources
+fi
 echo "build: done → $OUT/"

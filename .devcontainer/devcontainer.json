@@ -1,0 +1,14 @@
+{
+  "name": "brewberrypi-case",
+  "build": { "dockerfile": "Dockerfile" },
+  "postCreateCommand": "git submodule update --init --recursive",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Leathong.openscad-language-support",
+        "charliermarsh.ruff",
+        "timonwong.shellcheck"
+      ]
+    }
+  }
+}

@@ -31,16 +31,38 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | `03-openscad/` | `brewberrypi-case.scad` (entry file), `lib/fdm.scad`, `vendor/BOSL2` |
 | `04-stl/` | generated STLs + PNG previews + verification table |
 | `docs/fdm-design-rules.md` | printer-agnostic FDM design rules the model follows |
-| `tools/` | `setup.sh`, `build.sh`, `check.sh` |
+| `tools/` | `setup.sh`, `build.sh`, `check.sh`, `status.py` |
+| `.claude/skills/` | one skill per pipeline stage, used by Claude |
+
+## Pipeline
+
+Each stage is a Claude skill with fixed inputs, outputs and an exit gate. `make status` checks the gates
+from the spec version stamps each stage leaves behind, and names the next skill to run.
+
+| Stage | Skill | Gate (`make status`) | Who |
+|---|---|---|---|
+| 1. Requirements | `/requirements` | no open questions in `requirements.md` | you answer, Claude logs |
+| 2. Specification | `/spec` | top version in `spec.md` approved, drawings at that version | you approve |
+| 3. OpenSCAD | `/scad` | scad header at the approved version, no OpenSCAD warnings | headless: `make claude-scad` |
+| 4. STL | `/stl` | `04-stl/README.md` at that version, STLs built from the current sources, no failed AC | headless: `make claude-stl` |
+| Print feedback | `/feedback` | open ACs (print test) | you print, Claude revises the spec |
+
+`make pipeline` runs whichever headless stage is stale. It commits locally and never pushes.
 
 ## Build
 
 ```sh
 git clone --recurse-submodules <repo-url>
-tools/setup.sh     # installs openscad, xvfb, admesh (Debian/Ubuntu) and BOSL2
-tools/build.sh     # renders 04-stl/*.stl and 04-stl/previews/*.png
-tools/check.sh     # mesh sanity check + bounding boxes
+make setup     # installs openscad, xvfb, admesh (Debian/Ubuntu) and BOSL2
+make build     # renders 04-stl/*.stl and 04-stl/previews/*.png
+make lint      # shellcheck, ruff, OpenSCAD warnings, drawings and version stamps up to date
+make test      # mesh, overhang, label, collision and dimension checks
+make ci        # lint + build + test, what GitHub Actions runs
+make status    # where the pipeline stands
 ```
+
+The Makefile is the single source of truth: `.vscode/tasks.json` and `.github/workflows/ci.yml` only call its targets.
+CI runs `make ci` inside the devcontainer (`.devcontainer/`), so VS Code "Reopen in Container" gives the same toolchain.
 
 You can also open `03-openscad/brewberrypi-case.scad` in OpenSCAD and use the Customizer:
 pick `part` (assembly / body / divider / top_lid / bottom_lid / collision_check), and in the assembly use
