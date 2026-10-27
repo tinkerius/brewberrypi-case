@@ -6,7 +6,7 @@ Reads the spec version stamps the stages leave behind and checks they agree with
   spec          top row of the version table in spec.md is approved   -> version V
   drawings      SPEC_VERSION in tools/make_drawings.py == V
   scad          "Built from spec version" in brewberrypi-case.scad == V
-  stl           "Built from spec version" in 04-stl/README.md == V, 04-stl/.source-hash matches the .scad sources,
+  stl           "Built from spec version" in 04-stl/README.md == V, 04-stl/.source-hash matches the model sources (.scad, fonts),
                 no failed AC in the verification table
   print test    open ACs in the verification table (needs a print)
   readme        spec version in the README.md status table == V
@@ -17,7 +17,7 @@ Usage: python3 tools/status.py               table
        python3 tools/status.py --check       exit 1 if any stage is stale
        python3 tools/status.py --require S   exit 1 unless stage S and every stage before it are done
        python3 tools/status.py --next        first stale stage that runs headless (scad, stl), or nothing
-       python3 tools/status.py --hash        hash of the .scad sources (tools/build.sh writes it to 04-stl/.source-hash)
+       python3 tools/status.py --hash        hash of the model sources (tools/build.sh writes it to 04-stl/.source-hash)
 """
 import hashlib
 import pathlib
@@ -46,7 +46,8 @@ def text(path):
 
 def source_hash():
     h = hashlib.sha256()
-    for f in sorted(p for p in SCAD_DIR.rglob("*.scad") if "vendor" not in p.relative_to(SCAD_DIR).parts):
+    for f in sorted(p for p in SCAD_DIR.rglob("*") if p.suffix in (".scad", ".ttf")
+                    and "vendor" not in p.relative_to(SCAD_DIR).parts):
         h.update(f.relative_to(SCAD_DIR).as_posix().encode() + b"\0" + f.read_bytes() + b"\0")
     return h.hexdigest()
 
@@ -99,7 +100,7 @@ def evaluate():
         if not HASH_FILE.exists():
             rows["stl"] = ("stale", "no 04-stl/.source-hash yet, run a full `make build`")
         elif HASH_FILE.read_text().strip() != source_hash():
-            rows["stl"] = ("stale", ".scad sources changed since the last full build (04-stl/.source-hash)")
+            rows["stl"] = ("stale", "model sources changed since the last full build (04-stl/.source-hash)")
         elif failed:
             rows["stl"] = ("stale", f"failed: {', '.join(failed)}")
         elif not table:

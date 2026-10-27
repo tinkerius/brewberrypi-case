@@ -16,7 +16,7 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 |---|---|---|
 | 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10), new brand 2026-10-27 (round 19, R24) |
 | 2. Specification | done | **v0.19 approved** 2026-10-27 (new brand: Zilla Slab Bold labels, stacked brand logo centred on the top lid), no open questions |
-| 3. OpenSCAD | done | from spec v0.18: 4 parts, all manifold, collision check empty |
+| 3. OpenSCAD | done | from spec v0.19: 4 parts, all manifold, collision check empty; labels in Zilla Slab Bold (font in `03-openscad/fonts/`), brand logo from `tools/make_logo.py` |
 | 4. STL | done | 4 STLs from spec v0.18, AC1–AC8 + AC10 pass, **AC9 print test open** |
 
 ## Folders
@@ -28,10 +28,10 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | `01-requirements/requirements.md` | consolidated requirements, assumptions, open questions |
 | `02-specification/spec.md` | the specification: features, dimensions, parameters, acceptance criteria |
 | `02-specification/drawings/` | dimensioned SVG views |
-| `03-openscad/` | `brewberrypi-case.scad` (entry file), `lib/fdm.scad`, `vendor/BOSL2` |
+| `03-openscad/` | `brewberrypi-case.scad` (entry file), `lib/fdm.scad`, `lib/brand-logo.scad` (generated brand logo), `fonts/` (Zilla Slab Bold, SIL OFL), `vendor/BOSL2` |
 | `04-stl/` | generated STLs + PNG previews + verification table |
 | `docs/fdm-design-rules.md` | printer-agnostic FDM design rules the model follows |
-| `tools/` | `setup.sh`, `build.sh`, `check.sh`, `status.py` |
+| `tools/` | `setup.sh`, `build.sh`, `check.sh`, `status.py`, `make_drawings.py`, `make_logo.py` (brand logo SVG → OpenSCAD) |
 | `.claude/skills/` | one skill per pipeline stage, used by Claude |
 
 ## Pipeline

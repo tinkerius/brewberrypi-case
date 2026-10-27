@@ -25,7 +25,7 @@ done
 echo; echo "### AC6: overhangs steeper than 45° (print orientation, not on the bed)"
 python3 tools/overhangs.py "${files[@]}"
 
-echo; echo "### AC8: label and logo sizes (capitals ≥ 6 mm / logo ≥ 12 mm, raised 0.6 / 0.8)"
+echo; echo "### AC8: label and logo sizes (capitals ≥ 6 mm, raised 0.6 / logo 130 × 85.17 at (95, 80), raised 0.8)"
 python3 tools/labels.py
 
 echo; echo "### AC3 / AC10: collision check (must be empty)"
