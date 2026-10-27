@@ -14,8 +14,8 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 
 | Stage | State | Notes |
 |---|---|---|
-| 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10) |
-| 2. Specification | done | **v0.18 approved** 2026-10-23, no open questions |
+| 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10), new brand 2026-10-27 (round 19, R24) |
+| 2. Specification | needs you | **v0.19 draft** 2026-10-27 (brand: labels in Zilla Slab Bold, brand logo on the top lid), waiting for your approval · v0.18 approved 2026-10-23 |
 | 3. OpenSCAD | done | from spec v0.18: 4 parts, all manifold, collision check empty |
 | 4. STL | done | 4 STLs from spec v0.18, AC1–AC8 + AC10 pass, **AC9 print test open** |
 
