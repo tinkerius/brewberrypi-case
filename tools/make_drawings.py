@@ -7,6 +7,7 @@ Usage: python3 tools/make_drawings.py
 import base64
 import math
 import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "02-specification" / "drawings"
@@ -49,9 +50,9 @@ JACK = dict(x=35, z=98, d=8, flat=4.7, nut=10, pocket=16)
 Y_CUT = 85                         # section C-C: through the Pi/relay stack, feed-through and adapter
 LID_INSET, LID_R = RIM + CLR, 2.3  # F20 top lid: offset from the body faces, corner radius
 FAN = dict(x=64, y=67.5, d=40, holes=32)   # F22 (optional, P20), drawn for a 40 mm fan
-LOGO = dict(w=170, cx=95, cy=30)   # F21, P35: drawn area of B1, centred
-LOGO_SRC = ROOT / "01-requirements" / "inputs" / "brand-logo-mono.svg"   # B1
-LOGO_INK = (8, 3.5, 293.85, 62.104)   # B1 drawn area in brand units (x0, y0, x1, y1)
+LOGO = dict(w=130, cx=95, cy=80)   # F21, P35: drawn area of B2, centred on the lid
+LOGO_SRC = ROOT / "01-requirements" / "inputs" / "brand-logo-stacked.svg"   # B2
+LOGO_INK = (4.94, 3.5, 138.06, 90.71)   # B2 drawn area in brand units (x0, y0, x1, y1)
 SANS = "Helvetica, Arial, sans-serif"
 BRAND = "'Zilla Slab', Rockwell, serif"   # R24: case labels (the model ships the font; viewers fall back)
 
@@ -287,24 +288,24 @@ def top_lid():
     for cx in (COL_C, W - COL_C):
         for cy in (COL_C, D - COL_C):
             s.circle(cx, cy, 1.7, fill=CUT)
-    f = FAN                                                                 # F22, optional
-    s.circle(f["x"], f["y"], f["d"] / 2 - 1, HID, sw=0.3, dash="1.5 1")
-    for dx in (-1, 1):
-        for dy in (-1, 1):
-            s.circle(f["x"] + dx * f["holes"] / 2, f["y"] + dy * f["holes"] / 2, 1.7, HID, sw=0.3, dash="1 1")
-    s.text(f["x"], f["y"] - 1, "fan mount, optional (P20)", 2.6, HID)
-    # F21: B1 itself, scaled so its drawn area is LOGO["w"] wide and centred on (cx, cy)
+    # F21: B2 itself in one colour (ink), scaled so its drawn area is LOGO["w"] wide and centred on (cx, cy)
     x0, y0, x1, y1 = LOGO_INK
     k = LOGO["w"] / (x1 - x0)
     lw, lh = LOGO["w"], (y1 - y0) * k
     u0, v0 = LOGO["cx"] - lw / 2, LOGO["cy"] - lh / 2
-    src = LOGO_SRC.read_text()
+    src = re.sub(r"fill:#[0-9a-fA-F]{6}", "fill:#2a1d22", LOGO_SRC.read_text())
     vb = [float(n) for n in src.split('viewBox="', 1)[1].split('"', 1)[0].split()]
     x, y = s.P(u0 - (x0 - vb[0]) * k, v0 + lh + (y0 - vb[1]) * k)
     data = base64.b64encode(src.encode()).decode()
     s.add(f'<image x="{x:.3f}" y="{y:.3f}" width="{vb[2] * k:.3f}" height="{vb[3] * k:.3f}" '
           f'href="data:image/svg+xml;base64,{data}"/>')
     s.rect(u0, v0, lw, lh, DIM, sw=0.2, dash="1 1")
+    f = FAN                                                                 # F22, optional: drawn over the logo it cuts
+    s.circle(f["x"], f["y"], f["d"] / 2 - 1, "#e53935", sw=0.35, dash="1.5 1")
+    for dx in (-1, 1):
+        for dy in (-1, 1):
+            s.circle(f["x"] + dx * f["holes"] / 2, f["y"] + dy * f["holes"] / 2, 1.7, "#e53935", sw=0.3, dash="1 1")
+    s.text(f["x"], f["y"] - 1, "fan mount, optional (P20)", 2.6, "#e53935")
     s.dim_h(u0, u0 + lw, v0, -v0 - 8, f"logo {lw:g}")
     s.dim_v(v0, v0 + lh, u0 + lw, W - u0 - lw + 8, f"{lh:.2f}")
     s.line(LOGO["cx"], 0, LOGO["cx"], v0 + lh + 3, DIM, 0.2, "3 1 0.6 1")    # centre lines
@@ -315,9 +316,9 @@ def top_lid():
     s.dim_h(LID_INSET, W - LID_INSET, D - LID_INSET, LID_INSET + 5, f"lid {W - 2 * LID_INSET:g}")
     s.dim_v(0, D, W, 16)
     s.save("top-lid.svg", [
-        "Logo (F21): the brand file B1 as shown, drawn area 170 × 34.85 (P35), centred at (95, 30), raised 0.8. Dial ring, needle and berry dots are not raised.",
+        "Logo (F21): the brand file B2 (stacked) in one colour, drawn area 130 × 85.17 (P35), centred at (95, 80), raised 0.8. Dial ring, needle and berry dots are not raised.",
         "Lid 186.6 × 156.6 R2.3 inside the rim (F20). Screw holes Ø3.4 over the corner columns, 7 from the body faces.",
-        "Dashed grey: fan mount (F22), only with P20 = 30 / 40, drawn for 40 (Ø38 opening, holes on a 32 mm square)."])
+        "Dashed red: fan mount (F22), only with P20 = 30 / 40, drawn for 40 (Ø38 opening, holes on a 32 mm square). When on, it cuts through the logo."])
 
 
 def section_frame(s, L=D, divider=True):
