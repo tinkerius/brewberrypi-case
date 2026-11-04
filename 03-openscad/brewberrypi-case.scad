@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.20 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.21 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -92,10 +92,10 @@ logo_w = 130; // [80:5:170]
 font = "Zilla Slab:style=Bold";
 
 /* [Panel components] */
-// P23 main switch cutout, portrait [w, h]
-switch_main = [22, 27];
-// P24 3-position switch cutout, portrait [w, h]
-switch_3pos = [21.5, 28.5];
+// P23 main switch cutout, portrait [w, h] (from the print test: the datasheet's 22 x 27 was too low and too wide)
+switch_main = [21, 28.5];
+// P24 3-position switch cutout, portrait [w, h] (from the print test: the datasheet's 21.5 x 28.5 was too low)
+switch_3pos = [21.5, 30];
 // P25 IEC inlet cutout [w, h, corner radius]
 iec_cutout = [27.5, 31.5, 1];
 // P25 IEC inlet screw spacing
