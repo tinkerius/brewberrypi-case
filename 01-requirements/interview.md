@@ -194,3 +194,11 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *we have to make two changes. let's start with change 1: the whole for the temp sensor jack socket is a little too big. I measure the jack socket diameter having a 7.8mm diameter. my 3d-print, however, has a 8.5mm hole. let's make the hole 0.5mm smaller so the jack socket fits better*
 
 **Claude:** the model has Ø8.4 for the jack (`jack_d` 8 + 2 × 0.2 clearance), and it printed at 8.5. So the jack gets the measured thread **7.8** and its own clearance of **0.05 per side** instead of the general 0.2: hole **Ø7.9** in the model (0.5 smaller), about 8.0 printed, ≈ 0.1 play on the 7.8 thread. → A2, spec v0.20 (P27, P36, F8).
+
+**User** (verbatim, change 2): *change 2 is about the rocker switches. MAIN and HEATER/PUMP have slightly different sizes. generally, all rocker-switch wholes are too small. (a) MAIN fits perfectly in the whole size of HEATER/PUMP. so this is the ritght cutout height. the cutout widht for MAIN is 1mm too broad. (b) the HEATER/PUMP cutouts are by far too little high. add 1.5mm the width is okay*
+
+**Claude:** cutouts (nominal, the model adds 0.2 per side):
+- MAIN 22 × 27 → **21 × 28.5**: height from the HEATER/PUMP cutout it fits in, width 1 mm less. 21 is also the body width measured in round 10 (21 × 25).
+- HEATER/PUMP 21.5 × 28.5 → **21.5 × 30**: height + 1.5, width unchanged.
+
+The clip walls (P10) stay. → C6, C7, spec v0.21 (P23, P24, F3).

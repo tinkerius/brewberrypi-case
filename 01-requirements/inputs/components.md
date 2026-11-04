@@ -44,12 +44,12 @@ Manufacturer drawing (St. Martin im Innkreis, Austria), 1:1 table:
 ## C6: Rocker switch, 2-position I/0, illuminated, splash-proof boot (main switch). Picture: [component-C6-rocker-switch-2pos.png](component-C6-rocker-switch-2pos.png)
 - Front bezel **35.3 × 29 mm** incl. rubber boot (boot 22.4 wide), bezel height **4 mm** **(drawing)**. **Measured (I10):** plastic frame **25.5 × 34.5 mm**, clip gap (bezel underside → clip tip) **4 mm**.
 - Body **26 × 21.7 mm**, depth **15.1 mm** + terminals **10.2 mm** (6.3 mm tabs), 4 pins **(drawing)**. **Measured (I10):** body **21 × 25 mm**, **34 mm** across the clips.
-- **Panel cutout 27 × 22 mm** **(drawing)**. Snap-in clips.
+- **Panel cutout 27 × 22 mm** **(drawing)**. Snap-in clips. **Print test (I20):** 22 × 27 too low and 1 mm too wide → **21 × 28.5** (w × h).
 
 ## C7: Rocker switch, 3-position I/0/II, illuminated, splash-proof boot (boiler + pump, 2 ×). Picture: [component-C7-rocker-switch-3pos.png](component-C7-rocker-switch-3pos.png)
 - Front bezel **35 mm** long (rocker 25.5) **(drawing)**. **Measured (I10):** plastic frame **25.7 × 34.5 mm**, clip gap **3 mm**, body **21.5 × 27 mm**, **33 mm** across the clips.
 - Total height incl. terminals **40.5 mm**, terminal length 9.5 mm, 6 pins **(drawing)**.
-- **Panel cutout 28.5 × 21.5 mm** **(drawing)**. Snap-in clips.
+- **Panel cutout 28.5 × 21.5 mm** **(drawing)**. Snap-in clips. **Print test (I20):** 21.5 × 28.5 far too low → **21.5 × 30** (w × h).
 
 ## C8: Raspberry Pi (not pictured, public data)
 - Pi 3B/3B+, Pi 4B and Pi 5 share the same board outline **85 × 56 mm** and mounting holes **58 × 49 mm**, **Ø2.75 mm (M2.5)**, 3.5 mm from the board edges.
