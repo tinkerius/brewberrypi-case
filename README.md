@@ -15,7 +15,7 @@ The model is designed for FDM printing, but **contains no printer or slicer sett
 | Stage | State | Notes |
 |---|---|---|
 | 1. Requirements | done | 2026-10-19, all parts measured 2026-10-23 (round 10), new brand 2026-10-27 (round 19, R24) |
-| 2. Specification | done | **v0.20 approved** 2026-11-04 (print feedback: jack hole Ø7.9), v0.19 2026-10-27 (new brand), no open questions |
+| 2. Specification | done | **v0.21 approved** 2026-11-04 (print feedback: jack hole Ø7.9, rocker switch cutouts MAIN 21 × 28.5, HEATER/PUMP 21.5 × 30), v0.19 2026-10-27 (new brand), no open questions |
 | 3. OpenSCAD | done | from spec v0.20 (jack hole Ø7.9): 4 parts, all manifold, collision check empty; labels in Zilla Slab Bold (font in `03-openscad/fonts/`), brand logo from `tools/make_logo.py` |
 | 4. STL | done | 4 STLs from spec v0.20, AC1–AC8 + AC10 pass, **AC9 print test open** (first print: jack hole too loose, fixed in v0.20: reprint the body) |
 

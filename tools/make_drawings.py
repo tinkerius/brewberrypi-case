@@ -11,7 +11,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "02-specification" / "drawings"
-SPEC_VERSION = "0.20"
+SPEC_VERSION = "0.21"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -38,9 +38,9 @@ SLOT = dict(cx=111, cy=85, w=14, h=46)                                       # F
 ADAPTER = dict(x=123, y=61, w=51, d=49, h=27, standoff=6, holes=[(38, 3.5), (13, 45.5)], rests=[(13, 3.5), (38, 45.5)])   # port face down: its top edge is at the front                      # F14
 Z_PANEL = 40                       # front switch centre height
 SWITCHES = [  # name, x, cutout w, cutout h (portrait), bezel w, bezel h, depth behind panel incl. connectors
-    ("MAIN", 40, 22, 27, 25.5, 34.5, 37),
-    ("HEATER", 115, 21.5, 28.5, 25.7, 34.5, 48),
-    ("PUMP", 150, 21.5, 28.5, 25.7, 34.5, 48),
+    ("MAIN", 40, 21, 28.5, 25.5, 34.5, 37),
+    ("HEATER", 115, 21.5, 30, 25.7, 34.5, 48),
+    ("PUMP", 150, 21.5, 30, 25.7, 34.5, 48),
 ]
 Z_BACK = 38                        # back panel component centre height
 IEC = dict(x=35, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
