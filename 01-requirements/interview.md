@@ -188,3 +188,9 @@ No open design questions left. Remaining: print test (AC9).
 **User** (verbatim): *Perfect. Take this. Merge!*
 
 **Decision** (spec v0.19, approved): stacked logo B2, 130 mm wide, centred on the lid at (95, 80). With the optional fan mount on, its opening cuts through the logo (the fan is off by default).
+
+## Round 20: print feedback, jack hole (2026-11-04)
+
+**User** (verbatim): *we have to make two changes. let's start with change 1: the whole for the temp sensor jack socket is a little too big. I measure the jack socket diameter having a 7.8mm diameter. my 3d-print, however, has a 8.5mm hole. let's make the hole 0.5mm smaller so the jack socket fits better*
+
+**Claude:** the model has Ø8.4 for the jack (`jack_d` 8 + 2 × 0.2 clearance), and it printed at 8.5. So the jack gets the measured thread **7.8** and its own clearance of **0.05 per side** instead of the general 0.2: hole **Ø7.9** in the model (0.5 smaller), about 8.0 printed, ≈ 0.1 play on the 7.8 thread. → A2, spec v0.20 (P27, P36, F8).

@@ -1,6 +1,6 @@
 # Requirements
 
-Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6, `I3`, `I4`, `I6`) and the brand update (round 19, `I19`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
+Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6, `I3`, `I4`, `I6`), the brand update (round 19, `I19`) and print feedback (round 20, `I20`). Exit criterion met: all questions answered. Q2 is covered by assumption A1 until the relay board arrives.
  Sources: interview round `I1`, sketches `S1–S3`, components `C1–C8`, brand `B1–B2` (see `inputs/`).
 
 ## Purpose
@@ -57,7 +57,7 @@ Status: **complete (2026-10-19)**, updated after the reviews (rounds 3, 4 and 6,
 
 ## Assumptions (apply unless the user says otherwise)
 - **A1** ~~Relay board size assumed~~ → **measured** (I10): 75 × 52, holes 70 × 46 Ø3, height 17 + 3 mm pins.
-- **A2** ~~Jack hole assumed Ø6~~ → **measured** (I10): M8 thread, 4 mm usable, hex nut 2 mm / 11 mm, nose Ø10.
+- **A2** ~~Jack hole assumed Ø6~~ → **measured** (I10): M8 thread, 4 mm usable, hex nut 2 mm / 11 mm, nose Ø10. Thread re-measured **7.8 mm** (I20); the printed Ø8.4 hole came out 8.5 and was too loose.
 - **A3** Rocker switches snap into a panel of ≈ 1.5–2 mm → the front wall is locally thinned around the cutouts (C6, C7).
 - **A4** Fastener set: **M3** inserts + screws for the case (lids, divider, IEC inlet, sockets via M3 + washer in their Ø4.5 holes), M3 × 30 + nut for the adapter. **M2.5** inserts + screws for the PCBs (Pi, relay board) (I11).
 - **A5** No Pi ports are exposed. Network via Wi-Fi, and Pi access by opening the top lid.
