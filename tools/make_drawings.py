@@ -11,7 +11,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "02-specification" / "drawings"
-SPEC_VERSION = "0.19"
+SPEC_VERSION = "0.20"
 
 # --- spec values (mm) -------------------------------------------------------
 W, D = 190, 160                    # P1, P2 outer width (X) / depth (Y)
@@ -46,7 +46,7 @@ Z_BACK = 38                        # back panel component centre height
 IEC = dict(x=35, cw=27.5, ch=31.5, r=1, fw=43.8, fh=32.8, hole_dx=18, depth=27.6)
 SOCKETS = [("HEATER", 90), ("PUMP", 145)]            # x centres; cutout Ø43 flat-top at r 24
 SOCKET = dict(d=43, flat=24, flange=50, holes=38, depth=26, front=21)
-JACK = dict(x=35, z=98, d=8, flat=4.7, nut=10, pocket=16)
+JACK = dict(x=35, z=98, d=7.9, flat=4.7, nut=10, pocket=16)   # d: hole = thread 7.8 + 2 × 0.05 (P27, P36)
 Y_CUT = 85                         # section C-C: through the Pi/relay stack, feed-through and adapter
 LID_INSET, LID_R = RIM + CLR, 2.3  # F20 top lid: offset from the body faces, corner radius
 FAN = dict(x=64, y=67.5, d=40, holes=32)   # F22 (optional, P20), drawn for a 40 mm fan
@@ -213,7 +213,7 @@ def back():
     s.save("back-view.svg", [
         "Sockets: Ø43 cutout with flat-top teardrop (top flat at r = 24, hidden by the 50 mm flange). Holes on 38 mm square.",
         "IEC: cutout 27.5×31.5 r1, screws 36 apart. All screw holes take M3 inserts pressed in from outside.",
-        "Jack M8: Ø8 flat-top teardrop (flat 4.7 above the centre, hidden by the Ø10 nose). Grey dotted Ø16 = inside pocket, wall 1.6 mm (P28)."])
+        "Jack M8 (thread 7.8): Ø7.9 flat-top teardrop incl. its 0.05 clearance (P36), flat 4.7 above the centre, hidden by the Ø10 nose. Grey dotted Ø16 = inside pocket, wall 1.6 mm (P28)."])
 
 
 def top():
