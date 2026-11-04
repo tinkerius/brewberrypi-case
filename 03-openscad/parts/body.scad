@@ -126,9 +126,9 @@ module socket_cutouts() {
         translate([s[1], case_d + 1, back_z]) teardrop_hole(socket_d + 2 * fit_clearance, wall + 2, flat = socket_flat);
 }
 
-// F8 jack: Ø8 flat-top teardrop (flat under the Ø10 nose) + inside pocket Ø16 that thins the wall to jack_panel_t.
+// F8 jack: Ø7.9 flat-top teardrop (thread 7.8 + 2 × P36, flat under the Ø10 nose) + inside pocket Ø16 that thins the wall to jack_panel_t.
 module jack_cutout() {
-    translate([jack_pos.x, case_d + 1, jack_pos.y]) teardrop_hole(jack_d + 2 * fit_clearance, wall + 2, flat = jack_flat);
+    translate([jack_pos.x, case_d + 1, jack_pos.y]) teardrop_hole(jack_d + 2 * jack_clearance, wall + 2, flat = jack_flat);   // P36
     if (jack_panel_t < wall)
         translate([jack_pos.x, case_d - wall - 1, jack_pos.y]) rotate([-90, 0, 0])
             cylinder(d = jack_pocket_d, h = 1 + wall - jack_panel_t);

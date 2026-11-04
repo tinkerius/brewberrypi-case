@@ -1,5 +1,5 @@
 // BrewberryPi Case. Entry file.
-// Built from spec version: 0.19 (02-specification/spec.md). The spec is the source of truth.
+// Built from spec version: 0.21 (02-specification/spec.md). The spec is the source of truth.
 // Every parameter (P…) and module (F…) is tagged with its spec ID.
 // Units: mm. Origin: front-left-bottom outer corner of the body, +X right, +Y back, +Z up.
 // Exported parts are placed in their print orientation, the assembly in its use position.
@@ -92,10 +92,10 @@ logo_w = 130; // [80:5:170]
 font = "Zilla Slab:style=Bold";
 
 /* [Panel components] */
-// P23 main switch cutout, portrait [w, h]
-switch_main = [22, 27];
-// P24 3-position switch cutout, portrait [w, h]
-switch_3pos = [21.5, 28.5];
+// P23 main switch cutout, portrait [w, h] (from the print test: the datasheet's 22 x 27 was too low and too wide)
+switch_main = [21, 28.5];
+// P24 3-position switch cutout, portrait [w, h] (from the print test: the datasheet's 21.5 x 28.5 was too low)
+switch_3pos = [21.5, 30];
 // P25 IEC inlet cutout [w, h, corner radius]
 iec_cutout = [27.5, 31.5, 1];
 // P25 IEC inlet screw spacing
@@ -104,8 +104,10 @@ iec_screw_spacing = 36;
 socket_d = 43;
 // P26 socket screw square
 socket_holes = 38;
-// P27 jack thread diameter (measured: M8)
-jack_d = 8;
+// P27 jack thread diameter (M8, measured 7.8)
+jack_d = 7.8;
+// P36 jack hole clearance per side, instead of fit_clearance (the Ø8.4 hole printed at 8.5 and was loose)
+jack_clearance = 0.05; // [0:0.05:0.3]
 // P28 local wall thickness at the jack: nut 2 + wall <= 4 mm usable thread (>= wall: no thinning)
 jack_panel_t = 1.6;
 
@@ -201,7 +203,7 @@ if (part != "collision_check") {
     for (s = switches) echo(str("REPORT F3 ", s[0], " cutout ", s[2] + c2, " at x = ", s[1], ", z = ", switch_z, ", wall at the clips ", s[3]));
     echo(str("REPORT F6 IEC cutout ", [iec_cutout.x, iec_cutout.y] + c2, " r", iec_cutout[2], " at x = ", iec_x, ", z = ", back_z, ", screws ", iec_screw_spacing, " apart"));
     for (s = sockets) echo(str("REPORT F7 ", s[0], " socket Ø", socket_d + 2 * fit_clearance, " flat top at ", socket_flat, ", at x = ", s[1], ", z = ", back_z, ", holes □", socket_holes));
-    echo(str("REPORT F8 jack Ø", jack_d + 2 * fit_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
+    echo(str("REPORT F8 jack Ø", jack_d + 2 * jack_clearance, " flat top at ", jack_flat, ", wall ", jack_panel_t, ", at x = ", jack_pos.x, ", z = ", jack_pos.y));
     echo(str("REPORT F14 adapter ", adapter, " at ", adapter_pos, " on ", adapter_standoff_h, " mm standoffs: inserts at ", [for (h = adapter_holes) adapter_pos + h], ", solid at ", [for (h = adapter_rests()) adapter_pos + h]));
     echo(str("REPORT inserts: M3 hole ", insert_m3, " (case), M2.5 hole ", insert_m25, " (Pi, relay board)"));
     echo(str("REPORT F11 Pi holes ", pi_hole_positions()));
